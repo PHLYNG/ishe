@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
 # bootstrap for styling
+gem 'bcrypt', '3.1.11'
+
 gem 'bootstrap-sass', '3.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
