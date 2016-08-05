@@ -26,4 +26,10 @@ class ProjectsController < ApplicationController
 
   def destroy
   end
+
+  private
+
+  def project_params
+    params.require(:project).permit(:project_type, :street1, :street2, :project_action_date, :project_complete)    
+  end
 end

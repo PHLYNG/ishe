@@ -6,7 +6,23 @@
         <%= @user.name %>
         <br>
         <%= @user.email %>
+        <br>
       </h1>
     </section>
   </aside>
+
+  <h2><%= link_to "Start a New Project!", new_project_path %></h2>
+
+  <tbody>
+    <% @projects.each do |proj| %>
+    <tr>
+      <td><%= link_to "#{proj.project_type}", proj %></td>
+      <td><%= link_to "Intersection of #{proj.street1} and #{proj.street2}", proj %></td>
+      <td><%= proj.project_action_date %></td>
+      <td><%= proj.project_complete %></td>
+      <td><%= link_to "Delete",project_path(proj), method: :delete %></td>
+    </tr>
+    <% end %>
+  </tbody>
+
 </div>

@@ -11,13 +11,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(email: params[:session][:email].downcase)
+    user = User.find_by(email: params[:session][:email].downcase)
 
-    if @user && @user.authenticate(params[:session][:password])
+    if user && user.authenticate(params[:session][:password])
       # call log_in helper method and pass user as argument
-      log_in @user
-      redirect_to @user
-
+      log_in user
+      redirect_to user
     else
       flash.now[:danger] = "Error loggin in, please check your username and password and try again."
 

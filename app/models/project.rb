@@ -26,7 +26,7 @@ class Project < ApplicationRecord
       return self
     end
   end
-  binding.pry
+  # binding.pry
   def create_new_project
     if check_project_exists == true
       proj = Project.create(:project_type => "Pothole", :street1 => "C St.", :street2 => "D St.")

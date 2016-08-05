@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
-  get 'projects/index'
-
-  get 'projects/new'
-
-  get 'projects/create'
-
-  get 'projects/update'
-
-  get 'projects/destroy'
+  # get 'projects/index'
+  #
+  # get 'projects/new'
+  #
+  # get 'projects/create'
+  #
+  # get 'projects/update'
+  #
+  # get 'projects/destroy'
 
   # static routes
   root 'static_pages#home'
@@ -20,7 +20,9 @@ Rails.application.routes.draw do
   # user and signup routes
   get  '/signup',  to: 'users#new'
   post '/signup',  to: 'users#create'
-  resources :users
+  resources :users do
+    resources :user_join_projects
+  end
 
   # sessions routes
   get '/login', to: 'sessions#new'
@@ -29,9 +31,9 @@ Rails.application.routes.draw do
 
   # routes from did_that
   resources :projects do
-    resources :teams
+    resources :user_join_projects
   end
 
-  resources :teams, only: [:index]
+  resources :user_join_projects, only: [:index]
 
 end
