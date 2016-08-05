@@ -13,16 +13,19 @@
 
   <h2><%= link_to "Start a New Project!", new_project_path %></h2>
 
+  <% if @user.projects.count > 0 %>
   <tbody>
-    <% @projects.each do |proj| %>
+    <% select_user_proj.each do |proj| %>
     <tr>
-      <td><%= link_to "#{proj.project_type}", proj %></td>
-      <td><%= link_to "Intersection of #{proj.street1} and #{proj.street2}", proj %></td>
-      <td><%= proj.project_action_date %></td>
-      <td><%= proj.project_complete %></td>
-      <td><%= link_to "Delete",project_path(proj), method: :delete %></td>
+      <td><%= link_to "#{proj.project.project_type}", proj.project %></td>
+      <td><%= link_to "Intersection of #{proj.project.street1} and #{proj.project.street2}", proj.project %></td>
+      <td><%= proj.project.project_action_date %></td>
+      <td><%= proj.project.project_complete %></td>
+      <td><%= link_to "Delete",project_path(proj.project), method: :delete %></td>
     </tr>
     <% end %>
+  <% end %>
+  <% console %>
   </tbody>
 
 </div>

@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'users_join_projects/index'
+
+  get 'users_join_projects/new'
+
+  get 'users_join_projects/create'
+
+  get 'users_join_projects/save'
+
+  get 'users_join_projects/delete'
+
   # get 'projects/index'
   #
   # get 'projects/new'
