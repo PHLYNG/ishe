@@ -1,0 +1,35 @@
+<h1><%="#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}"%></h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Project Action Date</th>
+        <th>Project Complete?</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td><%= @project.project_action_date %></td>
+        <td><%= @project.project_complete ? "Get to Work!" : "Great Job!" %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h1>People Working on this Project</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @project.users.each do |user| %>
+      <tr>
+        <td><%= user.name %></td>
+        <td><%= user.email %></td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>

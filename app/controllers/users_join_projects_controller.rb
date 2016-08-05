@@ -10,6 +10,8 @@ class UsersJoinProjectsController < ApplicationController
 
     # can't really move to model
     if @project.user_join_projects.first
+      # merge projects
+      # create Team
       flash[:danger] = "There is already a Team for this Project"
       redirect_to @project
     else

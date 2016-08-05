@@ -12,12 +12,11 @@ class ProjectsController < ApplicationController
     # project does not take a user id on create because the association is stored in the user_join_projects join table?
     @project = Project.find_or_create_by(project_params)
     UserJoinProject.create!({user: current_user, project: @project})
-    # .merge({user_id: current_user.id}))
     redirect_to current_user
   end
 
   def show
-    @projects = Project.find(params[:id])
+    @project = Project.find(params[:id])
     @user = current_user
   end
 
@@ -25,10 +24,10 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    proj = Project.find(params[:id])
-    ujp = UserJoinProject.where(project_id: proj.id)
-    ujp.delete_all
-    proj.delete
+    # proj = Project.find(params[:id])
+    # ujp = UserJoinProject.where(project_id: proj.id)
+    # ujp.delete_all
+    # proj.delete
     redirect_to current_user
   end
 
