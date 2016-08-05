@@ -5,7 +5,9 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0'
 # bootstrap for styling
 gem 'bcrypt', '3.1.11'
-
+# gem for hashing user passwords
+gem 'rails-controller-testing'
+# gem for using assert_template in rails tests
 gem 'bootstrap-sass', '3.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
