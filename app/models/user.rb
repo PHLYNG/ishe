@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+
+  # user associations
+  has_many :user_join_projects
+  has_many :projects, through: :user_join_projects
+
   # ensures compatability with database adapters that use case-sensitive indices
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
@@ -20,7 +25,7 @@ class User < ApplicationRecord
   # Returns the hash digest of the given string.
  def User.digest(string)
    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
-   
+
    BCrypt::Password.create(string, cost: cost)
  end
 

@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'projects/index'
+
+  get 'projects/new'
+
+  get 'projects/create'
+
+  get 'projects/update'
+
+  get 'projects/destroy'
+
   # static routes
   root 'static_pages#home'
   get 'static_pages/home'
