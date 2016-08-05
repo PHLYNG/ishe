@@ -9,6 +9,7 @@ module SessionsHelper
     session[:user_id] = user.id
   end
 
+  # to reference currently logged in user
   def current_user
     # idiomatically incorrect ruby
     # @current_user = @current_user || User.find_by(id: session[:user_id])
@@ -17,8 +18,15 @@ module SessionsHelper
     @current_user ||= User.find_by(id: session[:user_id])
   end
 
+  # make sure current_user is logged in
   def logged_in?
     !current_user.nil?
+  end
+
+  # delete the user session/cookie? and then set the current user method to nil
+  def log_out
+    session.delete(:user_id)
+    @current_user = nil
   end
 
 end
