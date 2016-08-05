@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_type: MyString
+  street1: MyString
+  street2: MyString
+  project_complete: false
+  project_action_date: 2016-08-05
+
+two:
+  project_type: MyString
+  street1: MyString
+  street2: MyString
+  project_complete: false
+  project_action_date: 2016-08-05

@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   # static routes
   root 'static_pages#home'
   get 'static_pages/home'
@@ -17,6 +17,11 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  # routes from did_that
+  resources :projects do
+    resources :teams
+  end
 
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  resources :teams, only: [:index]
+
 end
