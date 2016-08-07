@@ -10,9 +10,11 @@ class ProjectsController < ApplicationController
 
   def create
     # project does not take a user id on create because the association is stored in the user_join_projects join table?
-    @project = Project.find_or_create_by(project_params)
-    UserJoinProject.create!({user: current_user, project: @project})
-    redirect_to current_user
+    @project = Project.find_or_create_by(dup_project_params)
+    if true # UserJoinProject does not contain User
+      UserJoinProject.create!({user: current_user, project: @project})
+    end
+    redirect_to @project
   end
 
   def show
@@ -35,6 +37,10 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:project_type, :street1, :street2, :project_action_date, :project_complete)
+  end
+
+  def dup_project_params
+    params.require(:project).permit(:project_type, :street1, :street2)
   end
 
   # def user_join_project_params
