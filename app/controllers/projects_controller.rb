@@ -9,11 +9,29 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    # project does not take a user id on create because the association is stored in the user_join_projects join table?
+    # if project doesn't exist create project, if it does take user to that project
     @project = Project.find_or_create_by(dup_project_params)
-    if true # UserJoinProject does not contain User
+
+    # UserJoinProject does not contain User
+    binding.pry
+    check_user_proj_has_user = 0
+    if UserJoinProject.exists?(project_id: @project.id)
+      UserJoinProject.where(project_id: @project.id).each do |user_proj|
+
+        if user_proj.user_id == current_user.id
+          check_user_proj_has_user += 1
+          break
+        end
+      end
+
+      if check_user_proj_has_user == 0
+        UserJoinProject.create!({user: current_user, project: @project})
+      end
+
+    else
       UserJoinProject.create!({user: current_user, project: @project})
     end
+
     redirect_to @project
   end
 

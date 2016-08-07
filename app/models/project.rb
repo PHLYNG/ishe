@@ -19,18 +19,20 @@ class Project < ApplicationRecord
   #   end
   # end
 
-  def check_project_exists
-    # for merging two or more projects together
-    binding.pry
-    if Project.exists?(project_type: self.project_type, street1: self.street1, street2: self.street2) ||
-        Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
-      return Project.create(
-                  project_type: check_project_exists.project_type,
-                  street1: check_project_exists.street1,
-                  street2: "E St." )
-      # Team.create(project_id: new_proj.id, users: [current_user, get_users_for_new_team )
-    end
-  end
+  # not needed with find_or_create_by method in controller
+  # still need to create Team
+  # def check_project_exists
+  #   # for merging two or more projects together
+  #   binding.pry
+  #   if Project.exists?(project_type: self.project_type, street1: self.street1, street2: self.street2) ||
+  #       Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
+  #     return Project.create(
+  #                 project_type: check_project_exists.project_type,
+  #                 street1: check_project_exists.street1,
+  #                 street2: "E St." )
+  #     # Team.create(project_id: new_proj.id, users: [current_user, get_users_for_new_team )
+  #   end
+  # end
 
 
 
