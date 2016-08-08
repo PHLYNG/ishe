@@ -12,10 +12,10 @@ class ProjectsController < ApplicationController
     # if project doesn't exist create project, if it does take user to that project
 
     # creating with dup_project_params, which doesn't include action date and complete? Problem?
-    @project = Project.new
-    @photo = params[:project][:photo]
-    binding.pry
-    @project = Project.find_or_create_by!(dup_project_params.merge({project_action_date: Time.new()+(7*60*60*24)}))
+
+    @image = Photo.create!(photo_params)
+
+    @project = Project.find_or_create_by!(dup_project_params.merge({project_action_date: Time.new()+(7*60*60*24), @project.image => @image}))
     # UserJoinProject does not contain User
     check_user_proj_has_user = 0
 
@@ -84,7 +84,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:project_type, :street1, :street2)
   end
 
-  # def user_join_project_params
-  #   params.require(:user_join_project).permit(:project, :user)
-  # end
+  def photo_params
+    params.require(:photo).permit(:image)
+  end
 end

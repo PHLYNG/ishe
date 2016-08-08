@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   # routes from did_that
   resources :projects do
     resources :user_join_projects
+    resources :photos
   end
 
   resources :user_join_projects, only: [:index]
