@@ -10,10 +10,11 @@ class ProjectsController < ApplicationController
 
   def create
     # if project doesn't exist create project, if it does take user to that project
+
+    # creating with dup_project_params, which doesn't include action date and complete? Problem?
     @project = Project.find_or_create_by(dup_project_params)
 
     # UserJoinProject does not contain User
-    binding.pry
     check_user_proj_has_user = 0
     if UserJoinProject.exists?(project_id: @project.id)
       UserJoinProject.where(project_id: @project.id).each do |user_proj|
@@ -26,10 +27,12 @@ class ProjectsController < ApplicationController
 
       if check_user_proj_has_user == 0
         UserJoinProject.create!({user: current_user, project: @project})
+        flash[:success] = "Someone else has already created this Project. Together you can make your community better!"
       end
 
     else
       UserJoinProject.create!({user: current_user, project: @project})
+      flash[:success] = "You are the first person to create this Project but more people are coming soon to help you build your community!"
     end
 
     redirect_to @project

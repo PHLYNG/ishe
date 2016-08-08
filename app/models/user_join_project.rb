@@ -1,7 +1,11 @@
 class UserJoinProject < ApplicationRecord
   belongs_to :user
   belongs_to :project
+
 end
+
+
+
 
 # user_join_projects (teams) is a join table between Projects and Users
 
