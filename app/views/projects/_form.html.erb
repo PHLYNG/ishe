@@ -1,6 +1,6 @@
 <h4>Please select a type of project and the cross-streets.</h4>
 
-  <%= form_for @project, html: {class: "form-group"} do |f| %>
+  <%= form_for @project, html: {:multipart => true, class: "form-group"} do |f| %>
 
   <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Pothole") %>
@@ -23,8 +23,8 @@
   </p>
 
   <p class="new_project_form_els">
-    <%= f.label :project_image %>
-    <%= f.file_field :project_image, class: 'form-control' %>
+    <%= f.label :image %>
+    <%= f.file_field :image, class: 'form-control' %>
   </p>
 
   <p class="new_project_form_els">

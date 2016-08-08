@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
   # end
 
   def dup_project_params
-    params.require(:project).permit(:project_type, :project_image :street1, :street2, :project_action_date)
+    params.require(:project).permit(:project_type, :image, :street1, :street2)
   end
 
   # def user_join_project_params
