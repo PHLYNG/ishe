@@ -6,20 +6,20 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new
-
-
   end
 
   def create
     # if project doesn't exist create project, if it does take user to that project
 
     # creating with dup_project_params, which doesn't include action date and complete? Problem?
-    binding.pry
     @project = Project.find_or_create_by(dup_project_params)
 
     # UserJoinProject does not contain User
     check_user_proj_has_user = 0
+
+    # see if this project exists, if it does then...
     if UserJoinProject.exists?(project_id: @project.id)
+      # ...check if user Id is already on project
       UserJoinProject.where(project_id: @project.id).each do |user_proj|
 
         if user_proj.user_id == current_user.id
@@ -28,9 +28,20 @@ class ProjectsController < ApplicationController
         end
       end
 
+      # make sure user is not already on project, if user not on project, but project exists, add user to project
       if check_user_proj_has_user == 0
         UserJoinProject.create!({user: current_user, project: @project})
         flash[:success] = "Someone else has already created this Project. Together you can make your community better!"
+      end
+
+      # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
+      if UserJoinProject.where(project_id: @project.id).count == 4
+        @project.project_action_date = Time.new()+(7*60*60*24)
+      end
+
+      # set project complete
+      if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
+        @project.project_complete == true
       end
 
     else
