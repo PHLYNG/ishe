@@ -14,6 +14,7 @@ class ProjectsController < ApplicationController
     # if project doesn't exist create project, if it does take user to that project
 
     # creating with dup_project_params, which doesn't include action date and complete? Problem?
+    binding.pry
     @project = Project.find_or_create_by(dup_project_params)
 
     # UserJoinProject does not contain User
@@ -58,9 +59,9 @@ class ProjectsController < ApplicationController
 
   private
 
-  def project_params
-    params.require(:project).permit(:project_type, :street1, :street2, :project_action_date, :project_complete)
-  end
+  # def project_params
+  #   params.require(:project).permit(:project_type, :street1, :street2, :project_action_date, :project_complete)
+  # end
 
   def dup_project_params
     params.require(:project).permit(:project_type, :street1, :street2)

@@ -5,8 +5,6 @@ class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
 
-  before_create :create_new_project
-
   def english_date
     database_date = self.project_action_date
     database_date.strftime("%a %b #{database_date.day.ordinalize}")
@@ -21,6 +19,7 @@ class Project < ApplicationRecord
 
   # not needed with find_or_create_by method in controller
   # still need to create Team
+
   # def check_project_exists
   #   # for merging two or more projects together
   #   binding.pry
