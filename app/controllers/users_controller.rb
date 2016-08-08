@@ -8,6 +8,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     # if user is valid
     if @user.save
+      # Tell the ApplicationMailer to send a welcome email after save
+      UserMailer.welcome_email(@user).deliver_now
       # log in that user
       log_in @user
       # flash message welcome
