@@ -1,8 +1,6 @@
 class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
-  attr_accessor :image, :file
-  mount_uploader :image, ImageUploader
 
   def english_date
     database_date = self.project_action_date

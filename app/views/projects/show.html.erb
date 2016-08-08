@@ -4,7 +4,6 @@
       <tr>
         <th>Project Action Date</th>
         <th>Project Complete?</th>
-        <ht>Project Image</th>
       </tr>
     </thead>
 
@@ -12,7 +11,7 @@
       <tr>
         <td><%= @project.project_action_date %></td>
         <td><%= @project.project_complete ? "Get to Work!" : "Great Job!" %></td>
-        <td><%= image_tag(@project.image, class: 'media-object') %></td>
+        <td><%= image_tag(@project.photo.url, class: 'media-object') %></td>
       </tr>
     </tbody>
   </table>
