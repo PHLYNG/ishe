@@ -14,6 +14,7 @@ class UsersController < ApplicationController
         # Tell the UserMailer to send a welcome email after save
         log_in(@user)
         uservar = UserMailer.welcome_email(@user).deliver_now
+        binding.pry
         format.html { redirect_to(@user, notice: 'Welcome to Ishe, ready to get to work?') }
         format.json { render json: @user, status: :created, location: @user }
       else

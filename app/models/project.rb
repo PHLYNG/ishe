@@ -1,7 +1,6 @@
 class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
-  has_many :photos
 
   def english_date
     database_date = self.project_action_date
