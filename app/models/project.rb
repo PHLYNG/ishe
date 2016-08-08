@@ -5,6 +5,15 @@ class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
 
+  has_attached_file :project_image, styles: { medium: "300x300>", thumb: "100x100>", :convert_options => {:all => "-strip" },
+  :default_style => :medium },
+  default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :project_image, content_type: /\Aimage/
+  # Validate filename
+  validates_attachment_file_name :project_image, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
+  # Explicitly do not validate
+  # do_not_validate_attachment_file_type :project_image
+
   def english_date
     database_date = self.project_action_date
     database_date.strftime("%a %b #{database_date.day.ordinalize}")

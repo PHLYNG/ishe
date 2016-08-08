@@ -23,6 +23,11 @@
   </p>
 
   <p class="new_project_form_els">
+    <%= f.label :project_image %>
+    <%= f.file_field :project_image, class: 'form-control' %>
+  </p>
+
+  <p class="new_project_form_els">
     <%= f.label :street1,"First Cross Street"  %>
     <%= f.text_field :street1  %>
   </p>

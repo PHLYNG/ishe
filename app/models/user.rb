@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :user_join_projects
   has_many :projects, through: :user_join_projects
 
+
   # ensures compatability with database adapters that use case-sensitive indices
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
