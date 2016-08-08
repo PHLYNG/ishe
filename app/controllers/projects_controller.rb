@@ -2,6 +2,11 @@ class ProjectsController < ApplicationController
   def index
     # need to test if using current_user here works, currently defined in SessionsHelper. May need to define current_user in projects helper? But helpers are used only in views, define in model?
     @projects = current_user.projects
+    @user = current_user
+    respond_to do |format|
+      format.html
+      format.json { render json: [@user, @projects], status: :created, location: @projects }
+    end
   end
 
   def new

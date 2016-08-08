@@ -33,3 +33,23 @@
       <% end %>
     </tbody>
   </table>
+
+  <h2>Project Comments</h2>
+  <%= link_to "New Comment", new_project_project_comment_path(@project) %>
+  <table>
+    <thead>
+      <th>Author</th>
+      <th>Body</th>
+    </thead>
+
+    <tbody>
+      <% if @project.project_comments %>
+      <% @project.project_comments.each do |com| %>
+      <tr>
+        <td><%= com.author %></td>
+        <td><%= com.body %></td>
+      </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>

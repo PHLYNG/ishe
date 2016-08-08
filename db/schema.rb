@@ -10,22 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20160808200023) do
-=======
-ActiveRecord::Schema.define(version: 20160808181337) do
->>>>>>> parent of 4aa91db... goddamn images don't know how to upload themselves probably because of the find_or_create_by method but nobody fucking told me that
+ActiveRecord::Schema.define(version: 20160808202302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "photos", force: :cascade do |t|
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+  create_table "project_comments", force: :cascade do |t|
+    t.text     "body"
+    t.string   "author"
+    t.integer  "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_project_comments_on_project_id", using: :btree
   end
 
   create_table "projects", force: :cascade do |t|
@@ -36,7 +32,6 @@ ActiveRecord::Schema.define(version: 20160808181337) do
     t.date     "project_action_date"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.string   "image"
   end
 
   create_table "user_join_projects", force: :cascade do |t|

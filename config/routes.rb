@@ -41,6 +41,7 @@ Rails.application.routes.draw do
 
   # routes from did_that
   resources :projects do
+    resources :project_comments
     resources :user_join_projects
   end
 
