@@ -32,27 +32,42 @@ class ProjectsController < ApplicationController
           street1: @project.street1,
           street2: @project.street2)
 
+          proj = Project.find_by(
+                        project_type: @project.project_type,
+                        street1: @project.street1,
+                        street2: @project.street2)
+
           UserJoinProject.create!(
             user_id: current_user.id,
-            project_id: Project.find_by(
-                          project_type: @project.project_type,
-                          street1: @project.street1,
-                          street2: @project.street2).id)
+            project_id: proj.id)
+
+          flash[:success] = "Next person in gets something or no?"
+          redirect_to proj
 
       elsif Project.exists?(
               project_type: @project.project_type,
               street1: @project.street2,
               street2: @project.street1)
         # if project does exists/is true
+
+          proj = Project.find_by(
+                        project_type: @project.project_type,
+                        street1: @project.street2,
+                        street2: @project.street1)
+
               UserJoinProject.create!(
                 user_id: current_user.id,
-                project_id: Project.find_by(
-                              project_type: @project.project_type,
-                              street1: @project.street2,
-                              street2: @project.street1).id)
+                project_id: proj.id)
+
+          flash[:success] = "Next person in gets something or no?"
+          redirect_to proj
+
       # if project does not exist
       else
         @project.save
+        UserJoinProject.create!(user: current_user, project: @project)
+        flash[:success] = "First person to create a project gets X baltimore bucks?"
+        redirect_to @project
 
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
@@ -64,8 +79,6 @@ class ProjectsController < ApplicationController
       #   @project.project_complete == true
       # end
     end
-
-    redirect_to @project
   end
 
   def show
