@@ -36,8 +36,8 @@ Rails.application.configure do
   :port => 25,
   :domain => "https://mysterious-sea-27623.herokuapp.com/",
   :authentication => :plain,
-  :user_name => ENV["MAILER_USERNAME"],
-  :password => ENV["MAILER_PASSWORD"]
+  :user_name => Ishe.mailer_username,
+  :password => Ishe.mailer_password
 }
 
   # Print deprecation notices to the Rails logger.
