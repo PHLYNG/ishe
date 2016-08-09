@@ -45,6 +45,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Next person in gets something or no?"
             redirect_to proj
           else
+            flash[:danger] = "You are already working on this project, now go do it!"
             render 'new'
           end
 
@@ -69,6 +70,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Next person in gets something or no?"
             redirect_to proj
           else
+            flash[:danger] = "You are already working on this project, now go do it!"
             render 'new'
           end
 
