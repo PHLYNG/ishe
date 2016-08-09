@@ -16,7 +16,7 @@ gem 'pg', '~> 0.18'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer
-gem 'sendgrid'
+gem 'sendgrid-ruby'
 # Paperclip for image upload
 gem "paperclip", "~> 5.0.0"
 # gem 'carrierwave'
