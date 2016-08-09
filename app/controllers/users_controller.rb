@@ -15,16 +15,19 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     # if user is valid
-    if @user.save
-      # log in that user
-      log_in @user
-      # flash message welcome
-      flash[:success] = "Welcome to Ishe, ready to get to work?"
-      # redirect to user page
-      redirect_to @user
-    else
-      # if user save fails, render the new user registration page
-      render 'new'
+    respond_to do |format|
+      if @user.save
+        # login that user
+        log_in @user
+        # flash message welcome
+        flash[:success] = "Welcome to Ishe, ready to get to work?"
+        # Tell the UserMailer to send a welcome email after save
+        UserMailer.welcome_email(@user).deliver_later
+        format.html { redirect_to(@user) }
+      else
+        # if user save fails, render the new user registration page
+        render 'new'
+      end
     end
   end
 
