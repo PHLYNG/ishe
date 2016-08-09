@@ -12,7 +12,7 @@
     </div>
   <% end %>
 
-  <%= form_for @project, html: {class: "form-group"} do |f| %>
+  <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
 
   <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Pothole") %>
@@ -43,6 +43,8 @@
     <%= f.label :street2,"Second Cross Street"  %>
     <%= f.text_field :street2  %>
   </p>
+
+  <%= f.file_field :photo %>
 
   <p class="new_project_form_els" id="new_project_submit">
     <%= f.submit %>
