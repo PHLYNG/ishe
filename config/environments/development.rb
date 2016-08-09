@@ -34,10 +34,10 @@ Rails.application.configure do
   ActionMailer::Base.smtp_settings = {
   :address => "smtp.sendgrid.net",
   :port => 25,
-  :domain => "mysite.com",
+  :domain => "https://mysterious-sea-27623.herokuapp.com/",
   :authentication => :plain,
-  :user_name => "Poomph",
-  :password => "sendgrid_password"
+  :user_name => Ishe.mailer_username,
+  :password => Ishe.mailer_password
 }
 
   # Print deprecation notices to the Rails logger.
