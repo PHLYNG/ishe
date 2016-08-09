@@ -15,6 +15,9 @@ gem 'pg', '~> 0.18'
 # gem 'puma', '~> 3.0'
 # use Sendgrid for ActionMailer
 gem 'sendgrid'
+# Paperclip for image upload
+gem "paperclip", "~> 5.0.0"
+# gem 'carrierwave'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets

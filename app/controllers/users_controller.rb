@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  def index
+    @users = User.all
+    respond_to do |format|
+      format.html
+      # render to html/json sure but without the password digest? How to hide?
+      format.json { render json: @users, status: :ok, location: users_path }
+    end
+  end
 
   def new
     @user = User.new
@@ -22,6 +30,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @projects = current_user.projects
+    respond_to do |format|
+      format.html
+      format.json { render json: [@user, @projects], status: :created, location: @user }
+    end
   end
 
 #########################################

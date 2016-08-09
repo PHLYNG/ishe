@@ -10,13 +10,13 @@
     <tbody>
       <tr>
         <td><%= @project.project_action_date %></td>
-        <td><%= @project.project_complete ? "Get to Work!" : "Great Job!" %></td>
+        <td><%=  if @project.project_complete then "Great Job" else "Get to Work!" end%></td>
       </tr>
     </tbody>
   </table>
 
   <h1>People Working on this Project</h1>
-
+  <%= image_tag @project.photo.url(:medium) %>
   <table>
     <thead>
       <tr>
@@ -30,6 +30,26 @@
         <td><%= user.name %></td>
         <td><%= user.email %></td>
       </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <h2>Project Comments</h2>
+  <%= link_to "New Comment", new_project_project_comment_path(@project) %>
+  <table>
+    <thead>
+      <th>Author</th>
+      <th>Body</th>
+    </thead>
+
+    <tbody>
+      <% if @project.project_comments %>
+      <% @project.project_comments.each do |com| %>
+      <tr>
+        <td><%= com.author %></td>
+        <td><%= com.body %></td>
+      </tr>
+      <% end %>
       <% end %>
     </tbody>
   </table>

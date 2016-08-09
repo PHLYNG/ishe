@@ -1,6 +1,18 @@
 <h4>Please select a type of project and the cross-streets.</h4>
 
-  <%= form_for @project, html: {class: "form-group"} do |f| %>
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_comment.errors.count, "error") %> prohibited this project_comment from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
 
   <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Pothole") %>
@@ -32,9 +44,7 @@
     <%= f.text_field :street2  %>
   </p>
 
-
-
-
+  <%= f.file_field :photo %>
 
   <p class="new_project_form_els" id="new_project_submit">
     <%= f.submit %>

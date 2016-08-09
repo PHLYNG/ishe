@@ -1,14 +1,24 @@
 class Project < ApplicationRecord
-  # belongs_to :team
-  # has_one :team
-  # belongs_to :user
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
+
+  has_many :project_comments, dependent: :destroy
+
+  has_attached_file :photo,
+
+  styles: { large: "500x500>", medium: "300x300>", thumb: "100x100>" },
+  :url => "/assets/projects/:id/:style/:basename.:extension",
+  :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
+  # Validate filename
+  validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :photo, :less_than => 5.megabytes
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
   def english_date
     database_date = self.project_action_date
     database_date.strftime("%a %b #{database_date.day.ordinalize}")
   end
+
 
   # add user to list of users on project for display on project page (not currently in migration )
   # def add_user(user)
@@ -24,8 +34,10 @@ class Project < ApplicationRecord
   #   # for merging two or more projects together
   #   binding.pry
   #   if Project.exists?(project_type: self.project_type, street1: self.street1, street2: self.street2) ||
-  #       Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
-  #     return Project.create(
+  #
+  #   Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
+  #
+  #   return UserJoinProject.create(
   #                 project_type: check_project_exists.project_type,
   #                 street1: check_project_exists.street1,
   #                 street2: "E St." )
