@@ -37,12 +37,18 @@ class ProjectsController < ApplicationController
                         street1: @project.street1,
                         street2: @project.street2)
 
-          UserJoinProject.create!(
+          @userJP = UserJoinProject.new(
             user_id: current_user.id,
             project_id: proj.id)
 
-          flash[:success] = "Next person in gets something or no?"
-          redirect_to proj
+          if @userJP.save
+            flash[:success] = "Next person in gets something or no?"
+            redirect_to proj
+          else
+            render 'new'
+          end
+
+
 
       elsif Project.exists?(
               project_type: @project.project_type,
@@ -55,12 +61,16 @@ class ProjectsController < ApplicationController
                         street1: @project.street2,
                         street2: @project.street1)
 
-              UserJoinProject.create!(
-                user_id: current_user.id,
-                project_id: proj.id)
+          @userJP = UserJoinProject.new(
+            user_id: current_user.id,
+            project_id: proj.id)
 
-          flash[:success] = "Next person in gets something or no?"
-          redirect_to proj
+          if @userJP.save
+            flash[:success] = "Next person in gets something or no?"
+            redirect_to proj
+          else
+            render 'new'
+          end
 
       # if project does not exist
       else
