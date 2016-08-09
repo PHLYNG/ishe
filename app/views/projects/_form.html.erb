@@ -1,5 +1,17 @@
 <h4>Please select a type of project and the cross-streets.</h4>
 
+  <% if @project.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(project_comment.errors.count, "error") %> prohibited this project_comment from being saved:</h2>
+
+      <ul>
+      <% @project.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form_for @project, html: {class: "form-group"} do |f| %>
 
   <p class="new_project_form_els">
