@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
+
   has_many :project_comments, dependent: :destroy
 
   def english_date
@@ -8,6 +9,7 @@ class Project < ApplicationRecord
     database_date.strftime("%a %b #{database_date.day.ordinalize}")
   end
 
+  
   # add user to list of users on project for display on project page (not currently in migration )
   # def add_user(user)
   #   unless self.user_projects.include?user.email
@@ -22,8 +24,10 @@ class Project < ApplicationRecord
   #   # for merging two or more projects together
   #   binding.pry
   #   if Project.exists?(project_type: self.project_type, street1: self.street1, street2: self.street2) ||
-  #       Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
-  #     return Project.create(
+  #
+  #   Project.exists?(project_type: self.project_type, street1: self.street2, street2: self.street1)
+  #
+  #   return UserJoinProject.create(
   #                 project_type: check_project_exists.project_type,
   #                 street1: check_project_exists.street1,
   #                 street2: "E St." )

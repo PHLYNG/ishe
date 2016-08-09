@@ -1,5 +1,12 @@
-class UsersJoinProjectsController < ApplicationController
+class UserJoinProjectsController < ApplicationController
+
   def index
+    @project = Project.find(params[:project_id])
+    @ujps = @project.user_join_projects
+    respond_to do |format|
+      format.html
+      format.json { render json: [@project, @ujps], status: :ok, location: @project }
+    end
   end
 
   def new

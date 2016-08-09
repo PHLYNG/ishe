@@ -10,7 +10,7 @@
     <tbody>
       <tr>
         <td><%= @project.project_action_date %></td>
-        <td><%= @project.project_complete ? "Get to Work!" : "Great Job!" %></td>
+        <td><%=  if @project.project_complete then "Great Job" else "Get to Work!" end%></td>
       </tr>
     </tbody>
   </table>
