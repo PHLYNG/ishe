@@ -7,7 +7,10 @@
                                               'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+  <!-- append .static-body class to body if it's a static page, or apply class to a file? -->
+  <% if %>
   <body>
+  <% end %>
     <%= render 'layouts/header' %>
     <div class="container">
       <% flash.each do |message_type, message| %>

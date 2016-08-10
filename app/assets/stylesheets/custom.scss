@@ -27,6 +27,11 @@ body {
   padding-top: 60px;
 }
 
+.static-body {
+  background-image: url("baltimoreSkyline.jpg");
+  background-size: cover;
+}
+
 section {
   overflow: auto;
 }
@@ -37,8 +42,19 @@ textarea {
 
 .center {
   text-align: center;
+  background-color: transparent;
   h1 {
     margin-bottom: 10px;
+  }
+  .btn-primary {
+    color: rebeccapurple;
+    background-color: transparent;
+    border-radius: 0px;
+    border-color: rebeccapurple;
+  }
+  .btn-primary:hover {
+    background-color: rebeccapurple;
+    color: white;
   }
 }
 
@@ -120,7 +136,6 @@ input {
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid $gray-medium-light;
   color: $gray-light;
   a {
     color: $gray;
