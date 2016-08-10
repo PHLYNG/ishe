@@ -43,6 +43,18 @@ class ProjectsController < ApplicationController
 
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
+            # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
+            if UserJoinProject.proj.id.count == 5
+              @project.project_action_date = Time.new()+(7*60*60*24)
+
+              users = []
+              @users = UserJoinProject.where(project_id: @project.id).each{ |ujp| users.push(ujp.user) }
+
+              UserMailer.start_project(@users, @project).deliver
+              # if a new user joins, keep the same time and only send that user an email
+            elsif UserJoinProject.proj.id.count > 5
+              UserMailer.new_user_on_project(currecurrent_user, @project).deliver
+            end
             redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
@@ -81,10 +93,11 @@ class ProjectsController < ApplicationController
         flash[:success] = "First person to create a project gets X baltimore bucks?"
         redirect_to @project
 
+      # if creating a new ujp, and it is 5th user, get all users on ujp
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
       #   @project.project_action_date = Time.new()+(7*60*60*24)
-      # end
+      end
 
       # set project complete
       # if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
