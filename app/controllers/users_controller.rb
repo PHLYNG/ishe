@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     # if user is valid
     if @user.save
+      # send user welcome email
+      UserMailer.welcome(@user).deliver
       # log in that user
       log_in @user
       # flash message welcome
