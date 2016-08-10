@@ -8,7 +8,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <!-- append .static-body class to body if it's a static page, or apply class to a file? -->
-  <% if %>
+  <% if yield('static_pages#home') %>
+  <body class='static-body'>
+  <% else %>
   <body>
   <% end %>
     <%= render 'layouts/header' %>
