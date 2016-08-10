@@ -1,4 +1,6 @@
 class UserMailer < ApplicationMailer
+  require 'icalendar'
+  
   default :from => 'dcordz2@gmail.com'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address

@@ -1,3 +1,39 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here: http://sass-lang.com
+
+
+.table {
+  margin: 0 auto;
+  th, td {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+h2 {
+  color: white;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+
+.com-body {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: darkgrey;
+  border-radius: 10px;
+}
+
+.project-pics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+}

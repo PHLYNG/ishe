@@ -5,12 +5,24 @@
 .table-hover {
   margin: 0 auto;
 
+  th {
+    text-align: center;
+    color: black;
+  }
 
-  th, td {
-    padding-left: 10px;
-    padding-right: 10px;
+  td {
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
     text-align: center;
     background-color: lightgray;
+
+    button {
+      height: 100%;
+      width: 100%;
+    }
   }
   .active {
     background-color: transparent;

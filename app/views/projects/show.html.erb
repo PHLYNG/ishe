@@ -1,5 +1,5 @@
 <h1><%="#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}"%></h1>
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Project Action Date</th>
@@ -16,7 +16,13 @@
   </table>
 
   <h1>People Working on this Project</h1>
-  <%= image_tag @project.photo.url(:medium) %>
+
+  <div class="project-pics">
+    <% UserJoinProject.where(project: @project).map do |ujp| %>
+    <%= image_tag ujp.project.photo.url(:medium) %>
+    <% end %>
+  </div>
+
   <table>
     <thead>
       <tr>
@@ -34,12 +40,12 @@
     </tbody>
   </table>
 
-  <h2>Project Comments</h2>
-  <%= link_to "New Comment", new_project_project_comment_path(@project) %>
-  <table>
+  <!-- <h2>Project Comments</h2> -->
+  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
+  <table class="table com-body">
     <thead>
       <th>Author</th>
-      <th>Body</th>
+      <th>Post</th>
     </thead>
 
     <tbody>
@@ -53,3 +59,4 @@
       <% end %>
     </tbody>
   </table>
+  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
