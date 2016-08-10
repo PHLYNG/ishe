@@ -31,14 +31,6 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
   config.action_mailer.delivery_method = :smtp
-#   ActionMailer::Base.smtp_settings = {
-#   :address => "smtp.sendgrid.net",
-#   :port => 25,
-#   :domain => "https://mysterious-sea-27623.herokuapp.com/",
-#   :authentication => :plain,
-#   :user_name => Ishe.mailer_username,
-#   :password => Ishe.mailer_password
-# }
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
