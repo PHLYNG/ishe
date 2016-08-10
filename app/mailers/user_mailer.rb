@@ -5,28 +5,29 @@ class UserMailer < ApplicationMailer
   def welcome(user)
     @user = user
     mail( :to => @user.email,
-    :subject => 'Thanks for signing up to build this city. We are building this city.' )
+    :subject => 'Thanks for signing up to build this city. We are build this city.',
+    :template_name => 'welcome')
   end
 
   # 5th user has created project, send date, time, location and attached calendar thing to all users
   def start_project(users, project)
     @users = users
     @project = project
-    binding.pry
-    headers['X-SMTPAPI'] = { :to => @users.to_a }.to_json
+    # headers['X-SMTPAPI'] = { :to => @users }.to_json
 
     mail(
-     :to => "#{@users.each{ |usr| usr.email}}",
-     :subject => "Get Ready to Build!",
+     :to => @users,
+     :subject => "Get Ready to Build! #{@project.project_type} at #{@project.street1} and #{@project.street2}",
      :template_name => "start_project"
-    ).deliver
+    )
   end
 
-  def new_user_on_project(user)
+  def new_user_on_project(user, project)
     @user = user
-
+    @project = project
     mail( :to => @user.email,
-    :subject => 'Get Ready to Build!' )
+    :subject => "Get Ready to Build! #{@project.project_type} at #{@project.street1} and #{@project.street2}",
+    :template_name => 'new_user_on_project')
   end
 end
 

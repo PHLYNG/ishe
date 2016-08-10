@@ -44,16 +44,15 @@ class ProjectsController < ApplicationController
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
             # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
-            if UserJoinProject.proj.id.count == 5
+            if UserJoinProject.where(project: proj).count == 2
               @project.project_action_date = Time.new()+(7*60*60*24)
 
-              users = []
-              @users = UserJoinProject.where(project_id: @project.id).each{ |ujp| users.push(ujp.user) }
-
-              UserMailer.start_project(@users, @project).deliver
+              @users = []
+              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
+              UserMailer.start_project(@users, proj).deliver
               # if a new user joins, keep the same time and only send that user an email
-            elsif UserJoinProject.proj.id.count > 5
-              UserMailer.new_user_on_project(currecurrent_user, @project).deliver
+            elsif UserJoinProject.where(project: proj).count > 2
+              UserMailer.new_user_on_project(current_user, proj).deliver
             end
             redirect_to proj
           else
@@ -80,6 +79,19 @@ class ProjectsController < ApplicationController
 
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
+
+            if UserJoinProject.where(project: proj).count == 2
+
+
+              @project.project_action_date = Time.new()+(7*60*60*24)
+
+              @users = []
+              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user) }
+              UserMailer.start_project(@users, proj).deliver
+              # if a new user joins, keep the same time and only send that user an email
+            elsif UserJoinProject.where(project: proj).count > 2
+              UserMailer.new_user_on_project(current_user, proj).deliver
+            end
             redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
@@ -103,7 +115,7 @@ class ProjectsController < ApplicationController
       # if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
       #   @project.project_complete == true
       # end
-    end
+
   end
 
   def show
