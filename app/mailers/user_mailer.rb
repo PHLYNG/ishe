@@ -10,9 +10,6 @@ class UserMailer < ApplicationMailer
 end
 
 
-end
-
-
 #   include SendGrid
 #   sendgrid_category :use_subject_lines
 #   # sendgrid_enable   :opentrack, :ganalytics

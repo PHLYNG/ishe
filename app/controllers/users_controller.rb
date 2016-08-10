@@ -18,6 +18,7 @@ class UsersController < ApplicationController
     if @user.save
       # send user welcome email
       UserMailer.welcome(@user).deliver
+      binding.pry
       # log in that user
       log_in @user
       # flash message welcome
