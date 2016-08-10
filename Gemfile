@@ -17,6 +17,8 @@ gem 'pg', '~> 0.18'
 gem 'figaro'
 # use Sendgrid for ActionMailer
 gem 'sendgrid-ruby'
+# generate events for icalendar
+gem 'icalendar'
 # Paperclip for image upload
 gem "paperclip", "~> 5.0.0"
 # gem 'carrierwave'

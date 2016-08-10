@@ -14,37 +14,23 @@ class UserMailer < ApplicationMailer
     @users = users
     @project = project
     # headers['X-SMTPAPI'] = { :to => @users }.to_json
+    attachments['elm_counter.elm'] = File.read('/Users/david/TryElm/elm_counter.elm')
 
     mail(
      :to => @users,
      :subject => "Get Ready to Build! #{@project.project_type} at #{@project.street1} and #{@project.street2}",
-     :template_name => "start_project"
-    )
+     :template_name => "start_project" )
   end
 
+  # when a user joins a project before the action date and when there are already 5 on the project
   def new_user_on_project(user, project)
     @user = user
     @project = project
+
+    attachments['elm_counter.elm'] = File.read('/Users/david/TryElm/elm_counter.elm')
+
     mail( :to => @user.email,
     :subject => "Get Ready to Build! #{@project.project_type} at #{@project.street1} and #{@project.street2}",
     :template_name => 'new_user_on_project')
   end
 end
-
-
-#   include SendGrid
-#   sendgrid_category :use_subject_lines
-#   # sendgrid_enable   :opentrack, :ganalytics
-#   sendgrid_unique_args :key1 => "value1", :key2 => "value2"
-#
-#   def welcome_message(user)
-#     sendgrid_category "Welcome"
-#     sendgrid_unique_args :key2 => "newvalue2", :key3 => "value3"
-#     mail :to => user.email, :subject => "Welcome #{user.name} :-)"
-#   end
-#
-#   def goodbye_message(user)
-#     # sendgrid_disable :ganalytics
-#     mail :to => user.email, :subject => "Fare thee well :-("
-#   end
-# end
