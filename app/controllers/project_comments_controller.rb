@@ -14,7 +14,6 @@ class ProjectCommentsController < ApplicationController
   # GET /project_comments/1
   def show
     @project = Project.find(params[:project_id])
-    @project_comment = ProjectComment.find(params[:id])
     respond_to do |format|
       format.html
       format.json { render json: [@project, @project_comment], status: :created, location: @project }
@@ -29,6 +28,7 @@ class ProjectCommentsController < ApplicationController
 
   # GET /project_comments/1/edit
   def edit
+    @project = Project.find(params[:project_id])
   end
 
   # POST /project_comments
@@ -37,28 +37,30 @@ class ProjectCommentsController < ApplicationController
 
     @user = @project.user_join_projects.find_by(user_id: current_user.id).user
 
-    @project_comment = ProjectComment.create(project_comment_params.merge({author: @user.name, project: @project}))
-
+    @project_comment = ProjectComment.new(project_comment_params.merge({author: @user.name, project: @project}))
     if @project_comment.save
       redirect_to @project, notice: 'Project comment was successfully created.'
     else
-      render :new
+      render 'new'
     end
   end
 
   # PATCH/PUT /project_comments/1
   def update
+    @project = Project.find(params[:project_id])
+
     if @project_comment.update(project_comment_params)
-      redirect_to @project_comment, notice: 'Project comment was successfully updated.'
+      redirect_to @project, notice: 'Project comment was successfully updated.'
     else
-      render :edit
+      render 'edit'
     end
   end
 
   # DELETE /project_comments/1
   def destroy
+    @project = Project.find(params[:project_id])
     @project_comment.destroy
-    redirect_to project_comments_url, notice: 'Project comment was successfully destroyed.'
+    redirect_to @project, notice: 'Project comment was successfully destroyed.'
   end
 
   private

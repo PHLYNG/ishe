@@ -1,4 +1,5 @@
-<h1><%="#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}"%></h1>
+<div class="static-div">
+<h1><%= link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}", "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')}"%></h1>
   <table class="table">
     <thead>
       <tr>
@@ -15,8 +16,6 @@
     </tbody>
   </table>
 
-  <h1>People Working on this Project</h1>
-
   <div class="project-pics">
     <% counter = 0 %>
     <% UserJoinProject.where(project: @project).map do |ujp| %>
@@ -27,6 +26,8 @@
       <% end %>
     <% end %>
   </div>
+
+  <h1>People Working on this Project</h1>
 
   <table>
     <thead>
@@ -45,12 +46,13 @@
     </tbody>
   </table>
 
-  <!-- <h2>Project Comments</h2> -->
   <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
   <table class="table com-body">
     <thead>
       <th>Author</th>
       <th>Post</th>
+      <th></th>
+      <th></th>
     </thead>
 
     <tbody>
@@ -59,9 +61,12 @@
       <tr>
         <td><%= com.author %></td>
         <td><%= com.body %></td>
+        <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Delete', project_project_comment_path(@project, com), method: :delete, class: "btn btn-primary btn-danger" %></td>
       </tr>
       <% end %>
       <% end %>
     </tbody>
   </table>
   <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
+</div>

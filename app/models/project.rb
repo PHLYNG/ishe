@@ -4,22 +4,28 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
-  before_save { self.street1 = street1.downcase, self.street2 = street2.downcase }
+  before_save { streets_are_different }
 
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "300x300>", thumb: "100x100>" },
   :url => "/assets/projects/:id/:style/:basename.:extension",
   :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
 
+  # rubular.com
+  VALID_STREET_REGEX = /\A\d{0,6}([s][t]|[t][h]|[r][d]){0,2}\s{0,1}[a-zA-Z]{1,50}.{0,1}\s{1}[a-zA-Z]{0,50}.{0,1}\s{0,1}[a-zA-Z]{0,50}.{0,1}[a-zA-Z]{2}.{0,1}$\z/
+
   # validate streets presence and length
   # downcase street names to ensure matching
-
   validates :street1, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
   validates :street2, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
-
-  # http://bit.ly/2b1oiWG
-  VALID_STREET_REGEX = ^(?n:(?<address1>(\d{1,5}(\ 1\/[234])?(\x20[A-Z]([a-z])+)+ )|(P\.O\.\ Box\ \d{1,5}))\s{1,2}(?i:(?<address2>(((APT|B LDG|DEPT|FL|HNGR|LOT|PIER|RM|S(LIP|PC|T(E|OP))|TRLR|UNIT)\x20\w{1,5})|(BSMT|FRNT|LBBY|LOWR|OFC|PH|REAR|SIDE|UPPR)\.?)\s{1,2})?)(?<city>[A-Z]([a-z])+(\.?)(\x20[A-Z]([a-z])+){0,2})\, \x20(?<state>A[LKSZRAP]|C[AOT]|D[EC]|F[LM]|G[AU]|HI|I[ADL N]|K[SY]|LA|M[ADEHINOPST]|N[CDEHJMVY]|O[HKR]|P[ARW]|RI|S[CD] |T[NX]|UT|V[AIT]|W[AIVY])\x20(?<zipcode>(?!0{5})\d{5}(-\d {4})?))$
-
+  def streets_are_different
+    self.street1.downcase
+    self.street2.downcase
+    if self.street1 == self.street2
+      flash[:warning] = "Street names cannot be identical."
+      render 'new'
+    end
+  end
 
   # Validate filename
   validates :photo, attachment_presence: true
