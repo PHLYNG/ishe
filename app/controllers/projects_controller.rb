@@ -16,8 +16,14 @@ class ProjectsController < ApplicationController
 
     # new project first for file upload
     @project = Project.new( project_params_with_image_up.merge(
-                          { project_action_date: Time.new()+(7*60*60*24),
-                            project_complete: false }))
+
+      # (7*60*60*24) adds 7 days to current time
+      # set to next sunday after 7 days
+      # set to 10 AM on that sunday
+      { project_action_date: DateTime.now.end_of_week + 7.days - 14.hours + 1.second,
+
+      project_complete: false }))
+
     @project.street1.downcase
     @project.street2.downcase
     if @project.street1 == @project.street2
@@ -50,7 +56,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Next person in gets something or no?"
             # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
             if UserJoinProject.where(project: proj).count == 2
-              @project.project_action_date = Time.new()+(7*60*60*24)
+              @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
 
               @users = []
               UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
@@ -88,7 +94,7 @@ class ProjectsController < ApplicationController
             if UserJoinProject.where(project: proj).count == 2
 
 
-              @project.project_action_date = Time.new()+(7*60*60*24)
+              @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
 
               @users = []
               UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user) }
@@ -113,7 +119,7 @@ class ProjectsController < ApplicationController
       # if creating a new ujp, and it is 5th user, get all users on ujp
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
-      #   @project.project_action_date = Time.new()+(7*60*60*24)
+      #   @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
       end
 
       # set project complete
