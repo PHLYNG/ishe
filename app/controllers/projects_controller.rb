@@ -18,6 +18,12 @@ class ProjectsController < ApplicationController
     @project = Project.new( project_params_with_image_up.merge(
                           { project_action_date: Time.new()+(7*60*60*24),
                             project_complete: false }))
+    @project.street1.downcase
+    @project.street2.downcase
+    if @project.street1 == @project.street2
+      flash[:warning] = "Street names cannot be identical."
+      render 'new'
+    end
 
     # save project if it is unique
     # do not save project if it has been created already
