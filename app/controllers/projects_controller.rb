@@ -130,10 +130,18 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    proj = Project.find(params[:id])
-    ujp = UserJoinProject.where(project_id: proj.id, user_id: current_user.id)
-    ujp.delete_all
-    proj.delete
+    # problem with deleting
+    # a project "lives" on a user account
+    # if a user deletes a project, then all the UJPs need to be deleted or the ones that are left won't be related to a project
+    # solution - projects need to "live" somewhere else, but how?
+    @project = Project.find(params[:id])
+    if @project.user_join_projects.count < 2
+      @ujp = UserJoinProject.where(project_id: @project.id, user_id: current_user.id)
+      @ujp.delete_all
+      @project.delete
+    else
+      flash[:warning] = "More than one person is working on this Project, therefore the Project cannot be deleted."
+    end
     redirect_to current_user
   end
 
