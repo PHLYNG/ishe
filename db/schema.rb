@@ -29,7 +29,7 @@ ActiveRecord::Schema.define(version: 20160809025102) do
     t.string   "street1"
     t.string   "street2"
     t.boolean  "project_complete"
-    t.date     "project_action_date"
+    t.datetime "project_action_date"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.string   "photo_file_name"
