@@ -23,6 +23,7 @@ class UserJoinProjectsController < ApplicationController
       redirect_to @project
     else
       @user_join_project = UserJoinProject.create!(user_join_project_params.merge({user: current_user}))
+
       redirect_to @project
     end
   end

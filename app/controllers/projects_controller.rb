@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   def index
-    # need to test if using current_user here works, currently defined in SessionsHelper. May need to define current_user in projects helper? But helpers are used only in views, define in model?
     @projects = current_user.projects
     @user = current_user
     respond_to do |format|
@@ -43,6 +42,17 @@ class ProjectsController < ApplicationController
 
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
+            # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
+            if UserJoinProject.where(project: proj).count == 2
+              @project.project_action_date = Time.new()+(7*60*60*24)
+
+              @users = []
+              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
+              UserMailer.start_project(@users, proj).deliver
+              # if a new user joins, keep the same time and only send that user an email
+            elsif UserJoinProject.where(project: proj).count > 2
+              UserMailer.new_user_on_project(current_user, proj).deliver
+            end
             redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
@@ -68,6 +78,19 @@ class ProjectsController < ApplicationController
 
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
+
+            if UserJoinProject.where(project: proj).count == 2
+
+
+              @project.project_action_date = Time.new()+(7*60*60*24)
+
+              @users = []
+              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user) }
+              UserMailer.start_project(@users, proj).deliver
+              # if a new user joins, keep the same time and only send that user an email
+            elsif UserJoinProject.where(project: proj).count > 2
+              UserMailer.new_user_on_project(current_user, proj).deliver
+            end
             redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
@@ -81,16 +104,17 @@ class ProjectsController < ApplicationController
         flash[:success] = "First person to create a project gets X baltimore bucks?"
         redirect_to @project
 
+      # if creating a new ujp, and it is 5th user, get all users on ujp
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
       #   @project.project_action_date = Time.new()+(7*60*60*24)
-      # end
+      end
 
       # set project complete
       # if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
       #   @project.project_complete == true
       # end
-    end
+
   end
 
   def show
@@ -106,10 +130,18 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    proj = Project.find(params[:id])
-    ujp = UserJoinProject.where(project_id: proj.id, user_id: current_user.id)
-    ujp.delete_all
-    proj.delete
+    # problem with deleting
+    # a project "lives" on a user account
+    # if a user deletes a project, then all the UJPs need to be deleted or the ones that are left won't be related to a project
+    # solution - projects need to "live" somewhere else, but how?
+    @project = Project.find(params[:id])
+    if @project.user_join_projects.count < 2
+      @ujp = UserJoinProject.where(project_id: @project.id, user_id: current_user.id)
+      @ujp.delete_all
+      @project.delete
+    else
+      flash[:warning] = "More than one person is working on this Project, therefore the Project cannot be deleted."
+    end
     redirect_to current_user
   end
 

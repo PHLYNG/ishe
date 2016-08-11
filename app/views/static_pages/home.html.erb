@@ -1,7 +1,6 @@
 <div class="center jumbotron">
   <h1>Welcome to Ishe</h1>
   <h2><strong>Build</strong> Your Community with Your Community</h2>
-
   <% if !current_user.nil? %>
     <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
     <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
@@ -10,7 +9,3 @@
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 </div>
-
-<!-- use gapick.jpg -->
-<%= link_to image_tag("#", alt: "insert gapic.jpg into home static page"),
-            'http://rubyonrails.org/' %>

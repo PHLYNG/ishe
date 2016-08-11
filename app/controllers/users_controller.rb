@@ -14,36 +14,20 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-
-    respond_to do |format|
-      # if user is valid
-      if @user.save
-        # Tell the UserMailer to send a welcome email after save
-        log_in(@user)
-        uservar = UserMailer.welcome_email(@user).deliver_now
-        format.html { redirect_to(@user, notice: 'Welcome to Ishe, ready to get to work?') }
-        format.json { render json: @user, status: :created, location: user_path }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
-    end
-
-
-
-    # if @user.save
-      # Tell the ApplicationMailer to send a welcome email after save
-      # UserMailer.welcome_email(@user).deliver_now
+    # if user is valid
+    if @user.save
+      # send user welcome email
+      UserMailer.welcome(@user).deliver
       # log in that user
-      # log_in @user
+      log_in @user
       # flash message welcome
-      # flash[:success] = "Welcome to Ishe, ready to get to work?"
+      flash[:success] = "Welcome to Ishe, ready to get to work?"
       # redirect to user page
-      # redirect_to @user
-    # else
+      redirect_to @user
+    else
       # if user save fails, render the new user registration page
-      # render 'new'
-    # end
+      render 'new'
+    end
   end
 
   def show

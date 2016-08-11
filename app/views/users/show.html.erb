@@ -5,24 +5,45 @@
       <h1>
         <%= @user.name %>
         <br>
-        <%= @user.email %>
+        <%= "Number of Projects User Completed" %>
+        <br>
+        <%= "Baltimore Bucks remaining?" %>
         <br>
       </h1>
     </section>
   </aside>
 
-  <h2><%= link_to "Start a New Project!", new_project_path %></h2>
+  <%= link_to "Start a New Project!", new_project_path, class: "btn btn-lg btn-success" %><h2>
 
-  <table>
+  <table class="table-hover">
+    <thead>
+      <th></th>
+      <th>Project Type</th>
+      <th>Location</th>
+      <th>Action Date</th>
+      <th>Project Complete?</th>
+      <th>Project Image</th>
+    </thead>
     <tbody>
       <% if @user.projects.count > 0 %>
       <% select_user_proj.each do |proj| %>
-      <tr>
-        <td><%= link_to "#{proj.project.project_type}", proj.project %></td>
-        <td><%= link_to "Intersection of #{proj.project.street1} and #{proj.project.street2}", proj.project %></td>
+      <tr class="active">
+        <td><%= link_to "Go to Project", proj.project, class: "btn btn-primary" %></td>
+
+        <td><%= "#{proj.project.project_type}" %></td>
+
+        <td><%= "Intersection of #{proj.project.street1} and #{proj.project.street2}" %></td>
+
         <td><%= proj.project.project_action_date %></td>
+
         <td><%= proj.project.project_complete %></td>
-        <td><%= link_to "Delete",project_path(proj.project), method: :delete %></td>
+
+        <td><% if proj.project.photo %>
+        <%= image_tag proj.project.photo(:thumb) %>
+          <% end %>
+        </td>
+
+        <td><%= link_to "Delete",project_path(proj.project), method: :delete, class: "btn btn-primary" %></td>
       </tr>
       <% end %>
     <% end %>

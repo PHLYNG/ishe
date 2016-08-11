@@ -34,7 +34,9 @@ class ProjectCommentsController < ApplicationController
   # POST /project_comments
   def create
     @project = Project.find(params[:project_id])
-    @user = @project.user_join_projects.find_by(user_id: current_user.id).user.name
+
+    @user = @project.user_join_projects.find_by(user_id: current_user.id).user
+
     @project_comment = ProjectComment.create(project_comment_params.merge({author: @user.name, project: @project}))
 
     if @project_comment.save
