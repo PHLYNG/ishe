@@ -4,7 +4,6 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
-  before_save { self.street1 = street1.downcase, self.street2 = street2.downcase }
   before_save { streets_are_different }
 
   has_attached_file :photo,

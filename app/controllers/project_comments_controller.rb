@@ -49,7 +49,7 @@ class ProjectCommentsController < ApplicationController
   def update
     @project = Project.find(params[:project_id])
 
-    if @project.project_comment.update(project_comment_params)
+    if @project_comment.update(project_comment_params)
       redirect_to @project, notice: 'Project comment was successfully updated.'
     else
       render 'edit'
