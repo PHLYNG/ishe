@@ -51,6 +51,8 @@
     <thead>
       <th>Author</th>
       <th>Post</th>
+      <th></th>
+      <th></th>
     </thead>
 
     <tbody>
@@ -59,6 +61,8 @@
       <tr>
         <td><%= com.author %></td>
         <td><%= com.body %></td>
+        <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Delete', project_project_comment_path(@project, com), method: :delete, class: "btn btn-primary btn-danger" %></td>
       </tr>
       <% end %>
       <% end %>

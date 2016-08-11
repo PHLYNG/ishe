@@ -20,16 +20,9 @@ class ProjectsController < ApplicationController
       # (7*60*60*24) adds 7 days to current time
       # set to next sunday after 7 days
       # set to 10 AM on that sunday
-      { project_action_date: DateTime.now.end_of_week + 7.days - 14.hours + 1.second,
+      { project_action_date: DateTime.now.end_of_week + (7.days - 14.hours + 1.second),
 
       project_complete: false }))
-
-    @project.street1.downcase
-    @project.street2.downcase
-    if @project.street1 == @project.street2
-      flash[:warning] = "Street names cannot be identical."
-      render 'new'
-    end
 
     # save project if it is unique
     # do not save project if it has been created already
@@ -56,7 +49,7 @@ class ProjectsController < ApplicationController
             flash[:success] = "Next person in gets something or no?"
             # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
             if UserJoinProject.where(project: proj).count == 2
-              @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
+              @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
 
               @users = []
               UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
@@ -91,10 +84,10 @@ class ProjectsController < ApplicationController
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
 
+            # if a second (prod - 5th) person joins, reset the clock, but if 6th person joins, keep same time
             if UserJoinProject.where(project: proj).count == 2
 
-
-              @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
+              @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
 
               @users = []
               UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user) }
@@ -111,15 +104,19 @@ class ProjectsController < ApplicationController
 
       # if project does not exist
       else
-        @project.save
-        UserJoinProject.create!(user: current_user, project: @project)
-        flash[:success] = "First person to create a project gets X baltimore bucks?"
-        redirect_to @project
+        if @project.save
+          UserJoinProject.create!(user: current_user, project: @project)
+          flash[:success] = "First person to create a project gets X baltimore bucks?"
+          redirect_to @project
+        else
+          render 'new'
+        end
+
 
       # if creating a new ujp, and it is 5th user, get all users on ujp
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
-      #   @project.project_action_date = DateTime.now.end_of_week + 7.days - 14.hours + 1.second
+      #   @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
       end
 
       # set project complete
