@@ -17,8 +17,10 @@ class User < ApplicationRecord
   # enfore email presence, email format, email length maximum and email uniqueness - although uniqueness DOES NOT work at the db level. Think one user double clicking save (you've done that yourself, it happens, solution: add index on email column in migration and require that index be unique) - create a new migration and add the index to users emails
   validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
   # case sensitive false means that FOOBAR@EMAIL.COM == foobar@email.com
+
+  # change this in production to min 9
   has_secure_password
-  validates :password, presence: true, length: {minimum: 6}
+  validates :password, presence: true, length: { minimum: 6 }
 
   # validates :password_confirmation, presence: true, length: {minimum: 6}
 

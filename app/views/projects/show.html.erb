@@ -10,7 +10,7 @@
     <tbody>
       <tr>
         <td><%= @project.project_action_date %></td>
-        <td><%=  if @project.project_complete then "Great Job" else "Get to Work!" end%></td>
+        <td><%=  if @project.project_complete then "Great Job" else "Build this City!" end%></td>
       </tr>
     </tbody>
   </table>
@@ -18,8 +18,13 @@
   <h1>People Working on this Project</h1>
 
   <div class="project-pics">
+    <% counter = 0 %>
     <% UserJoinProject.where(project: @project).map do |ujp| %>
-    <%= image_tag ujp.project.photo.url(:medium) %>
+      <%= image_tag ujp.project.photo.url(:medium) %>
+      <% counter += 1 %>
+      <% if counter == 5 %>
+        <% break %>
+      <% end %>
     <% end %>
   </div>
 
