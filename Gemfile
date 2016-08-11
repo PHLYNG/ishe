@@ -13,6 +13,8 @@ gem 'bootstrap-sass', '3.3.6'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 # gem 'puma', '~> 3.0'
+# use FuzzyMatch for comparing street names
+gem 'fuzzy_match'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer

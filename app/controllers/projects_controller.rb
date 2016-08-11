@@ -33,13 +33,13 @@ class ProjectsController < ApplicationController
       # need to do elsif because of new UserJoinProject
       if Project.exists?(
           project_type: @project.project_type,
-          street1: @project.street1,
-          street2: @project.street2)
+          street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+          street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
           proj = Project.find_by(
                         project_type: @project.project_type,
-                        street1: @project.street1,
-                        street2: @project.street2)
+                        street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+                        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
           @userJP = UserJoinProject.new(
             user_id: current_user.id,
@@ -68,14 +68,14 @@ class ProjectsController < ApplicationController
 
       elsif Project.exists?(
               project_type: @project.project_type,
-              street1: @project.street2,
-              street2: @project.street1)
+              street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street2),
+              street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street1))
         # if project does exists/is true
 
           proj = Project.find_by(
                         project_type: @project.project_type,
-                        street1: @project.street2,
-                        street2: @project.street1)
+                        street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street2),
+                        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street1))
 
           @userJP = UserJoinProject.new(
             user_id: current_user.id,

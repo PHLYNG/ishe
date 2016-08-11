@@ -21,7 +21,10 @@ class Project < ApplicationRecord
   def streets_are_different
     self.street1.downcase
     self.street2.downcase
-    if self.street1 == self.street2
+    street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+    street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+
+    if FuzzyMatch.new(self.street1).find(self.street2)
       flash[:warning] = "Street names cannot be identical."
       render 'new'
     end

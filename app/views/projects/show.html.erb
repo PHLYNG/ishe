@@ -1,5 +1,11 @@
 <div class="static-div">
-<h1><%= link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}", "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')}"%></h1>
+<h1>
+  <%=
+    link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}",
+    "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')},+Baltimore,+MD",
+    id: 'project-loc-link'
+  %>
+</h1>
   <table class="table">
     <thead>
       <tr>
