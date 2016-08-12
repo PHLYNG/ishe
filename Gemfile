@@ -16,7 +16,9 @@ gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # use FuzzyMatch for comparing street names
-gem 'fuzzy_match'
+# gem 'fuzzy_match'
+# fuzzy_match kinda sux try simple text
+gem 'similar_text'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer

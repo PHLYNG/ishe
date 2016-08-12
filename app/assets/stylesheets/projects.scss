@@ -21,8 +21,13 @@
     background-color: white;
   }
   label {
+    max-width: 30%;
     float: left;
   }
+}
+
+h1, h2, h4 {
+  text-align: center;
 }
 
 input[type='radio'] {
@@ -31,7 +36,8 @@ input[type='radio'] {
 }
 
 #project_street1, #project_street2 {
-  // background-color: blue;
+  margin: 0 auto;
+  max-width: 40%;
 }
 
 .alert {
