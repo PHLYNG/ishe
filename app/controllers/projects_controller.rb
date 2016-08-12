@@ -17,12 +17,13 @@ class ProjectsController < ApplicationController
     # new project first for file upload
     @project = Project.new( project_params_with_image_up.merge(
 
-      # (7*60*60*24) adds 7 days to current time
-      # set to next sunday after 7 days
-      # set to 10 AM on that sunday
-      { project_action_date: DateTime.now.end_of_week + (7.days - 14.hours + 1.second),
-
-      project_complete: false }))
+      # DateTime.now gets current DateTime
+      # end of week gets sunday at 23:59:59
+      # set to next sunday at 10AM
+      # -10.hours because default UTC time
+      { project_action_date: DateTime.now.end_of_week + (7.days - 10.hours + 1.second),
+        complete_button_after_click: false,
+        project_complete: false }))
 
     # save project if it is unique
     # do not save project if it has been created already
@@ -104,12 +105,15 @@ class ProjectsController < ApplicationController
 
       # if project does not exist
       else
-        if @project.save
-          UserJoinProject.create!(user: current_user, project: @project)
-          flash[:success] = "First person to create a project gets X baltimore bucks?"
-          redirect_to @project
-        else
+        if FuzzyMatch.new([@project.street1]).find(@project.street2) == true
+          flash[:warning] = "Street names were too similar"
           render 'new'
+        else
+          @project.save
+            UserJoinProject.create!(user: current_user, project: @project)
+            flash[:success] = "First person to create a project gets X baltimore bucks?"
+            redirect_to @project
+
         end
 
 
@@ -136,6 +140,11 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @project = Project.find(params[:id])
+    @project.project_complete = true
+    @project.complete_button_after_click = true
+    @project.save
+    redirect_to @project
   end
 
   def destroy
