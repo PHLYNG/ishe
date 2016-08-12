@@ -1,41 +1,43 @@
-<h4>Please select a type of project and the cross-streets.</h4>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('label.form-control').on('click', function() {
+    // need to figure out a way to restrict it to the project label
+    $('label.form-control').css('background-color','white')
+    $(this).css('background-color', 'hotpink')
+  });
+});
+</script>
+
+<h2>Please select a type of project, the cross-streets and upload an image.</h2>
 
   <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
 
-  <p class="new_project_form_els">
+    <h4>Project Type</h4>
+
     <%= f.radio_button(:project_type,"Pothole") %>
-    <%= f.label :project_type_pothole,"Pothole"  %>
-  </p>
+    <%= f.label :project_type_pothole,"Pothole", class: 'form-control'  %>
 
-  <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Planting") %>
-    <%= f.label :project_type_planting,"Tree Planting"  %>
-  </p>
+    <%= f.label :project_type_planting,"Tree Planting", class: 'form-control' %>
 
-  <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Painting") %>
-    <%= f.label :project_type_painting,"Painting"  %>
-  </p>
+    <%= f.label :project_type_painting,"Painting", class: 'form-control'  %>
 
-  <p class="new_project_form_els">
     <%= f.radio_button(:project_type,"Trash") %>
-    <%= f.label :project_type_trash,"Trash/Debris Cleanup"  %>
-  </p>
+    <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control'  %>
 
-  <p class="new_project_form_els">
-    <%= f.label :street1,"First Cross Street"  %>
+    <h4>Cross Streeets (the ones you are closest to)</h4>
+
+    <%= f.label :street1,"First Cross Street", class: 'form-control'  %>
     <%= f.text_field :street1  %>
-  </p>
 
-  <p class="new_project_form_els">
-    <%= f.label :street2,"Second Cross Street"  %>
+    <%= f.label :street2,"Second Cross Street", class: 'form-control'  %>
     <%= f.text_field :street2  %>
-  </p>
 
-  <%= f.file_field :photo %>
+    <h4>Image</h4>
 
-  <p class="new_project_form_els" id="new_project_submit">
-    <%= f.submit %>
-  </p>
+    <%= f.file_field :photo, class: 'form-control' %>
+
+  <%= f.submit %>
 
 <% end %>

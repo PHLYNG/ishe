@@ -10,6 +10,22 @@
 //   background-size: cover;
 // }
 
+
+.form-control {
+  text-align: center;
+  margin: 10px auto;
+  background-color: white;
+}
+
+input[type='radio'] {
+  display: none;
+  visibility: hidden;
+}
+
+#project_street1, #project_street2 {
+  background-color: blue;
+}
+
 .alert {
   margin-top: 30px;
 }
@@ -33,8 +49,8 @@
   }
 }
 
-h2 {
-  color: white;
+h4 {
+  margin-top: 20px;
 }
 
 a {

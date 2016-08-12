@@ -2,15 +2,43 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.row {
+  background-image: url('baltimoreSkyline.jpg');
+  background-size: cover;
+  background-position: center;
 
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .btn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0px;
+    margin-bottom: 100px;
+    color: white;
+  }
+
+  h1 {
+    margin-top: 40px;
+    margin-bottom: -25px;
+  }
+
+  h1, h2 {
+    text-align: center;
+    color: black;
+  }
+
+}
 
 .table-hover {
   margin: 0 auto;
+  margin-top: 30px;
 
   td, th {
     padding-bottom: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-left: 10px;
     margin-right: 10px;
     text-align: center;
@@ -22,6 +50,7 @@
       width: 100%;
     }
   }
+
   .active {
     background-color: transparent;
     a {

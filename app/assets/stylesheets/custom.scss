@@ -99,21 +99,18 @@ p {
 
 
 /* header */
-.navbar-left {
-  margin-left: -90px;
-  #logo {
-    float: left;
-    margin-right: 10px;
-    font-size: 1.7em;
+#logo {
+  float: right;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  margin-top: 15px;
+  font-weight: bold;
+  &:hover {
     color: white;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    margin-top: 15px;
-    font-weight: bold;
-    &:hover {
-      color: white;
-      text-decoration: none;
-    }
+    text-decoration: none;
   }
 }
 
