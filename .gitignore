@@ -16,6 +16,9 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore development images in public/project from paperclip
+/public/assets/projects/*
+
 
 
 # Ignore application configuration

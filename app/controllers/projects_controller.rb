@@ -109,29 +109,30 @@ class ProjectsController < ApplicationController
           flash[:warning] = "Street names were too similar"
           render 'new'
         else
-          binding.pry
           @project.save
-          binding.pry
+          if @project.save == false
+            render 'new'
+          else
             UserJoinProject.create!(user: current_user, project: @project)
             flash[:success] = "First person to create a project gets X baltimore bucks?"
-            binding.pry
             redirect_to @project
+          end
 
-        end
+        end #end FuzzyMatch if
 
 
       # if creating a new ujp, and it is 5th user, get all users on ujp
       # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
       # if UserJoinProject.where(project_id: @project.id).count == 4
       #   @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
-      end
+    end # end Project exist ifs
 
       # set project complete
       # if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
       #   @project.project_complete == true
       # end
 
-  end
+  end #end create method
 
   def show
     @project = Project.find(params[:id])

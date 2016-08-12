@@ -11,14 +11,10 @@ class Project < ApplicationRecord
   :url => "/assets/projects/:id/:style/:basename.:extension",
   :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
 
-  # Validate filename
-  validates :photo, attachment_presence: true
-  validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
-  validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
-
   # rubular.com
   VALID_STREET_REGEX = /\A\d{0,6}([s][t]|[t][h]|[r][d]){0,2}\s{0,1}[a-zA-Z]{1,50}.{0,1}\s{1}[a-zA-Z]{0,50}.{0,1}\s{0,1}[a-zA-Z]{0,50}.{0,1}[a-zA-Z]{2}.{0,1}$\z/
+
+  validates :project_type, presence: true
 
   # validate streets presence and length
   # downcase street names to ensure matching
@@ -35,6 +31,12 @@ class Project < ApplicationRecord
   #     # render 'new'
   #   end
   # end
+
+  # Validate filename
+  validates :photo, attachment_presence: true
+  validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :photo, :less_than => 5.megabytes
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
 
 end
