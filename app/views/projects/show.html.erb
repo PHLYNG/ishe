@@ -1,5 +1,26 @@
-<h1><%="#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}"%></h1>
-  <table>
+<div class="static-div">
+<h1>
+  <%=
+    link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}",
+    "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')},+Baltimore,+MD",
+    id: 'project-loc-link'
+  %>
+</h1>
+
+  <!-- if DateTime.now > @project.project_action_date && complete_button_after_click == false -->
+  <% if @project.complete_button_after_click == false %>
+  <%= form_for @project do |f| %>
+    <% f.check_box :project_complete, checked: true %>
+    <% f.check_box :complete_button_after_click, checked: true %>
+    <button class="btn btn-success btn-lg">
+      Project Complete
+      <% f.submit %>
+    </button>
+  <% end %>
+  <% end %>
+
+
+  <table class="table">
     <thead>
       <tr>
         <th>Project Action Date</th>
@@ -15,8 +36,14 @@
     </tbody>
   </table>
 
+  <div class="project-pics">
+    <% UserJoinProject.where(project: @project).map do |ujp| %>
+    <%= image_tag ujp.project.photo.url(:medium) %>
+    <% end %>
+  </div>
+
   <h1>People Working on this Project</h1>
-  <%= image_tag @project.photo.url %>
+
   <table>
     <thead>
       <tr>
@@ -34,12 +61,13 @@
     </tbody>
   </table>
 
-  <h2>Project Comments</h2>
-  <%= link_to "New Comment", new_project_project_comment_path(@project) %>
-  <table>
+  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
+  <table class="table com-body">
     <thead>
       <th>Author</th>
-      <th>Body</th>
+      <th>Post</th>
+      <th></th>
+      <th></th>
     </thead>
 
     <tbody>
@@ -48,8 +76,12 @@
       <tr>
         <td><%= com.author %></td>
         <td><%= com.body %></td>
+        <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
+        <td><%= link_to 'Delete', project_project_comment_path(@project, com), method: :delete, class: "btn btn-primary btn-danger" %></td>
       </tr>
       <% end %>
       <% end %>
     </tbody>
   </table>
+  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
+</div>

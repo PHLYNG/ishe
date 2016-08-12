@@ -5,7 +5,7 @@ class CreateProjects < ActiveRecord::Migration[5.0]
       t.string :street1
       t.string :street2
       t.boolean :project_complete
-      t.date :project_action_date
+      t.datetime :project_action_date
 
       t.timestamps
     end

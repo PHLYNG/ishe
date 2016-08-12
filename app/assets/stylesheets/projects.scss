@@ -1,3 +1,76 @@
 // Place all the styles related to the Projects controller here.
 // They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// You can use Sass (SCSS) here: http://sass-lang.com
+
+// .static-div {
+//   width: 100%;
+//   height: 100%;
+//   z-index: -100000;
+//   background-image: url("baltimoreSkyline.jpg");
+//   background-size: cover;
+// }
+
+
+.form-control {
+  text-align: center;
+  margin: 10px auto;
+  background-color: white;
+}
+
+input[type='radio'] {
+  display: none;
+  visibility: hidden;
+}
+
+#project_street1, #project_street2 {
+  background-color: blue;
+}
+
+.alert {
+  margin-top: 30px;
+}
+
+#project-loc-link {
+  color: darkblue;
+  text-decoration: none;
+}
+
+#project-loc-link:hover {
+  color: skyblue;
+  background-color: transparent;
+}
+
+.table {
+  margin: 0 auto;
+
+  th, td {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+
+h4 {
+  margin-top: 20px;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.com-body {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: white;
+  background-color: darkgrey;
+  border-radius: 10px;
+}
+
+.project-pics {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-grow: 1;
+  margin-left: 10px;
+  margin-right: 10px;
+}

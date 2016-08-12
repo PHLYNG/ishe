@@ -3,18 +3,17 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                                              'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all','data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag('/Users/david/jquery-3.0.0.min.js') %>
   </head>
   <!-- append .static-body class to body if it's a static page, or apply class to a file? -->
   <% if yield('static_pages#home') %>
-  <body class='static-body'>
+  <body class="container-fluid">
   <% else %>
-  <body>
   <% end %>
     <%= render 'layouts/header' %>
-    <div class="container">
+
       <% flash.each do |message_type, message| %>
 
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
@@ -22,6 +21,5 @@
       <%= yield %>
       <%= render 'layouts/footer' %>
       <%= debug(params) if Rails.env.development? %>
-    </div>
   </body>
 </html>
