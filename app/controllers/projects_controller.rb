@@ -33,10 +33,9 @@ class ProjectsController < ApplicationController
       # determine if project exists already, flipping around streets
       # need to do elsif because of new UserJoinProject
     if Project.exists?(
-        project_type: self.project_type,
-        street1: FuzzyMatch.new(Project.all, :read => :street1).find(self.street1),
-        street2: FuzzyMatch.new(Project.all, :read => :street2).find(self.street2))
-      if @project.project_exists
+        project_type: @project.project_type,
+        street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
           proj = Project.find_by(
                         project_type: @project.project_type,
@@ -59,12 +58,12 @@ class ProjectsController < ApplicationController
               # if a new user joins, keep the same time and only send that user an email
             elsif UserJoinProject.where(project: proj).count > 2
               UserMailer.new_user_on_project(current_user, proj).deliver
-            end
+            end # UJP.where
             redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
             render 'new'
-          end
+          end #UJP.sav
 
       elsif Project.exists?(
               project_type: @project.project_type,

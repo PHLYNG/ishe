@@ -19,7 +19,5 @@
 # Ignore development images in public/project from paperclip
 /public/assets/projects/*
 
-
-
 # Ignore application configuration
 /config/application.yml

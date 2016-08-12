@@ -10,11 +10,19 @@
 //   background-size: cover;
 // }
 
-
-.form-control {
-  text-align: center;
+.form-group {
+  display: flex;
+  flex-direction: column;
   margin: 10px auto;
-  background-color: white;
+
+  .form-control {
+    text-align: center;
+    margin: 10px auto;
+    background-color: white;
+  }
+  label {
+    float: left;
+  }
 }
 
 input[type='radio'] {

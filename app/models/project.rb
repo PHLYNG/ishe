@@ -24,7 +24,8 @@ class Project < ApplicationRecord
   def streets_are_not_different
     self.street1.downcase
     self.street2.downcase
-    if FuzzyMatch.new([self.street1]).find(self.street2)
+    # if FuzzyMatch.new([self.street1]).find(self.street2)
+    if self.street1 == self.street2
       return true
     end
   end
