@@ -171,8 +171,4 @@ class ProjectsController < ApplicationController
   def project_params_with_image_up
     params.require(:project).permit(:project_type, :street1, :street2, :photo)
   end
-
-  # def dup_project_params
-  #   params.require(:project).permit(:project_type, :image, :street1, :street2)
-  # end
 end
