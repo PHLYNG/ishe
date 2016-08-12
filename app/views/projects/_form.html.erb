@@ -1,8 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
-  $('label.form-control').on('click', function() {
+  $('.rdio').on('click', function() {
     // need to figure out a way to restrict it to the project label
-    $('label.form-control').css('background-color','white')
+    $('.rdio').css('background-color','white')
     $(this).css('background-color', 'hotpink')
   });
 });
@@ -15,16 +15,16 @@ $(document).ready(function() {
     <h4>Project Type</h4>
 
     <%= f.radio_button(:project_type,"Pothole") %>
-    <%= f.label :project_type_pothole,"Pothole", class: 'form-control'  %>
+    <%= f.label :project_type_pothole,"Pothole", class: 'form-control rdio'  %>
 
     <%= f.radio_button(:project_type,"Planting") %>
-    <%= f.label :project_type_planting,"Tree Planting", class: 'form-control' %>
+    <%= f.label :project_type_planting,"Tree Planting", class: 'form-control rdio' %>
 
     <%= f.radio_button(:project_type,"Painting") %>
-    <%= f.label :project_type_painting,"Painting", class: 'form-control'  %>
+    <%= f.label :project_type_painting,"Painting", class: 'form-control rdio'  %>
 
     <%= f.radio_button(:project_type,"Trash") %>
-    <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control'  %>
+    <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control rdio'  %>
 
     <h4>Cross Streeets (the ones you are closest to)</h4>
 
