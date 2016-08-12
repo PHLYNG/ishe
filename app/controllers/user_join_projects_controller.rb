@@ -13,6 +13,7 @@ class UserJoinProjectsController < ApplicationController
   end
 
   def create
+    binding.pry
     @project = Project.find(params[:project_id])
 
     # can't really move to model

@@ -109,9 +109,12 @@ class ProjectsController < ApplicationController
           flash[:warning] = "Street names were too similar"
           render 'new'
         else
+          binding.pry
           @project.save
+          binding.pry
             UserJoinProject.create!(user: current_user, project: @project)
             flash[:success] = "First person to create a project gets X baltimore bucks?"
+            binding.pry
             redirect_to @project
 
         end
