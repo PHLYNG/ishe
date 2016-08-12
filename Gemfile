@@ -12,7 +12,7 @@ gem 'bootstrap-sass', '3.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
-# gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.0'
 # use FuzzyMatch for comparing street names
 gem 'fuzzy_match'
 # use figaro to protect sensitive credentials
