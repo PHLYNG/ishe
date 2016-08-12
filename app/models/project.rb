@@ -21,15 +21,22 @@ class Project < ApplicationRecord
   validates :street1, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
   validates :street2, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
 
-  # def streets_are_different
-  #   self.street1.downcase
-  #   self.street2.downcase
-  #  WTF can't I use this if statement to do stuff in the model? Can't call flash or render either
-  #   if FuzzyMatch.new([self.street1]).find(self.street2)
-  #     return false
-  #     # flash[:warning] = "Street names cannot be identical."
-  #     # render 'new'
-  #   end
+  def streets_are_not_different
+    self.street1.downcase
+    self.street2.downcase
+    if FuzzyMatch.new([self.street1]).find(self.street2)
+      return true
+    end
+  end
+
+  # def project_exists
+      # ||
+      # Project.exists?(
+      #   project_type: self.project_type,
+      #   street1: FuzzyMatch.new(Project.all, :read => :street1).find(self.street1),
+      #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(self.street2))
+      # return true
+    # end
   # end
 
   # Validate filename

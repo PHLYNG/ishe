@@ -32,10 +32,11 @@ class ProjectsController < ApplicationController
 
       # determine if project exists already, flipping around streets
       # need to do elsif because of new UserJoinProject
-      if Project.exists?(
-          project_type: @project.project_type,
-          street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
-          street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+    if Project.exists?(
+        project_type: self.project_type,
+        street1: FuzzyMatch.new(Project.all, :read => :street1).find(self.street1),
+        street2: FuzzyMatch.new(Project.all, :read => :street2).find(self.street2))
+      if @project.project_exists
 
           proj = Project.find_by(
                         project_type: @project.project_type,
@@ -64,8 +65,6 @@ class ProjectsController < ApplicationController
             flash[:danger] = "You are already working on this project, now go do it!"
             render 'new'
           end
-
-
 
       elsif Project.exists?(
               project_type: @project.project_type,
@@ -105,7 +104,8 @@ class ProjectsController < ApplicationController
 
       # if project does not exist
       else
-        if FuzzyMatch.new([@project.street1]).find(@project.street2) == true
+        # if FuzzyMatch.new([@project.street1]).find(@project.street2) == true
+        if @project.streets_are_not_different
           flash[:warning] = "Street names were too similar"
           render 'new'
         else
