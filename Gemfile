@@ -9,7 +9,7 @@ gem 'bcrypt', '3.1.11'
 gem 'rails-controller-testing'
 # gem for using assert_template in rails tests
 gem 'rails_12factor', group: :production
-# gem for use with heroku
+# gem for use with heroku 
 gem 'bootstrap-sass', '3.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
