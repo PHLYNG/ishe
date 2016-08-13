@@ -25,8 +25,13 @@ class Project < ApplicationRecord
     self.street1.downcase
     self.street2.downcase
     # if FuzzyMatch.new([self.street1]).find(self.street2)
-    if self.street1 == self.street2
+    if (self.street1).similar(self.street2) > 80.0
       return true
+    end
+  end
+
+  def check_street1
+    if Project.find(street1: self.street1.similar) > 80.0
     end
   end
 
