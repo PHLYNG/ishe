@@ -5,6 +5,9 @@ $(document).ready(function() {
     $('.rdio').css('background-color','white')
     $(this).css('background-color', 'hotpink')
   });
+  $('#in-btn').on('click', function() {
+    $('#project_photo').val()
+  })
 });
 </script>
 
@@ -41,8 +44,10 @@ $(document).ready(function() {
 
     <h4>Image</h4>
 
-    <%= f.file_field :photo, class: 'btn btn-primary' %>
+    <%= f.file_field :photo, id: 'paperclip-btn' %>
 
-  <%= f.submit 'Submit New Project', class: 'btn btn-success' %>
+  <button class="btn btn-primary" id="in-btn">Upload Image</button>
+
+  <%= f.submit 'Submit New Project' %>
 
 <% end %>
