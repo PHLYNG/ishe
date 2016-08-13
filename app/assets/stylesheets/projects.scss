@@ -2,32 +2,97 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com
 
-// .static-div {
-//   width: 100%;
-//   height: 100%;
-//   z-index: -100000;
-//   background-image: url("baltimoreSkyline.jpg");
-//   background-size: cover;
-// }
+* {
+  box-sizing: border-box;
+}
 
-.form-group {
+html {
+  font: 14px/1.4 Sans-Serif;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  margin: 10px auto;
+  justify-content: center;
+  margin: 0px auto;
 
-  .form-control {
+  .rdio {
     text-align: center;
-    margin: 10px auto;
-    background-color: white;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
   }
-  label {
-    max-width: 30%;
-    float: left;
+
+  .new-streets-label {
+    width: 40%;
+    text-align: center;
+    margin: 5px auto;
+  }
+
+  .new-streets-field {
+    width: 50%;
+    margin: 5px auto;
+  }
+
+  input[type='file'] {
+    margin: 10px auto;
+    width: 50%;
+  }
+
+  input[type='submit'] {
+    text-align: center;
+    margin: 0px auto;
+    width: 50%;
   }
 }
+// .new-streets-container {
+//
+//   margin: 0 auto;
+//
+//   .new-streets-field {
+//     margin: 5px -17%;
+//     display: inline;
+//     width: 50%;
+//     border: 2px solid darkgrey;
+//   }
+//
+//   .new-streets-label {
+//     display: inline;
+//     border: none;
+//   }
+//
+// }
+
+// .new-streets-field {
+//   margin: 0 auto;
+//   width: 60%;
+//   border: 2px solid gray;
+//   background: purple;
+//   position: relative;
+//   top: 0;
+//   left: 0;
+//   z-index: 1;
+//   padding: 8px 12px;
+//   outline: 0;
+// }
+//
+// .new-streets-label {
+//   z-index: 100000;
+//   background-color: green;
+//   position: relative;
+//   width: 15%;
+//   bottom: 37px;
+//   left: 59%;
+//   border: none;
+//   padding: 7px 6px;
+// }
+
 
 h1, h2, h4 {
   text-align: center;
+}
+h4 {
+  margin-top: 20px;
 }
 
 input[type='radio'] {
@@ -35,17 +100,12 @@ input[type='radio'] {
   visibility: hidden;
 }
 
-#project_street1, #project_street2 {
-  margin: 0 auto;
-  max-width: 40%;
-}
-
 .alert {
   margin-top: 30px;
 }
 
 #project-loc-link {
-  color: darkblue;
+  color: darkgrey;
   text-decoration: none;
 }
 
@@ -63,9 +123,7 @@ input[type='radio'] {
   }
 }
 
-h4 {
-  margin-top: 20px;
-}
+
 
 a {
   color: white;

@@ -26,18 +26,23 @@ $(document).ready(function() {
     <%= f.radio_button(:project_type,"Trash") %>
     <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control rdio'  %>
 
-    <h4>Cross Streeets (the ones you are closest to)</h4>
+    <h4>Cross Streets (the ones you are closest to)</h4>
 
-    <%= f.label :street1,"First Cross Street", class: 'form-control'  %>
-    <%= f.text_field :street1  %>
+  <div class="new-streets-container">
 
-    <%= f.label :street2,"Second Cross Street", class: 'form-control'  %>
-    <%= f.text_field :street2  %>
+    <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', placeholder: 'First Cross Street'  %>
+
+    <%= f.label :street1,"First Cross Street", class: 'form-control new-streets new-streets-label'  %>
+    <br>
+    <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', placeholder: 'Second Cross Street'  %>
+
+    <%= f.label :street2,"Second Cross Street", class: 'form-control new-streets new-streets-label' %>
+  </div>
 
     <h4>Image</h4>
 
-    <%= f.file_field :photo, class: 'form-control' %>
+    <%= f.file_field :photo, class: 'btn btn-primary' %>
 
-  <%= f.submit %>
+  <%= f.submit 'Submit New Project', class: 'btn btn-success' %>
 
 <% end %>
