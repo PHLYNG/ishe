@@ -30,9 +30,17 @@ class Project < ApplicationRecord
     end
   end
 
-  def check_street1
-    if Project.find(street1: self.street1.similar) > 80.0
+  def check_project_exists
+    if (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) && (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) && (Project.select{ |proj| proj.project_type == self.project_type } )
+      return self
     end
+  end
+
+  def find_project
+    Project.find_by(
+      project_type: @project.project_type,
+      street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+      street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
   end
 
   # def project_exists

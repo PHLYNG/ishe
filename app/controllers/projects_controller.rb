@@ -33,15 +33,17 @@ class ProjectsController < ApplicationController
       # determine if project exists already, flipping around streets
       # need to do elsif because of new UserJoinProject
       binding.pry
-    if Project.exists?(
-        project_type: @project.project_type,
-        street1: @project.check_street1,
-        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+    if @project.check_project_exists == true
+      proj = @project
+      # Project.exists?(
+      #   project_type: @project.project_type,
+      #   street1: @project.check_street1,
+      #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
-          proj = Project.find_by(
-                        project_type: @project.project_type,
-                        street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
-                        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+        # proj = Project.find_by(
+        #   project_type: @project.project_type,
+        #   street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
+        #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
           @userJP = UserJoinProject.new(
             user_id: current_user.id,

@@ -66,6 +66,7 @@ GEM
     ffi (1.9.14)
     figaro (1.1.1)
       thor (~> 0.14)
+    fuzzy_match (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -195,6 +196,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   figaro
+  fuzzy_match
   icalendar (~> 2.2.0)
   jquery-rails
   listen (~> 3.0.5)
