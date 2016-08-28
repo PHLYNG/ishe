@@ -42,15 +42,15 @@ class ProjectsController < ApplicationController
       if @project.check_project_exists.count > 1
         # make all projects matching criteria available in view
         @projects = @project.check_project_exists
-        @userJP = UserJoinProject.create
+        @userJP = UserJoinProject.new(ujp_params.merge({user_id: current_user.id}))
         render 'choose_project'
         # proj = project that user chooses on form
       end
       # set proj equal to params of current project
       # proj = @project.check_project_exists.first
+      binding.pry
 
-
-      proj = Project.find_by(project_type: @project.project_type, street1: @project.street1, street2: @project.street2)
+      # proj = Project.find_by(project_type: @project.project_type, street1: @project.street1, street2: @project.street2)
 
       # Project.exists?(
       #   project_type: @project.project_type,
@@ -65,9 +65,9 @@ class ProjectsController < ApplicationController
         #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
         # create new userJP using proj already in db
-          @userJP = UserJoinProject.new(
-            user_id: current_user.id,
-            project_id: proj.id)
+          # @userJP = UserJoinProject.new(
+          #   user_id: current_user.id,
+          #   project_id: proj.id)
 
           # validations in model make save unsuccessful if user is already on project
           if @userJP.save
@@ -194,5 +194,9 @@ class ProjectsController < ApplicationController
 
   def project_params_with_image_up
     params.require(:project).permit(:project_type, :street1, :street2, :photo)
+  end
+
+  def ujp_params
+    params.require(:project).permit(:project_id)
   end
 end
