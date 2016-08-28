@@ -4,7 +4,7 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
-  # before_save { streets_are_different }
+  # before_save find_project
 
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "300x300>", thumb: "100x100>" },
@@ -31,16 +31,20 @@ class Project < ApplicationRecord
   end
 
   def check_project_exists
-    if (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) && (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) && (Project.select{ |proj| proj.project_type == self.project_type } )
-      return self
-    end
+    (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) && (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) && (Project.select{ |proj| proj.project_type == self.project_type } )
   end
 
   def find_project
-    Project.find_by(
-      project_type: @project.project_type,
-      street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
-      street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+    self.street1.downcase
+    self.street2.downcase
+    # remove symbols based on regex equation?
+    # street become st
+    # road becomes rd
+    # boulevard becomes blvd
+    # avenue becomes ave
+    # squish it all together into one string
+    # possible to check similarity on string vs. strings already in db?
+
   end
 
   # def project_exists

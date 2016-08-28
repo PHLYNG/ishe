@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
       # the above is incorrect without the ".now" because re-rendering a template with render doesn’t count as a request, and flash persist across the site-layout until a new request is made
       #
     end
+    # binding.pry
   end
 
   def destroy

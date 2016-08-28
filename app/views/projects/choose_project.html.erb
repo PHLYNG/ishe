@@ -1,0 +1,24 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  $('.rdio').on('click', function() {
+    // need to figure out a way to restrict it to the project label
+    $('.rdio').css('background-color','white')
+    $(this).css('background-color', 'hotpink')
+  });
+});
+</script>
+
+<h2>We found more than one similar project that has already been created. Please select the project that is most similar to yours.</h2>
+
+  <h4>Choose which Project is most similar:</h4>
+
+<% form_for @userJP do |f| %>
+  <% @projects.each do |proj| %>
+
+    <%= f.radio_button(:project_id, "#{proj.street1} and #{proj.street2}") %>
+    <%= f.label :project_id, "#{proj.street1} and #{proj.street2}", class: 'form-control rdio' %>
+
+  <% end %>
+<% end %>
+
+<% console %>

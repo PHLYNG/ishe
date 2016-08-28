@@ -34,6 +34,10 @@ Rails.application.routes.draw do
     resources :user_join_projects
   end
 
+  get '/choose_project', to: 'projects#choose_project'
+  #
+  # post '/choose_project', to: 'projects#update'
+
   # sessions routes
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

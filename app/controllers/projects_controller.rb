@@ -12,8 +12,11 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  def create
+  def choose_project
+    @project = Project.choose_project
+  end
 
+  def create
     # new project first for file upload
     @project = Project.new( project_params_with_image_up.merge(
 
@@ -32,23 +35,41 @@ class ProjectsController < ApplicationController
 
       # determine if project exists already, flipping around streets
       # need to do elsif because of new UserJoinProject
-      binding.pry
-    if @project.check_project_exists == true
-      proj = @project
+
+      # check if a project or projects exist according to user input already
+    if @project.check_project_exists.count > 0
+      # check project is an array, if more than one project is similiar, render form to let user choose
+      if @project.check_project_exists.count > 1
+        # make all projects matching criteria available in view
+        @projects = @project.check_project_exists
+        @userJP = UserJoinProject.create
+        render 'choose_project'
+        # proj = project that user chooses on form
+      end
+      # set proj equal to params of current project
+      # proj = @project.check_project_exists.first
+
+
+      proj = Project.find_by(project_type: @project.project_type, street1: @project.street1, street2: @project.street2)
+
       # Project.exists?(
       #   project_type: @project.project_type,
       #   street1: @project.check_street1,
       #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
+
+      # set proj equal to a project already in the db
 
         # proj = Project.find_by(
         #   project_type: @project.project_type,
         #   street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
         #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
 
+        # create new userJP using proj already in db
           @userJP = UserJoinProject.new(
             user_id: current_user.id,
             project_id: proj.id)
 
+          # validations in model make save unsuccessful if user is already on project
           if @userJP.save
             flash[:success] = "Next person in gets something or no?"
             # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
@@ -62,10 +83,10 @@ class ProjectsController < ApplicationController
             elsif UserJoinProject.where(project: proj).count > 2
               UserMailer.new_user_on_project(current_user, proj).deliver
             end # UJP.where
-            redirect_to proj
+            # redirect_to proj
           else
             flash[:danger] = "You are already working on this project, now go do it!"
-            render 'new'
+            # render 'new'
           end #UJP.sav
 
       elsif Project.exists?(
