@@ -99,7 +99,7 @@ class ProjectsController < ApplicationController
   private
 
   def project_params_with_image_up
-    params.require(:project).permit(:project_type, :street1, :street2, :photo)
+    params.require(:project).permit(:project_type, :street1, :street2, :city, :state, :photo)
   end
 
   # def ujp_params

@@ -33,13 +33,17 @@ $(document).ready(function() {
 
   <div class="new-streets-container">
 
-    <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', placeholder: 'First Cross Street'  %>
-
+    <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', placeholder: 'First Cross Street' %>
     <%= f.label :street1,"First Cross Street", class: 'form-control new-streets new-streets-label'  %>
     <br>
-    <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', placeholder: 'Second Cross Street'  %>
-
+    <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', placeholder: 'Second Cross Street' %>
     <%= f.label :street2,"Second Cross Street", class: 'form-control new-streets new-streets-label' %>
+    <br>
+    <%= f.text_field :city, class: 'form-control new-streets new-streets-field', placeholder: 'City'  %>
+    <%= f.label :city,"City", class: 'form-control new-streets new-streets-label' %>
+    <br>
+    <%= select_tag :state, options_for_select(us_states), class: 'form-control new-streets-field' %>
+    <%= f.label :state,"State", class: 'form-control new-streets-label' %>
   </div>
 
     <h4>Image</h4>

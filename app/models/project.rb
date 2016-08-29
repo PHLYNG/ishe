@@ -1,8 +1,10 @@
 class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
-  
+
   has_many :project_comments, dependent: :destroy
+
+  before_save { self.city = city.downcase, self.street1 = street1.downcase, self.street2 = street2.downcase }
 
   # before_save find_project
 
@@ -14,25 +16,34 @@ class Project < ApplicationRecord
   # rubular.com
   VALID_STREET_REGEX = /\A\d{0,6}([s][t]|[t][h]|[r][d]){0,2}\s{0,1}[a-zA-Z]{1,50}.{0,1}\s{1}[a-zA-Z]{0,50}.{0,1}\s{0,1}[a-zA-Z]{0,50}.{0,1}[a-zA-Z]{2}.{0,1}$\z/
 
+  # VALID_CITY_REGEX = /\A[a-zA-Z][a-z]{3,20}(\s?|-?)[a-z]{0,20}(\s?|-?)[a-z]{0,20}(\s?|-?)[a-z]{0,20}\z/
+  VALID_CITY_REGEX = /\A[a-zA-Z]+(?:(?:\s+|-)[a-zA-Z]+)*\z/
+
   validates :project_type, presence: true
 
   # validate streets presence and length
   # downcase street names to ensure matching
   validates :street1, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
   validates :street2, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
+  validates :state, presence: true
+  validates :city, presence: true, format: { with: VALID_CITY_REGEX }
 
   # if streets aren't different, new proj page will be rendered again, cross streets can't be the same street
   def streets_are_not_different
     self.street1.downcase
     self.street2.downcase
-    if (self.street1).similar(self.street2) > 80.0
+    if (self.street1).similar(self.street2) >= 80.0
       return true
     end
   end
 
   # check for projects that have similar streets reversing street order as necessary. Returns an array of projects that are similar
   def check_project_exists
-    (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) && (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) && (Project.select{ |proj| proj.project_type == self.project_type } )
+    (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) &&
+    (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) &&
+    (Project.select{ |proj| proj.city.similar(self.city) >= 95.0 }) &&
+    (Project.select{ |proj| proj.state == self.state }) &&
+    (Project.select{ |proj| proj.project_type == self.project_type })
   end
 
   # Validate filename
