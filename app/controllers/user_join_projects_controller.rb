@@ -10,11 +10,12 @@ class UserJoinProjectsController < ApplicationController
   end
 
   def new
+    @userJP = UserJoinProject.new
   end
 
   def create
     @project = Project.find(params[:project_id])
-    @userJP = UserJoinProject.create!(user_join_project_params.merge({ user: current_user, project: @project }))
+    @userJP = UserJoinProject.new(user_join_project_params.merge({ user: current_user, project: @project }))
     binding.pry
     # can't really move to model
     if @userJP.save

@@ -12,10 +12,6 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  def choose_project
-    @project = Project.choose_project
-  end
-
   def create
     # new project first for file upload
     @project = Project.new( project_params_with_image_up.merge(
@@ -33,101 +29,16 @@ class ProjectsController < ApplicationController
       # if created already, add user to that project
       # add user to project by creating new instance of UserJoinProject with same project id
 
-      # determine if project exists already, flipping around streets
-      # need to do elsif because of new UserJoinProject
-
-      # check if a project or projects exist according to user input already
     if @project.check_project_exists.count > 0
       # check project is an array, if more than one project is similiar, render form to let user choose
       if @project.check_project_exists.count > 1
         # make all projects matching criteria available in view
         @projects = @project.check_project_exists
-        @userJP = UserJoinProject.new(ujp_params.merge({user_id: current_user.id}))
-        render 'choose_project'
-        # proj = project that user chooses on form
+        @userJP = UserJoinProject.create
+        # (ujp_params.merge({user_id: current_user.id}))
       end
-      # set proj equal to params of current project
-      # proj = @project.check_project_exists.first
       binding.pry
-
-      # proj = Project.find_by(project_type: @project.project_type, street1: @project.street1, street2: @project.street2)
-
-      # Project.exists?(
-      #   project_type: @project.project_type,
-      #   street1: @project.check_street1,
-      #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
-
-      # set proj equal to a project already in the db
-
-        # proj = Project.find_by(
-        #   project_type: @project.project_type,
-        #   street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street1),
-        #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street2))
-
-        # create new userJP using proj already in db
-          # @userJP = UserJoinProject.new(
-          #   user_id: current_user.id,
-          #   project_id: proj.id)
-
-          # validations in model make save unsuccessful if user is already on project
-          if @userJP.save
-            flash[:success] = "Next person in gets something or no?"
-            # if new user on project is 5th user, set new time and then send email with attached calendar date to all users
-            if UserJoinProject.where(project: proj).count == 2
-              @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
-
-              @users = []
-              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
-              UserMailer.start_project(@users, proj).deliver
-              # if a new user joins, keep the same time and only send that user an email
-            elsif UserJoinProject.where(project: proj).count > 2
-              UserMailer.new_user_on_project(current_user, proj).deliver
-            end # UJP.where
-            # redirect_to proj
-          else
-            flash[:danger] = "You are already working on this project, now go do it!"
-            # render 'new'
-          end #UJP.sav
-
-      elsif Project.exists?(
-              project_type: @project.project_type,
-              street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street2),
-              street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street1))
-        # if project does exists/is true
-
-          proj = Project.find_by(
-                        project_type: @project.project_type,
-                        street1: FuzzyMatch.new(Project.all, :read => :street1).find(@project.street2),
-                        street2: FuzzyMatch.new(Project.all, :read => :street2).find(@project.street1))
-
-          @userJP = UserJoinProject.new(
-            user_id: current_user.id,
-            project_id: proj.id)
-
-          if @userJP.save
-            flash[:success] = "Next person in gets something or no?"
-
-            # if a second (prod - 5th) person joins, reset the clock, but if 6th person joins, keep same time
-            if UserJoinProject.where(project: proj).count == 2
-
-              @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
-
-              @users = []
-              UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user) }
-              UserMailer.start_project(@users, proj).deliver
-              # if a new user joins, keep the same time and only send that user an email
-            elsif UserJoinProject.where(project: proj).count > 2
-              UserMailer.new_user_on_project(current_user, proj).deliver
-            end
-            redirect_to proj
-          else
-            flash[:danger] = "You are already working on this project, now go do it!"
-            render 'new'
-          end
-
-      # if project does not exist
       else
-        # if FuzzyMatch.new([@project.street1]).find(@project.street2) == true
         if @project.streets_are_not_different
           flash[:warning] = "Street names were too similar"
           render 'new'
@@ -140,22 +51,9 @@ class ProjectsController < ApplicationController
             flash[:success] = "First person to create a project gets X baltimore bucks?"
             redirect_to @project
           end
-
-        end #end FuzzyMatch if
-
-
-      # if creating a new ujp, and it is 5th user, get all users on ujp
-      # if number of users before save is == 4, new user will be number five, therefore set action date to +1 week after user joins project
-      # if UserJoinProject.where(project_id: @project.id).count == 4
-      #   @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
-    end # end Project exist ifs
-
-      # set project complete
-      # if Time.now() > UserJoinProject.where(project_id: @project.id).project_action_date
-      #   @project.project_complete == true
-      # end
-
-  end #end create method
+        end #end streets_are_not_different
+      end # end Project exist if
+    end #end create method
 
   def show
     @project = Project.find(params[:id])
@@ -196,7 +94,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:project_type, :street1, :street2, :photo)
   end
 
-  def ujp_params
-    params.require(:project).permit(:project_id)
-  end
+  # def ujp_params
+  #   params.require(:project).permit(:project_id)
+  # end
 end
