@@ -12,6 +12,7 @@ $(document).ready(function() {
 
   <h4>Choose which Project is most similar:</h4>
 
+  <!-- user clicks link which triggers create method in UJP controller -->
   <% @projects.each_with_index do |proj| %>
 
     <li><%= link_to "#{proj.street1} and #{proj.street2}", project_user_join_projects_path(proj), { :controller => :user_join_projects, :action => :create, :method => :post } %></li><%= image_tag proj.photo.url(:thumb) %>

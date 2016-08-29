@@ -40,14 +40,11 @@ class ProjectsController < ApplicationController
         user: current_user,
         project: @project
       )
-      binding.pry
 
     elsif @project.check_project_exists.count > 1
       # make all projects matching criteria available in view
       @projects = @project.check_project_exists
       render 'choose_project'
-      # (ujp_params.merge({user_id: current_user.id}))
-      binding.pry
     else
       if @project.streets_are_not_different
         flash[:warning] = "Street names were too similar"
@@ -87,6 +84,7 @@ class ProjectsController < ApplicationController
     # a project "lives" on a user account
     # if a user deletes a project, then all the UJPs need to be deleted or the ones that are left won't be related to a project
     # solution - projects need to "live" somewhere else, but how?
+    # or maybe this isn't a problem, one user shouldn't be able to delete a project that everyone is working on, only one that they've created and no one else is doing
     @project = Project.find(params[:id])
     if @project.user_join_projects.count < 2
       @ujp = UserJoinProject.where(project_id: @project.id, user_id: current_user.id)
