@@ -21,41 +21,19 @@ class Project < ApplicationRecord
   validates :street1, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
   validates :street2, presence: true, length: { minimum: 5 }, format: { with: VALID_STREET_REGEX }
 
+  # if streets aren't different, new proj page will be rendered again, cross streets can't be the same street
   def streets_are_not_different
     self.street1.downcase
     self.street2.downcase
-    # if FuzzyMatch.new([self.street1]).find(self.street2)
     if (self.street1).similar(self.street2) > 80.0
       return true
     end
   end
 
+  # check for projects that have similar streets reversing street order as necessary. Returns an array of projects that are similar
   def check_project_exists
     (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) && (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) && (Project.select{ |proj| proj.project_type == self.project_type } )
   end
-
-  def find_project
-    self.street1.downcase
-    self.street2.downcase
-    # remove symbols based on regex equation?
-    # street become st
-    # road becomes rd
-    # boulevard becomes blvd
-    # avenue becomes ave
-    # squish it all together into one string
-    # possible to check similarity on string vs. strings already in db?
-
-  end
-
-  # def project_exists
-      # ||
-      # Project.exists?(
-      #   project_type: self.project_type,
-      #   street1: FuzzyMatch.new(Project.all, :read => :street1).find(self.street1),
-      #   street2: FuzzyMatch.new(Project.all, :read => :street2).find(self.street2))
-      # return true
-    # end
-  # end
 
   # Validate filename
   validates :photo, attachment_presence: true
