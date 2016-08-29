@@ -34,33 +34,36 @@ class ProjectsController < ApplicationController
       # add user to project by creating new instance of UserJoinProject with same project id
 
     if @project.check_project_exists.count == 1
+      @project = @project.check_project_exists.first
       # check project is an array, if more than one project is similiar, render form to let user choose
-      UserJoinProject.create
-
-      if @project.check_project_exists.count > 1
-        # make all projects matching criteria available in view
-        @projects = @project.check_project_exists
-        @userJP = UserJoinProject.create
-        # (ujp_params.merge({user_id: current_user.id}))
-        binding.pry
-      end
+      UserJoinProject.create(
+        user: current_user,
+        project: @project
+      )
       binding.pry
+
+    elsif @project.check_project_exists.count > 1
+      # make all projects matching criteria available in view
+      @projects = @project.check_project_exists
+      render 'choose_project'
+      # (ujp_params.merge({user_id: current_user.id}))
+      binding.pry
+    else
+      if @project.streets_are_not_different
+        flash[:warning] = "Street names were too similar"
+        render 'new'
       else
-        if @project.streets_are_not_different
-          flash[:warning] = "Street names were too similar"
+        @project.save
+        if @project.save == false
           render 'new'
         else
-          @project.save
-          if @project.save == false
-            render 'new'
-          else
-            UserJoinProject.create!(user: current_user, project: @project)
-            flash[:success] = "First person to create a project gets X baltimore bucks?"
-            redirect_to @project
-          end
-        end #end streets_are_not_different
-      end # end Project exist if
-    end #end create method
+          UserJoinProject.create!(user: current_user, project: @project)
+          flash[:success] = "First person to create a project gets X baltimore bucks?"
+          redirect_to @project
+        end #end UJP create
+      end #end streets_are_not_different
+    end # end Project exist if
+  end #end create method
 
   def show
     @project = Project.find(params[:id])

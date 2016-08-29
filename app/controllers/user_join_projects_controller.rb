@@ -15,7 +15,7 @@ class UserJoinProjectsController < ApplicationController
 
   def create
     @project = Project.find(params[:project_id])
-    @userJP = UserJoinProject.new(user_join_project_params.merge({ user: current_user }))
+    @userJP = UserJoinProject.new({ user: current_user, project: @project })
     binding.pry
     # can't really move to model
     if @userJP.save
@@ -26,11 +26,11 @@ class UserJoinProjectsController < ApplicationController
         @project.project_action_date = DateTime.now.end_of_week + (7.days - 14.hours + 1.second)
 
         @users = []
-        UserJoinProject.where(project: proj).each{ |ujp| @users.push(ujp.user.email) }
-        UserMailer.start_project(@users, proj).deliver
+        UserJoinProject.where(project: @project).each{ |ujp| @users.push(ujp.user.email) }
+        UserMailer.start_project(@users, @project).deliver
         # if a new user joins, keep the same time and only send that user an email
       elsif UserJoinProject.where(project: @project).count > 2
-        UserMailer.new_user_on_project(current_user, proj).deliver
+        UserMailer.new_user_on_project(current_user, @project).deliver
       end # UJP.where
       redirect_to @project
 
@@ -47,11 +47,6 @@ class UserJoinProjectsController < ApplicationController
   end
 
   def delete
-  end
-
-  private
-  def user_join_project_params
-    params.require(:user_join_project).permit(:project, :user)
   end
 
 end
