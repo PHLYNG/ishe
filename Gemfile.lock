@@ -69,6 +69,8 @@ GEM
     fuzzy_match (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    httparty (0.14.0)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     icalendar (2.2.2)
     jquery-rails (4.1.1)
@@ -89,6 +91,7 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
+    multi_xml (0.5.5)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -197,6 +200,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   figaro
   fuzzy_match
+  httparty
   icalendar (~> 2.2.0)
   jquery-rails
   listen (~> 3.0.5)

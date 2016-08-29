@@ -7,6 +7,21 @@
   %>
 </h1>
 
+<!-- <iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src=>"https://www.google.com/maps/embed/v1/place?key=apikey&q=Space+Needle,Seattle+WA" allowfullscreen
+</iframe> -->
+
+<%= content_tag :iframe,
+  { width: '600',
+    height: '450',
+    frameborder: '0',
+    style: 'border: 0px',
+    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1}+#{@project.street2}+#{@project.city}+#{@project.state}"
+    } %>
+
   <!-- if DateTime.now > @project.project_action_date && complete_button_after_click == false -->
   <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %>
   <%= form_for @project do |f| %>

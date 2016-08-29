@@ -8,6 +8,11 @@ class ProjectsController < ApplicationController
     end
   end
 
+  # method for getting OSM map and putting on show page
+  # def get_map
+    # @map = new map with project params (city, state, street1, street2)
+  # end
+
   def new
     @project = Project.new
   end
@@ -52,7 +57,7 @@ class ProjectsController < ApplicationController
       else
         @project.save
         if @project.save == false
-          render 'new'
+          render 'projects/new'
         else
           UserJoinProject.create!(user: current_user, project: @project)
           flash[:success] = "First person to create a project gets X baltimore bucks?"

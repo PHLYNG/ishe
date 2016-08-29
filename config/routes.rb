@@ -1,25 +1,4 @@
 Rails.application.routes.draw do
-
-  # get 'users_join_projects/index'
-  #
-  # get 'users_join_projects/new'
-  #
-  # get 'users_join_projects/create'
-  #
-  # get 'users_join_projects/save'
-  #
-  # get 'users_join_projects/delete'
-
-  # get 'projects/index'
-  #
-  # get 'projects/new'
-  #
-  # get 'projects/create'
-  #
-  # get 'projects/update'
-  #
-  # get 'projects/destroy'
-
   # static routes
   root 'static_pages#home'
   get 'static_pages/home'
@@ -38,6 +17,9 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+
+  # OSM route, on map show page and make get_map action in proj controller
+  # get '/projects/:id', to: 'projects#get_map'
 
   # routes from did_that
   resources :projects do
