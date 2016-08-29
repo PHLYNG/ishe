@@ -12,6 +12,10 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
+  def choose_project
+    @project = Project.choose_project
+  end
+
   def create
     # new project first for file upload
     @project = Project.new( project_params_with_image_up.merge(
@@ -29,13 +33,16 @@ class ProjectsController < ApplicationController
       # if created already, add user to that project
       # add user to project by creating new instance of UserJoinProject with same project id
 
-    if @project.check_project_exists.count > 0
+    if @project.check_project_exists.count == 1
       # check project is an array, if more than one project is similiar, render form to let user choose
+      UserJoinProject.create
+
       if @project.check_project_exists.count > 1
         # make all projects matching criteria available in view
         @projects = @project.check_project_exists
         @userJP = UserJoinProject.create
         # (ujp_params.merge({user_id: current_user.id}))
+        binding.pry
       end
       binding.pry
       else
