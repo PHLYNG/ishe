@@ -1,7 +1,7 @@
 class Project < ApplicationRecord
   has_many :user_join_projects, dependent: :destroy
   has_many :users, through: :user_join_projects
-
+  
   has_many :project_comments, dependent: :destroy
 
   # before_save find_project
@@ -40,6 +40,4 @@ class Project < ApplicationRecord
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
   validates_attachment_size :photo, :less_than => 5.megabytes
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
-
-
 end
