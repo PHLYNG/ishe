@@ -11,17 +11,19 @@
   width="600"
   height="450"
   frameborder="0" style="border:0"
-  src=>"https://www.google.com/maps/embed/v1/place?key=apikey&q=Space+Needle,Seattle+WA" allowfullscreen
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAZW4rZdsRXd2unQ4HHkyJY83apdkr-MZk&q=92nd+St.+%26+West+End+Ave+New+York+NY" allowfullscreen>
 </iframe> -->
 
 <%= content_tag :iframe,
-  { width: '600',
-    height: '450',
+  { width: '90%',
+    height: '10%',
     frameborder: '0',
-    style: 'border: 0px',
-    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1}+#{@project.street2}+#{@project.city}+#{@project.state}"
-    } %>
+    style: 'border: 0px; display: block; margin: 0 auto;',
+    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')}+%26+#{@project.street2.gsub(/\s+/,'+')}+#{@project.city.gsub(/\s+/,'+')}+#{@project.state}"
+    } do -%>
+    <% end -%>
 
+<% console %>
   <!-- if DateTime.now > @project.project_action_date && complete_button_after_click == false -->
   <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %>
   <%= form_for @project do |f| %>

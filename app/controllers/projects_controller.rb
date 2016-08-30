@@ -17,13 +17,9 @@ class ProjectsController < ApplicationController
     @project = Project.new
   end
 
-  def choose_project
-    @project = Project.choose_project
-  end
-
   def create
     # new project first for file upload
-    @project = Project.new( project_params_with_image_up.merge(
+    @project = Project.new(project_params_with_image_up.merge(
 
       # DateTime.now gets current DateTime
       # end of week gets sunday at 23:59:59
@@ -31,7 +27,7 @@ class ProjectsController < ApplicationController
       # -10.hours because default UTC time
       { project_action_date: DateTime.now.end_of_week + (7.days - 10.hours + 1.second),
         complete_button_after_click: false,
-        project_complete: false }))
+        project_complete: false } ))
 
     # save project if it is unique
     # do not save project if it has been created already

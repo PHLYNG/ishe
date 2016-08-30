@@ -39,11 +39,11 @@ $(document).ready(function() {
     <%= f.label :street2,"Second Cross Street", class: 'form-control new-streets new-streets-label' %>
     <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', placeholder: 'Second Cross Street' %>
     <br>
-    <%= f.label :city,"City", class: 'form-control new-streets new-streets-label' %>
+    <%= f.label :city, "City", class: 'form-control new-streets new-streets-label' %>
     <%= f.text_field :city, class: 'form-control new-streets new-streets-field', placeholder: 'City'  %>
     <br>
-    <%= f.label :state,"State", class: 'form-control new-streets-label' %>
-    <%= select_tag :state, options_for_select(us_states), class: 'form-control new-streets-field' %>
+    <%= f.label :state, "State", class: 'form-control new-streets-label' %>
+    <%= f.select :state, options_for_select(us_states), class: 'form-control new-streets-field' %>
   </div>
 
     <h4>Image</h4>
@@ -53,5 +53,5 @@ $(document).ready(function() {
   <button class="btn btn-primary" id="in-btn">Upload Image</button>
 
   <%= f.submit 'Submit New Project' %>
-
+  <% console %>
 <% end %>
