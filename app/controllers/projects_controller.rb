@@ -42,6 +42,8 @@ class ProjectsController < ApplicationController
         project: @project
       )
 
+      redirect_to @project
+
     elsif @project.check_project_exists.count > 1
       # make all projects matching criteria available in view
       @projects = @project.check_project_exists

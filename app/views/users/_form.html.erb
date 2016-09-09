@@ -13,5 +13,11 @@
   <%= f.label :password_confirmation, "Confirmation" %>
   <%= f.password_field :password_confirmation, class: 'form-control'  %>
 
+  <h4>Photo of You!</h4>
+  <%= f.file_field :photo, id: 'paperclip-btn' %>
+
+  <%= f.label :motto, "What Words do You Live By?" %>
+  <%= f.text_field :motto, class: 'form-control'  %>
+
   <%= f.submit "Create my account", class: "btn btn-primary" %>
 <% end %>

@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
-  :url => "/assets/users/:id/:style/:basename.:extension",
-  :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
+  :url => "/assets/user/:id/:style/:basename.:extension",
+  :path => ":rails_root/public/assets/user/:id/:style/:basename.:extension"
 
   # validates is a var(?), name is a symbol and presence is a key
   validates :name, presence: true, length: {maximum: 50}
@@ -33,6 +33,12 @@ class User < ApplicationRecord
 
    BCrypt::Password.create(string, cost: cost)
  end
+
+# validate photo attachments, req for paperclip
+ validates :photo, attachment_presence: true
+ validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
+ validates_attachment_size :photo, :less_than => 5.megabytes
+ validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
 
   # >> %w[foo bar baz]

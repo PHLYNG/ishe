@@ -49,6 +49,7 @@
     <% unless UserJoinProject.where(project: @project).count > 5 %>
     <% UserJoinProject.where(project: @project).map do |ujp| %>
       <%= image_tag ujp.project.photo.url(:medium) %>
+      <p></p>
       <% end %>
     <% else %>
     <% UserJoinProject.where(project: @project).map do |ujp| %>
@@ -71,7 +72,7 @@
       <% @project.users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= user.photo %></td>
+        <td><%= image_tag user.photo.url(:medium) %></td>
         <td><%= user.motto %></td>
       </tr>
       <% end %>
