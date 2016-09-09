@@ -4,12 +4,11 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
+  # downcase to make comparisons more accurate, but right now doesn't work properly, downcases all and saves to city field
   # before_save { self.city = city.downcase, self.street1 = street1.downcase, self.street2 = street2.downcase }
 
-  # before_save find_project
-
   has_attached_file :photo,
-  styles: { large: "500x500>", medium: "300x300>", thumb: "100x100>" },
+  styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
   :url => "/assets/projects/:id/:style/:basename.:extension",
   :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
 
