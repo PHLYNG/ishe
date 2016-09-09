@@ -1,5 +1,4 @@
-<%= form_for(@user, url: signup_path) do |f| %>
-
+<%= form_for(@user, url: user_path) do |f| %>
   <%= render 'shared/error_messages' %>
 
   <%= f.label :name %>
@@ -20,5 +19,5 @@
   <%= f.label :motto, "What Words do You Live By?" %>
   <%= f.text_field :motto, class: 'form-control'  %>
 
-  <%= f.submit "Create my account", class: "btn btn-primary" %>
+  <%= f.submit "Update my account", class: "btn btn-primary" %>
 <% end %>
