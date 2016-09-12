@@ -10,6 +10,10 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    if current_user
+      flash[:warning] = "You are already logged in. In order to create another account you must first log out."
+      redirect_to current_user
+    end
   end
 
   def create
@@ -33,20 +37,34 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @projects = current_user.projects
+    unless @user.id == current_user.id
+      flash[:danger] = "You can only view your user profile!"
+      redirect_to current_user
+    else
     respond_to do |format|
       format.html
       format.json { render json: [@user, @projects], status: :created, location: @user }
     end
   end
+  end
 
   def edit
     @user = User.find(params[:id])
+    unless @user.id == current_user.id
+      flash[:danger] = "You can only edit your user profile!"
+      redirect_to current_user
+    end
   end
 
   def update
     @user = User.find(params[:id])
-    @user.update_attributes(user_params)
-    redirect_to @user
+    unless @user.id == current_user.id
+      flash[:danger] = "You can only update your user profile!"
+      redirect_to current_user
+    else
+      @user.update_attributes(user_params)
+      redirect_to @user
+    end
   end
 
 #########################################

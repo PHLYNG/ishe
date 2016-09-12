@@ -23,26 +23,6 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
-body {
-  // padding-top: 20px;
-    .jumbotron {
-      width: 100%;
-      background-image: image-url("baltimoreSkyline.jpg");
-      background-position: center;
-      background-size: cover;
-      margin-left: -50px;
-      .welcome {
-        text-align: right;
-        margin-bottom: 50px;
-        margin-top: -30px;
-      }
-      #welcomeh {
-        margin-bottom: 200px;
-        color: black;
-      }
-    }
-  }
-
 section {
   overflow: auto;
 }

@@ -1,3 +1,6 @@
+<% unless current_user.id == @user.id %>
+  <h2>You can only view your user profile</h2>
+<% else %>
 <% provide(:title, @user.name) %>
 <div class="row">
     <section class="user_info">
@@ -47,3 +50,5 @@
     <% end %>
     </tbody>
   </table>
+
+<% end %>
