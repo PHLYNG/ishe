@@ -33,9 +33,8 @@ class ProjectsController < ApplicationController
     # do not save project if it has been created already
       # if created already, add user to that project
       # add user to project by creating new instance of UserJoinProject with same project id
-
-    if @project.check_project_exists.count == 1
-      @project = @project.check_project_exists.first
+    if @project.project_exists.count == 1
+      @project = @project.project_exists.first
       # check project is an array, if more than one project is similiar, render form to let user choose
       UserJoinProject.create(
         user: current_user,
@@ -44,9 +43,9 @@ class ProjectsController < ApplicationController
 
       redirect_to @project
 
-    elsif @project.check_project_exists.count > 1
+    elsif @project.project_exists.count > 1
       # make all projects matching criteria available in view
-      @projects = @project.check_project_exists
+      @projects = @project.project_exists
       render 'choose_project'
     else
       if @project.streets_are_not_different
