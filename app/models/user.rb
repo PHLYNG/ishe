@@ -8,13 +8,15 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
 
+  validates :motto, length: { maximum: 255 }
+
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
   :url => "/assets/user/:id/:style/:basename.:extension",
   :path => ":rails_root/public/assets/user/:id/:style/:basename.:extension"
 
   # validates is a var(?), name is a symbol and presence is a key
-  validates :name, presence: true, length: {maximum: 50}
+  validates :name, presence: true, length: { maximum: 50 }
   # VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   # allows foo@bar..com
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
