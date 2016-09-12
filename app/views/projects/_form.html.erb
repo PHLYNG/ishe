@@ -1,12 +1,16 @@
 <script type="text/javascript">
 $(document).ready(function() {
+  // change color of radio button label to show radio button is selected
   $('.rdio').on('click', function() {
-    // need to figure out a way to restrict it to the project label
     $('.rdio').css('background-color','white')
     $(this).css('background-color', 'hotpink')
   });
-  $('#in-btn').on('click', function() {
-    $('#project_photo').val()
+  //change label to name of file/image that will be uploaded
+  $("input[type='file']").change(function() {
+    // resize label to fit filename/path
+    $(".image-label").html($(this).val());
+    var size = $(this).val().length;
+    $(".image-label").css('width', size*10)
   })
 });
 </script>
@@ -48,10 +52,11 @@ $(document).ready(function() {
 
     <h4>Image</h4>
 
-    <%= f.file_field :photo, id: 'paperclip-btn' %>
+    <%= f.label :photo, "Upload an Image", class: 'form-control image-label' %>
+    <%= f.file_field :photo, class: 'form-control' %>
 
   <!-- <button class="btn btn-primary" id="in-btn">Upload Image</button> -->
 
   <%= f.submit 'Submit New Project' %>
-  <% console %>
 <% end %>
+<% console %>

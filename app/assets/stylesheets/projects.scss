@@ -10,6 +10,10 @@ html {
   font: 14px/1.4 Sans-Serif;
 }
 
+.container-fluid {
+  padding: 0px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -35,58 +39,37 @@ form {
   }
 
   input[type='file'] {
+    display: none;
+  }
+
+  .image-label {
+    width: 40%;
+    text-align: center;
     margin: 10px auto;
-    width: 50%;
   }
 
   input[type='submit'] {
     text-align: center;
     margin: 0px auto;
     width: 50%;
+    border-radius: 5px;
+    background-color: #5CB85C;
+    padding: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
+    font-family: sans-serif;
+  }
+
+  input[type="submit"]:hover {
+    background-color: forestgreen;
   }
 }
-// .new-streets-container {
-//
-//   margin: 0 auto;
-//
-//   .new-streets-field {
-//     margin: 5px -17%;
-//     display: inline;
-//     width: 50%;
-//     border: 2px solid darkgrey;
-//   }
-//
-//   .new-streets-label {
-//     display: inline;
-//     border: none;
-//   }
-//
-// }
 
-// .new-streets-field {
-//   margin: 0 auto;
-//   width: 60%;
-//   border: 2px solid gray;
-//   background: purple;
-//   position: relative;
-//   top: 0;
-//   left: 0;
-//   z-index: 1;
-//   padding: 8px 12px;
-//   outline: 0;
-// }
-//
-// .new-streets-label {
-//   z-index: 100000;
-//   background-color: green;
-//   position: relative;
-//   width: 15%;
-//   bottom: 37px;
-//   left: 59%;
-//   border: none;
-//   padding: 7px 6px;
-// }
-
+input[type='radio'] {
+  display: none;
+  visibility: hidden;
+}
 
 h1, h2, h4 {
   text-align: center;
@@ -95,27 +78,13 @@ h4 {
   margin-top: 20px;
 }
 
-input[type='radio'] {
-  display: none;
-  visibility: hidden;
-}
-
 .alert {
   margin-top: 30px;
 }
 
-#project-loc-link {
-  color: darkgrey;
-  text-decoration: none;
-}
-
-#project-loc-link:hover {
-  color: skyblue;
-  background-color: transparent;
-}
-
 .table {
   margin: 0 auto;
+  width: 96%;
 
   th, td {
     margin: 0 auto;
@@ -123,26 +92,23 @@ input[type='radio'] {
   }
 }
 
-
-
-a {
-  color: white;
+#project-loc-link {
   text-decoration: none;
+  color: blue;
 }
 
-.com-body {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: white;
-  background-color: darkgrey;
-  border-radius: 10px;
+#project-loc-link:hover {
+  color: skyblue;
+  background-color: transparent;
 }
 
-.project-pics {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  flex-grow: 1;
-  margin-left: 10px;
-  margin-right: 10px;
+.btn {
+  margin-left: 10%;
+}
+
+#project_state {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+  height: 30px;
 }

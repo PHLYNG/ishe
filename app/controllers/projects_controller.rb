@@ -67,11 +67,16 @@ class ProjectsController < ApplicationController
 
   def show
     @project = Project.find(params[:id])
+    unless @project.users.exists?(current_user)
+      flash[:danger] = "You must be on a Project in order to view it. Try creating a new Project!"
+      redirect_to current_user
+    else
     respond_to do |format|
       format.html
       format.json { render json: @project, status: :created, location: @project }
     end
     @user = current_user
+    end
   end
 
   def update

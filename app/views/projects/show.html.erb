@@ -1,20 +1,23 @@
+<% unless @project.users.exists?(current_user) %>
+  <h1>Sorry, you are not currently on this Project. Try creating a new Project!</h1>
+<% else %>
 <%= content_tag :iframe,
   { width: '100%',
     height: '20%',
     frameborder: '0',
-    style: 'border: 0px; display: block; margin: 0 auto; padding: 0px;',
+    style: 'left: 0px; border: 0px; display: block; margin: 0 auto;',
     src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')}+%26+#{@project.street2.gsub(/\s+/,'+')}+#{@project.city.gsub(/\s+/,'+')}+#{@project.state}"
     } do -%>
 <% end -%>
 
 <div class="static-div">
-<h1>
+<h4>
   <%=
     link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}",
     "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')}+#{@project.city.gsub(/\s+/,'+')}+#{@project.state}",
     id: 'project-loc-link'
   %>
-</h1>
+</h4>
 
   <!-- if DateTime.now > @project.project_action_date && complete_button_after_click == false -->
   <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %>
@@ -45,47 +48,47 @@
     </tbody>
   </table>
 
-  <div class="project-pics">
-    <% unless UserJoinProject.where(project: @project).count > 5 %>
-    <% UserJoinProject.where(project: @project).map do |ujp| %>
-      <%= image_tag ujp.project.photo.url(:medium) %>
-      <p></p>
+  <table class="table">
+    <tr>
+      <% unless UserJoinProject.where(project: @project).count > 3 %>
+        <% UserJoinProject.where(project: @project).map do |ujp| %>
+          <td><%= image_tag ujp.project.photo.url(:medium) %></td>
+        <% end %>
+      <% else %>
+        <% UserJoinProject.where(project: @project).map do |ujp| %>
+          <td><%= image_tag ujp.project.photo.url(:thumb) %></td>
+        <% end %>
       <% end %>
-    <% else %>
-    <% UserJoinProject.where(project: @project).map do |ujp| %>
-      <%= image_tag ujp.project.photo.url(:thumb) %>
-      <% end %>
-    <% end %>
-  </div>
+    </tr>
+  </table>
 
   <h1>People Working on this Project</h1>
 
-  <table>
+  <table class="table">
     <thead>
       <tr>
         <th>Name</th>
         <th>Photo</th>
-        <th>Motto</th>
+        <th>Words of Wisdom</th>
       </tr>
     </thead>
     <tbody>
       <% @project.users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= image_tag user.photo.url(:medium) %></td>
+        <td><%= image_tag user.photo.url(:medium), style: 'border-radius: 50%' %></td>
         <td><%= user.motto %></td>
       </tr>
       <% end %>
     </tbody>
   </table>
 
-  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
-  <table class="table com-body">
+  <table class="table">
     <thead>
       <th>Author</th>
-      <th>Post</th>
+      <th>Comment</th>
       <th></th>
-      <th></th>
+      <th><%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary", style: 'color: white' %></th>
     </thead>
 
     <tbody>
@@ -94,12 +97,18 @@
       <tr>
         <td><%= com.author %></td>
         <td><%= com.body %></td>
-        <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
-        <td><%= link_to 'Delete', project_project_comment_path(@project, com), method: :delete, class: "btn btn-primary btn-danger" %></td>
+        <% if com.author == current_user.name %>
+          <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
+          <td><%= link_to 'Delete', project_project_comment_path(@project, com), method: :delete, class: "btn btn-primary btn-danger" %></td>
+        <% else %>
+          <td></td>
+          <td></td>
+        <% end %>
       </tr>
       <% end %>
       <% end %>
     </tbody>
   </table>
-  <%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary" %>
 </div>
+<% end %>
+<% console %>
