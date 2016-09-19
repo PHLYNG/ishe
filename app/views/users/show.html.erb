@@ -16,8 +16,8 @@
 
 </div>
 
-  <table class="table-hover">
-    <thead>
+  <table class="table">
+    <thead class="thead-users thead-inverse">
       <th></th>
       <th>Project Type</th>
       <th>Location</th>
@@ -35,9 +35,9 @@
 
         <td><%= "Intersection of #{proj.project.street1} and #{proj.project.street2}" %></td>
 
-        <td><%= proj.project.project_action_date %></td>
+        <td class="p-action-date"><%= proj.project.project_action_date %></td>
 
-        <td><%= proj.project.project_complete %></td>
+        <td class="p-complete"><%= proj.project.project_complete %></td>
 
         <td><% if proj.project.photo %>
         <%= image_tag proj.project.photo(:thumb) %>
@@ -52,3 +52,10 @@
   </table>
 
 <% end %>
+<script type="text/javascript">
+// at bottom of screen because els need to load first
+  if (window.screen.availWidth <= 700) {
+    $('.p-action-date').prepend("<b>Project Action Date </b><br>")
+    $('.p-complete').prepend('<b>Project Complete? </b><br>')
+  }
+</script>

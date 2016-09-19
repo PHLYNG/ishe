@@ -32,7 +32,7 @@ textarea {
 }
 
 .buttons {
-  margin: 0 auto;
+  margin: 0px auto;
   display: flex;
   flex-direction: row;
   flex-grow: 1;
@@ -42,12 +42,17 @@ textarea {
     background-color: transparent;
     border-radius: 0px;
     border-color: rebeccapurple;
-    margin: 0 auto;
   }
   .btn-primary:hover {
     background-color: rebeccapurple;
     color: white;
   }
+}
+
+.jumbotron {
+  background-image: url('baltimoreSkyline.jpg');
+  background-size: cover;
+  background-position: 0 12.5%;
 }
 
 /* typography */
@@ -77,17 +82,25 @@ p {
   line-height: 1.7em;
 }
 
+nav {
+  position: absolute;
+  top: -5%;
+  left: 2%;
+}
+
 
 /* header */
 #logo {
   float: right;
-  margin-right: 10px;
+  margin-right: 5%;
   font-size: 1.7em;
   color: white;
   text-transform: uppercase;
   letter-spacing: -1px;
-  margin-top: 15px;
   font-weight: bold;
+  position: absolute;
+  top: 33%;
+  right: 0%;
   &:hover {
     color: white;
     text-decoration: none;
@@ -174,5 +187,18 @@ aside {
       margin-bottom: 3px;
       margin-top: 0px;
     }
+  }
+}
+
+@media (max-width: 700px) {
+  .buttons {
+    flex-direction: column;
+    .btn-primary {
+      width: 90%;
+      margin: 10px auto;
+    }
+  }
+  .jumbotron {
+    background-image: none;
   }
 }

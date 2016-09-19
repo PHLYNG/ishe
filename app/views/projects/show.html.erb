@@ -33,7 +33,7 @@
 
 
   <table class="table">
-    <thead>
+    <thead class='thead-inverse thead-projects'>
       <tr>
         <th>Project Action Date</th>
         <th>Project Complete?</th>
@@ -42,8 +42,12 @@
 
     <tbody>
       <tr>
-        <td><%= @project.project_action_date %></td>
-        <td><%= if @project.project_complete then "Great Job" else "Get to Work!" end%></td>
+        <td id="p-action-date">
+          <%= @project.project_action_date %>
+        </td>
+        <td id="p-complete">
+          <%= if @project.project_complete then "Yup! Great Job!" else "Nope, Get to Work!" end %>
+        </td>
       </tr>
     </tbody>
   </table>
@@ -84,18 +88,18 @@
   </table>
 
   <table class="table">
-    <thead>
+    <thead class="comments-head">
       <th>Author</th>
       <th>Comment</th>
       <th></th>
-      <th><%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary", style: 'color: white' %></th>
+      <th><%= link_to "New Comment", new_project_project_comment_path(@project), class: "btn btn-primary", style: 'color: white', id: 'new-comment' %></th>
     </thead>
 
     <tbody>
       <% if @project.project_comments %>
       <% @project.project_comments.each do |com| %>
       <tr>
-        <td><%= com.author %></td>
+        <td><b><%= com.author %></b></td>
         <td><%= com.body %></td>
         <% if com.author == current_user.name %>
           <td><%= link_to 'Edit', edit_project_project_comment_path(@project, com), class: "btn btn-primary" %></td>
@@ -112,3 +116,10 @@
 </div>
 <% end %>
 
+<script type="text/javascript">
+// at bottom of screen because els need to load first
+  if (window.screen.availWidth <= 700) {
+    $('#p-action-date').prepend("<b>Project Action Date </b>")
+    $('#p-complete').prepend('<b>Project Complete? </b>')
+  }
+</script>

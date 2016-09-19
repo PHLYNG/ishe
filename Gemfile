@@ -3,16 +3,16 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.0'
-# bootstrap for styling
-gem 'bcrypt', '3.1.11'
 # gem for hashing user passwords
-gem 'rails-controller-testing'
+gem 'bcrypt', '3.1.11'
 # gem for using assert_template in rails tests
-gem 'rails_12factor', group: :production
+gem 'rails-controller-testing'
 # gem for use with heroku
-gem 'httparty'
+gem 'rails_12factor', group: :production
 # use httparty to make HTTP requests from rails
-gem 'bootstrap-sass', '3.3.6'
+gem 'httparty'
+# bootstrap for styling
+gem 'bootstrap-sass'#, '3.3.6'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.18'
 # Use Puma as the app server

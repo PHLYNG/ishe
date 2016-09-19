@@ -23,18 +23,18 @@ form {
   .rdio {
     text-align: center;
     width: 50%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .new-streets-label {
-    width: 40%;
-    text-align: center;
     margin: 5px auto;
   }
 
+  .new-streets-label {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+    margin-top: 10px;
+  }
+
   .new-streets-field {
-    width: 50%;
+    width: 90%;
     margin: 5px auto;
   }
 
@@ -43,14 +43,17 @@ form {
   }
 
   .image-label {
-    width: 40%;
+    width: 90%;
+    height: 75px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     margin: 10px auto;
   }
 
   input[type='submit'] {
     text-align: center;
-    margin: 0px auto;
     width: 50%;
     border-radius: 5px;
     background-color: #5CB85C;
@@ -76,6 +79,7 @@ h1, h2, h4 {
 }
 h4 {
   margin-top: 20px;
+
 }
 
 .alert {
@@ -93,6 +97,7 @@ h4 {
 }
 
 #project-loc-link {
+  padding: 10px;
   text-decoration: none;
   color: blue;
 }
@@ -110,5 +115,48 @@ h4 {
   display: block;
   margin: 0 auto;
   width: 50%;
-  height: 30px;
+  height: 50px;
+  text-align-last: center;
+}
+.project-list-main {
+  margin: 0 auto;
+  text-align: center;
+
+  h2 {
+    font-family: sans-serif;
+  }
+
+  .choose-projects {
+    list-style: none;
+    margin: 10px auto;
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: bold;
+  }
+  .btn {
+    a {
+      color: white;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .rdio {
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+  }
+  .btn {
+    margin: 0 auto;
+  }
+  .comments-head {
+    display: block;
+    tr {
+      th:nth-child(-n+3) {
+        display: none;
+      }
+    }
+  }
 }

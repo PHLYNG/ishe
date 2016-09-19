@@ -1,3 +1,12 @@
 // Place all the styles related to the Sessions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@media (max-width: 700px) {
+  h1 {
+    margin-top: 30px;
+  }
+  #session_password {
+    margin-bottom: 20px;
+  }
+}

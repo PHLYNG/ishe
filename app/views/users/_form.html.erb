@@ -14,23 +14,22 @@ $(document).ready(function() {
 
   <%= render 'shared/error_messages' %>
 
-  <%= f.label :name, class: 'form-control new-streets new-streets-label' %>
+  <%= f.label :name, class: 'new-streets new-streets-label' %>
   <%= f.text_field :name, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :email, class: 'form-control new-streets new-streets-label' %>
+  <%= f.label :email, class: 'new-streets new-streets-label' %>
   <%= f.email_field :email, class: 'form-control new-streets new-streets-field'  %>
 
-  <%= f.label :password, class: 'form-control new-streets new-streets-label' %>
-  <%= f.password_field :password, class: 'form-control new-streets new-streets-field'  %>
+  <%= f.label :password, class: 'new-streets new-streets-label' %>
+  <%= f.password_field :password, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :password_confirmation, "Password Confirmation", class: 'form-control new-streets new-streets-label' %>
+  <%= f.label :password_confirmation, "Password Confirmation", class: 'new-streets new-streets-label' %>
   <%= f.password_field :password_confirmation, class: 'form-control new-streets new-streets-field'  %>
 
-  <%= f.label :motto, "What Words do You Live By?", class: 'form-control new-streets new-streets-label', id: 'user_motto' %>
+  <%= f.label :motto, "What Words do You Live By?", class: 'new-streets new-streets-label', id: 'user_motto' %>
   <%= f.text_field :motto, class: 'form-control new-streets new-streets-field'  %>
 
-  <h4>Photo of You!</h4>
-  <%= f.label :photo, "Upload a Picture of You!", class: 'form-control image-label' %>
+  <%= f.label :photo, "Upload a Picture of Yourself!", class: 'form-control image-label' %>
   <%= f.file_field :photo, class: 'form-control' %>
 
   <%= f.submit "Create my account", class: "btn btn-primary" %>

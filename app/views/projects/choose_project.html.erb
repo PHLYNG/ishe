@@ -1,10 +1,21 @@
-<h2>We found more than one similar project that has already been created. Please select the project that is most similar to yours.</h2>
+<div class="container project-list-main">
+  <h2>We found more than one similar project that has already been created. Please select the project that is most similar to yours.</h2>
 
   <h4>Choose which Project is most similar:</h4>
 
   <!-- user clicks link which triggers create method in UJP controller -->
+  <ul id="projects-list">
   <% @projects.each_with_index do |proj| %>
 
-    <li><%= link_to "#{proj.street1} and #{proj.street2}", project_user_join_projects_path(proj), { :controller => :user_join_projects, :action => :create, :method => :post } %></li><%= image_tag proj.photo.url(:thumb) %>
+    <li class="choose-projects">
+      <%= link_to "#{proj.project_type} on #{proj.street1} and #{proj.street2}", project_user_join_projects_path(proj), { :controller => :user_join_projects, :action => :create, :method => :post } %>
+    </li>
+    <%= image_tag proj.photo.url(:thumb), class: 'choose-projects' %>
+    <br>
+    <button type="button" class="btn btn-primary choose-projects">
+      <%= link_to "This Project", project_user_join_projects_path(proj), { :controller => :user_join_projects, :action => :create, :method => :post } %>
+    </button>
 
   <% end %>
+  </ul>
+</div>

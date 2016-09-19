@@ -38,10 +38,10 @@ class Project < ApplicationRecord
 
   # Returns an array of projects that are similar if project exists
     def project_exists
-      binding.pry
+
       if self.check_project_exists == true
-        return (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 80.0 }) &&
-        (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 80.0 }) &&
+        return (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 85.0 }) &&
+        (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 85.0 }) &&
         (Project.select{ |proj| proj.city.similar(self.city) >= 95.0 }) &&
         (Project.select{ |proj| proj.state == self.state }) &&
         (Project.select{ |proj| proj.project_type == self.project_type })
@@ -53,8 +53,8 @@ class Project < ApplicationRecord
   # check for projects that have similar streets reversing street order as necessary.
   # checks if project exists and returns true or false
   def check_project_exists
-    (Project.select{ |proj| proj.street1.similar(self.street1 || self.street2) >= 90.0 }.count > 0) &&
-    (Project.select{ |proj| proj.street2.similar(self.street2 || self.street1) >= 90.0 }.count > 0) &&
+    ((Project.select{ |proj| proj.street1.similar(self.street1) >= 90.0 }.count > 0) || (Project.select{ |proj| proj.street1.similar(self.street2) >= 90.0 }.count > 0)) &&
+    ((Project.select{ |proj| proj.street2.similar(self.street1) >= 90.0 }.count > 0) || (Project.select{ |proj| proj.street1.similar(self.street2) >= 90.0 }.count > 0)) &&
     (Project.select{ |proj| proj.city.similar(self.city) >= 95.0 }.count > 0) &&
     (Project.select{ |proj| proj.state == self.state }.count > 0) &&
     (Project.select{ |proj| proj.project_type == self.project_type }.count > 0)
