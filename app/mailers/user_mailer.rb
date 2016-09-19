@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
 
-  default :from => 'dcordz2@gmail.com'
+  default :from => 'ishe.build@gmail.com'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def welcome(user)
