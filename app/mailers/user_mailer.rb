@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
   def welcome(user)
     @user = user
     mail( :to => @user.email,
-    :subject => 'Thanks for signing up to build this city. We are build this city.',
+    :subject => 'Thanks for signing up to build this city. Together we are building this city.',
     :template_name => 'welcome')
   end
 
