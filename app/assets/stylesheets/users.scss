@@ -6,11 +6,13 @@
   text-align: center;
 }
 
-.row {
-  // background-image: image-url('baltimoreSkyline.jpg');
-  background-size: cover;
-  background-position: center;
+// .jumbotron {
+//   background-image: url('bmore-pagoda.jpg');
+//   background-size: cover;
+//   background-position: bottom;
+// }
 
+.row {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,6 +72,7 @@
   thead {
     display: none;
   }
+
   .row {
     .btn {
       margin: 10px auto;
