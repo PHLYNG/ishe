@@ -6,20 +6,18 @@
     height: '20%',
     frameborder: '0',
     style: 'left: 0px; border: 0px; display: block; margin: 0 auto;',
-    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')}+%26+#{@project.street2.gsub(/\s+/,'+')}"
+    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')}+,+#{@project.street2.gsub(/\s+/,'+')}"
     } do -%>
 <% end -%>
 
 <!-- +#{@project.city.gsub(/\s+/,'+')}+#{@project.state}" -->
 
 <div class="static-div">
-<h4>
-  <%=
+<!-- <h4>
     link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}",
     "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')}",
     id: 'project-loc-link'
-  %>
-</h4>
+</h4> -->
 
 <!-- +#{@project.city.gsub(/\s+/,'+')}+#{@project.state} -->
 
