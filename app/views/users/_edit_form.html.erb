@@ -1,3 +1,15 @@
+<script type="text/javascript">
+$(document).ready(function() {
+  //change label to name of file/image that will be uploaded
+  $("input[type='file']").change(function() {
+    // resize label to fit filename/path
+    $(".image-label").html($(this).val());
+    var size = $(this).val().length;
+    $(".image-label").css('width', size*10)
+  });
+});
+</script>
+
 <%= form_for(@user, url: user_path) do |f| %>
   <%= render 'shared/error_messages' %>
 
