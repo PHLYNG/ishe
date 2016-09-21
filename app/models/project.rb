@@ -41,7 +41,9 @@ class Project < ApplicationRecord
   # GPS version -  Returns an array of projects that are similar if project exists
   def project_exists
     if self.check_project_exists == true
-      return (Project.select{ |proj| proj.street1.between?((self.street1 + 0.0002), (self.street1 - 0.0002))}.count > 0 && Project.select{ |proj| proj.street2.between?((self.street2 + 0.0002), (self.street2 - 0.0002))}.count > 0)
+      return (Project.select{ |proj| proj.street1.to_f.between?((self.street1.to_f - 0.0002), (self.street1.to_f + 0.0002))} && Project.select{ |proj| proj.street2.to_f.between?((self.street2.to_f - 0.0002), (self.street2.to_f + 0.0002))})
+    else
+      return []
     end
   end
 
@@ -49,7 +51,7 @@ class Project < ApplicationRecord
 
   def check_project_exists
     # if latitude is within +/- 2 ten-thounsandths of another project's latitude it is the same
-    if (Project.select{ |proj| proj.street1.between?((self.street1 + 0.0002), (self.street1 - 0.0002))}.count > 0 && Project.select{ |proj| proj.street2.between?((self.street2 + 0.0002), (self.street2 - 0.0002))}.count > 0)
+    (Project.select{ |proj| proj.street1.to_f.between?((self.street1.to_f - 0.0002), (self.street1.to_f + 0.0002))}.count > 0 && Project.select{ |proj| proj.street2.to_f.between?((self.street2.to_f - 0.0002), (self.street2.to_f + 0.0002))}.count > 0)
   end
 
   # Returns an array of projects that are similar if project exists

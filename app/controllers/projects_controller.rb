@@ -48,10 +48,10 @@ class ProjectsController < ApplicationController
       @projects = @project.project_exists
       render 'choose_project'
     else
-      if @project.streets_are_not_different
-        flash[:warning] = "Street names were too similar"
-        render 'new'
-      else
+      # if @project.streets_are_not_different
+      #   flash[:warning] = "Street names were too similar"
+      #   render 'new'
+      # else
         @project.save
         if @project.save == false
           render 'projects/new'
@@ -60,7 +60,7 @@ class ProjectsController < ApplicationController
           flash[:success] = "First person to create a project gets X baltimore bucks?"
           redirect_to @project
         end #end UJP create
-      end #end streets_are_not_different
+      #end #end streets_are_not_different
     end # end Project exist if
   end #end create method
 
