@@ -15,12 +15,6 @@ $(document).ready(function() {
 });
 </script>
 
-<p>Click the button to get your coordinates.</p>
-
-<button onclick="getLocation()" style="background-color: red;">Try It</button>
-
-<p id="demo"></p>
-
 <h2>Please select a type of project, the cross-streets and upload an image.</h2>
 
   <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
@@ -43,30 +37,27 @@ $(document).ready(function() {
 
   <div class="new-streets-container">
 
+    <p>Click the button to get your coordinates.</p>
+
+    <button onclick="getLocation()" id="gps-button">Try It</button>
+
+    <p id="gps-fail" style="color: red;"></p>
 
     <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
     <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field" %>
     <br>
     <%= f.label :street2,"Longitude", class: 'new-streets new-streets-label' %>
     <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', id: "long-field"  %>
-    <br>
-
-    <%= f.label :city, "City", class: 'form-control new-streets new-streets-label' %>
-    <%= f.text_field :city, class: 'form-control new-streets new-streets-field', placeholder: 'City'  %>
-    <br>
-    <%= f.label :state, "State", class: 'form-control new-streets-label' %>
-    <%= f.select :state, options_for_select(us_states), class: 'form-control new-streets-field' %>
   </div>
 
-    <h4>Image</h4>
-
-    <%= f.label :photo, "Upload an Image", class: 'form-control image-label' %>
+    <%= f.label :photo, "Upload an Image", class: 'image-label' %>
     <%= f.file_field :photo, class: 'form-control' %>
 
-  <!-- <button class="btn btn-primary" id="in-btn">Upload Image</button> -->
+  <button class="btn btn-success">
+    <%= f.submit 'Submit New Project' %>
+  </button>
+<% end %> <!-- End of form helper -->
 
-  <button class="btn btn-success"><%= f.submit 'Submit New Project' %></button>
-<% end %>
 <script type="text/javascript">
 // geolocation for streets, city, state
 var lat = document.getElementById("lat-field");
@@ -74,13 +65,14 @@ var long = document.getElementById("long-field");
 
 function getLocation() {
   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.getCurrentPosition(showPosition, {
+        enableHighAccuracy: true
+      });
   } else {
-      lat.value = "Geolocation is not supported by this browser.";
+      document.getElementById('gps-fail').innerHTML = "Geolocation is not supported by this browser.";
   }
 }
 function showPosition(position) {
-  console.log(position);
   lat.value = position.coords.latitude
   long.value = position.coords.longitude;
 }
