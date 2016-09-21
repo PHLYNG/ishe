@@ -4,6 +4,32 @@
   <h2 class="welcome" id="welcomeh"><strong>Build</strong> Your Community with Your Community</h2>
 </div>
 
+<div class="all-new-projects">
+  <table>
+    <tbody>
+      <% Project.all.each do |proj| %>
+      <tr>
+        <td>
+          <strong>Project Type: </strong><%= proj.project_type %>
+        </td>
+        <td><strong>People on Project: </strong>
+          <% proj.users.each do |user| %>
+            <%= user.name %>
+          <% end %>
+        </td>
+        <td>
+          <strong>Action Date: </strong><%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
+        </td>
+        <td>
+          <strong>Project Complete? </strong><%= proj.project_complete %>
+        </td>
+      </tr>
+      <div class="span6"></div>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
 <div class="buttons">
   <% if !current_user.nil? %>
     <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
@@ -13,3 +39,5 @@
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 </div>
+
+<% console %>
