@@ -7,15 +7,14 @@
 <div class="all-new-projects">
   <table>
     <tbody>
-      <% Project.all.each do |proj| %>
+      <% Project.last(3).reverse.each do |proj| %>
+      <% if proj.created_at.day == DateTime.now.day %>
       <tr>
         <td>
-          <strong>Project Type: </strong><%= proj.project_type %>
+          <strong><%= proj.users.first.name %></strong> created a new Project!
         </td>
-        <td><strong>People on Project: </strong>
-          <% proj.users.each do |user| %>
-            <%= user.name %>
-          <% end %>
+        <td>
+          <strong>Project Type: </strong><%= proj.project_type %>
         </td>
         <td>
           <strong>Action Date: </strong><%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
@@ -24,7 +23,7 @@
           <strong>Project Complete? </strong><%= proj.project_complete %>
         </td>
       </tr>
-      <div class="span6"></div>
+      <% end %>
       <% end %>
     </tbody>
   </table>
@@ -39,3 +38,19 @@
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 </div>
+
+<table class="all-new-projects">
+  <tbody>
+    <% UserJoinProject.last(5).reverse.each do |ujp| %>
+    <% if ujp.created_at.day == DateTime.now.day %>
+    <tr>
+      <td>
+        <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
+      </td>
+    </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<% console %>
