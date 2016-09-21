@@ -31,29 +31,6 @@ textarea {
   resize: vertical;
 }
 
-.buttons {
-  margin: 0px auto;
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
-  .btn-primary {
-    color: rebeccapurple;
-    background-color: transparent;
-    border-radius: 0px;
-    border-color: rebeccapurple;
-  }
-  .btn-primary:hover {
-    background-color: rebeccapurple;
-    color: white;
-  }
-}
-
-.jumbotron {
-  background-size: cover;
-  background-position: 0 12.5%;
-}
-
 /* typography */
 
 h1, h2, h3, h4, h5, h6 {
@@ -185,16 +162,6 @@ aside {
       letter-spacing: -1px;
       margin-bottom: 3px;
       margin-top: 0px;
-    }
-  }
-}
-
-@media (max-width: 700px) {
-  .buttons {
-    flex-direction: column;
-    .btn-primary {
-      width: 90%;
-      margin: 10px auto;
     }
   }
 }

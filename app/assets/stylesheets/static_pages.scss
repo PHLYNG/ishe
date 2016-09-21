@@ -5,6 +5,7 @@
 .all-new-projects {
   margin: 0 auto;
   width: 90%;
+  background-color: #EEEEEE;
 
   table {
     width: 100%;
@@ -18,6 +19,35 @@
         width: inherit;
         text-align: center;
       }
+    }
+  }
+}
+
+.buttons {
+  margin: 0px auto;
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: center;
+  .btn-primary {
+    color: rebeccapurple;
+    background-color: transparent;
+    border-radius: 0px;
+    border-color: rebeccapurple;
+  }
+  .btn-primary:hover {
+    background-color: rebeccapurple;
+    color: white;
+  }
+}
+
+@media (max-width: 700px) {
+  .buttons {
+    flex-direction: column;
+    .btn-primary {
+      width: 90%;
+      margin: 10px auto;
+      font-size: 1.3  em;
     }
   }
 }

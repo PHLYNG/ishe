@@ -6,7 +6,7 @@
     height: '20%',
     frameborder: '0',
     style: 'left: 0px; border: 0px; display: block; margin: 0 auto;',
-    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')}+,+#{@project.street2.gsub(/\s+/,'+')}"
+    src: "https://www.google.com/maps/embed/v1/place?key=#{ENV['GOOGLE_MAPS_API_KEY']}&q=#{@project.street1.gsub(/\s+/,'+')},#{@project.street2.gsub(/\s+/,'+')}"
     } do -%>
 <% end -%>
 

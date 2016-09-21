@@ -1,7 +1,16 @@
 <div class="center jumbotron">
   <h1 class="welcome">Ishé</h1>
   <h4 style="color: darkgray;">(ee-chay)</h4>
-  <h2 class="welcome" id="welcomeh"><strong>Build</strong> Your Community with Your Community</h2>
+  <h2 class="welcome"><strong>Build</strong> Your Community with Your Community</h2>
+  <div class="buttons">
+    <% if !current_user.nil? %>
+      <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
+    <% else %>
+      <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+    <% end %>
+  </div>
 </div>
 
 <div class="all-new-projects">
@@ -11,16 +20,7 @@
       <% if proj.created_at.day == DateTime.now.day %>
       <tr>
         <td>
-          <strong><%= proj.users.first.name %></strong> created a new Project!
-        </td>
-        <td>
-          <strong>Project Type: </strong><%= proj.project_type %>
-        </td>
-        <td>
-          <strong>Action Date: </strong><%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
-        </td>
-        <td>
-          <strong>Project Complete? </strong><%= proj.project_complete %>
+          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
         </td>
       </tr>
       <% end %>
@@ -29,26 +29,32 @@
   </table>
 </div>
 
-<div class="buttons">
-  <% if !current_user.nil? %>
-    <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
-    <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
-  <% else %>
-    <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
-    <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
-  <% end %>
+<br>
+
+<div class="all-new-projects">
+  <table>
+    <tbody>
+      <% UserJoinProject.last(5).reverse.each do |ujp| %>
+      <% if ujp.created_at.day == DateTime.now.day %>
+      <tr>
+        <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
+          <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
+        </td>
+      </tr>
+      <% end %>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
-<table class="all-new-projects">
-  <tbody>
-    <% UserJoinProject.last(5).reverse.each do |ujp| %>
-    <% if ujp.created_at.day == DateTime.now.day %>
-    <tr>
-      <td>
-        <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
-      </td>
-    </tr>
-    <% end %>
-    <% end %>
-  </tbody>
-</table>
+<script type="text/javascript">
+
+  function geocodeLatLng(url) {
+    console.log(url);
+    var latlngStr = url.split(',', 2);
+    console.log(latlngStr);
+    // var location = new google.maps.Geocoder(latlngStr.join())
+    // console.log(location);
+  }
+
+</script>
