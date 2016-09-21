@@ -13,11 +13,13 @@
 <!-- +#{@project.city.gsub(/\s+/,'+')}+#{@project.state}" -->
 
 <div class="static-div">
-<!-- <h4>
-    link_to "#{@project.project_type} at the intersection of #{@project.street1} and #{@project.street2}",
-    "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+%26+#{@project.street2.gsub(/\s+/,'+')}",
+<h4>
+  <%=
+    link_to "#{@project.project_type} at Latitude: #{@project.street1} and Longitude: #{@project.street2}",
+    "https://www.google.com/maps/place/#{@project.street1.gsub(/\s+/, '+')}+,+#{@project.street2.gsub(/\s+/,'+')}",
     id: 'project-loc-link'
-</h4> -->
+  %>
+</h4>
 
 <!-- +#{@project.city.gsub(/\s+/,'+')}+#{@project.state} -->
 
