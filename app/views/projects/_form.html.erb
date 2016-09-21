@@ -16,7 +16,7 @@ $(document).ready(function() {
 </script>
 
 <h2>Please select a type of project, the cross-streets and upload an image.</h2>
-
+<button onclick="getLocation()" id="gps-button" style="background-color: red;">Get Location</button>
   <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
 
     <h4>Project Type</h4>
@@ -39,8 +39,6 @@ $(document).ready(function() {
 
     <p>Click the button to get your coordinates.</p>
 
-    <button onclick="getLocation()" id="gps-button">Try It</button>
-
     <p id="gps-fail" style="color: red;"></p>
 
     <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
@@ -62,18 +60,37 @@ $(document).ready(function() {
 // geolocation for streets, city, state
 var lat = document.getElementById("lat-field");
 var long = document.getElementById("long-field");
+var fail = document.getElementById("gps-fail");
 
 function getLocation() {
   if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(showPosition, {
-        enableHighAccuracy: true
-      });
-  } else {
-      document.getElementById('gps-fail').innerHTML = "Geolocation is not supported by this browser.";
+      navigator.geolocation.getCurrentPosition(showPosition, geolocationError,
+        {
+          enableHighAccuracy: true
+        });
+      }
+  else {
+      fail.innerHTML = "Geolocation is not supported by this browser.";
+    }
   }
-}
-function showPosition(position) {
-  lat.value = position.coords.latitude
-  long.value = position.coords.longitude;
-}
+  function showPosition(position) {
+    lat.value = position.coords.latitude
+    long.value = position.coords.longitude;
+  }
+  function geolocationError(error) {
+    switch(error.code) {
+      case error.PERMISSION_DENIED:
+        fail.innerHTML = "User denied the request for Geolocation."
+        break;
+      case error.POSITION_UNAVAILABLE:
+        fail.innerHTML = "Location information is unavailable."
+        break;
+      case error.TIMEOUT:
+        fail.innerHTML = "The request to get user location timed out."
+        break;
+      case error.UNKNOWN_ERROR:
+        fail.innerHTML = "An unknown error occurred."
+        break;
+      }
+    }
 </script>
