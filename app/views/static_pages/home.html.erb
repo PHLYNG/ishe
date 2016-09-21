@@ -20,7 +20,7 @@
       <% if proj.created_at.day == DateTime.now.day %>
       <tr>
         <td>
-          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
+          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>. <%= link_to 'Create a new Project', new_project_path %> and help Geoff out!
         </td>
       </tr>
       <% end %>
@@ -38,7 +38,7 @@
       <% if ujp.created_at.day == DateTime.now.day %>
       <tr>
         <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
-          <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
+          <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}" %>!
         </td>
       </tr>
       <% end %>
