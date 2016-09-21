@@ -22,7 +22,7 @@ form {
 
   .rdio {
     text-align: center;
-    width: 50%;
+    width: 90%;
     margin: 5px auto;
   }
 
@@ -94,6 +94,22 @@ h4 {
     margin: 0 auto;
     text-align: center;
   }
+}
+
+#gps-button {
+  display: block;
+  width: 90%;
+  margin: 15px auto;
+  padding: 20px;
+  color: rebeccapurple;
+  background-color: transparent;
+  border-radius: 0px;
+  border-color: rebeccapurple;
+}
+
+#gps-button:hover {
+  background-color: rebeccapurple;
+  color: white;
 }
 
 #project-loc-link {

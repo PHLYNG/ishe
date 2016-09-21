@@ -15,36 +15,41 @@ $(document).ready(function() {
 });
 </script>
 
-<h2>Please select a type of project, the cross-streets and upload an image.</h2>
-<button onclick="getLocation()" id="gps-button" style="background-color: red;">Get Location</button>
-  <%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
+<%= form_for @project, url: projects_path, html: {multipart: true, class: "form-group"} do |f| %>
 
-    <h4>Project Type</h4>
+  <h4>Project Type</h4>
 
-    <%= f.radio_button(:project_type,"Pothole") %>
-    <%= f.label :project_type_pothole,"Pothole", class: 'form-control rdio'  %>
+  <%= f.radio_button(:project_type,"Pothole") %>
+  <%= f.label :project_type_pothole,"Pothole", class: 'form-control rdio'  %>
 
-    <%= f.radio_button(:project_type,"Planting") %>
-    <%= f.label :project_type_planting,"Tree Planting", class: 'form-control rdio' %>
+  <%= f.radio_button(:project_type,"Planting") %>
+  <%= f.label :project_type_planting,"Tree Planting", class: 'form-control rdio' %>
 
-    <%= f.radio_button(:project_type,"Painting") %>
-    <%= f.label :project_type_painting,"Painting", class: 'form-control rdio'  %>
+  <%= f.radio_button(:project_type,"Painting") %>
+  <%= f.label :project_type_painting,"Painting", class: 'form-control rdio'  %>
 
-    <%= f.radio_button(:project_type,"Trash") %>
-    <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control rdio'  %>
+  <%= f.radio_button(:project_type,"Trash") %>
+  <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control rdio'  %>
 
-    <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
-    <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field" %>
-    <br>
-    <%= f.label :street2,"Longitude", class: 'new-streets new-streets-label' %>
-    <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', id: "long-field"  %>
+  <h4>GPS Coordinates</h4>
 
-    <%= f.label :photo, "Upload an Image", class: 'form-control image-label' %>
-    <%= f.file_field :photo, class: 'form-control' %>
+  <%= button_tag 'Get Location', type: 'button', onclick: 'getLocation()', id: "gps-button", class: "btn btn-primary" %>
+
+  <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
+  <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field" %>
+  <br>
+  <%= f.label :street2,"Longitude", class: 'new-streets new-streets-label' %>
+  <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', id: "long-field"  %>
+
+  <h4>Upload an Image</h4>
+
+  <%= f.label :photo, "Upload an Image", class: 'form-control image-label' %>
+  <%= f.file_field :photo, class: 'form-control' %>
 
   <button class="btn btn-success">
     <%= f.submit 'Submit New Project' %>
   </button>
+
 <% end %> <!-- End of form helper -->
 
 <script type="text/javascript">
