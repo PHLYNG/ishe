@@ -6,7 +6,7 @@
 
     $.ajax({
       type: 'GET',
-      dataType: 'jsonp',
+      dataType: 'json',
       url: 'https://maps.googleapis.com/maps/api/js?key='+key+'&q='+lat+','+long+'',
       data: {},
       success: function(data) {
