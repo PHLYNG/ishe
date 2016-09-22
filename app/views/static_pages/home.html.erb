@@ -3,11 +3,11 @@
     var lat = coords[0]
     var long = coords[1]
     var key = "<%= raw ENV["GOOGLE_MAPS_API_KEY"] %>"
-    // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY
+
     $.ajax({
       type: 'GET',
-      dataType: 'json',
-      url: 'https://maps.googleapis.com/maps/api/js?key='+key+'/geocode/json?latlng="+lat+","+long+"&sensor=false',
+      dataType: 'jsonp',
+      url: 'https://maps.googleapis.com/maps/api/js?key='+key+'&q='+lat+','+long+'',
       data: {},
       success: function(data) {
         console.log(data);
