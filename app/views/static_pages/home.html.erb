@@ -1,20 +1,20 @@
 <script type="text/javascript">
-  function geocodeLatLng(coords) {
-    var lat = coords[0]
-    var long = coords[1]
-    var key = "<%= raw ENV["GOOGLE_MAPS_API_KEY"] %>"
-
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: 'https://maps.googleapis.com/maps/api/js?key='+key+'&q='+lat+','+long+'',
-      data: {},
-      success: function(data) {
-        console.log(data);
-      }
-    })
-  }
-
+  // function geocodeLatLng(coords) {
+  //   var lat = coords[0]
+  //   var long = coords[1]
+  //   var key = "<%= raw ENV["GOOGLE_MAPS_API_KEY"] %>"
+  //
+  //   $.ajax({
+  //     type: 'GET',
+  //     dataType: 'json',
+  //     url: 'https://maps.googleapis.com/maps/api/js?key='+key+'&q='+lat+','+long+'',
+  //     data: {},
+  //     success: function(data) {
+  //       console.log(data);
+  //     }
+  //   })
+  // }
+  // https://developers.google.com/maps/documentation/javascript/geocoding#ReverseGeocoding
 </script>
 
 <div class="center jumbotron">
@@ -42,8 +42,8 @@
 
           <script type="text/javascript">
             // var geocoder = new google.maps.Geocoder;
-            var coords = <%= raw [proj.street1, proj.street2] %>
-            geocodeLatLng(coords)
+            // var coords = <%= raw [proj.street1, proj.street2] %>
+            // geocodeLatLng(coords)
           </script>
 
           <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>. <%= link_to 'Create a new Project', new_project_path %> and help <%= proj.users.first.name %> out!
