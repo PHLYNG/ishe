@@ -1,3 +1,22 @@
+<script type="text/javascript">
+  function geocodeLatLng(coords) {
+    var lat = coords[0]
+    var long = coords[1]
+    var key = "<%= raw ENV["GOOGLE_MAPS_API_KEY"] %>"
+    // https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY
+    $.ajax({
+      type: 'GET',
+      dataType: 'json',
+      url: 'https://maps.googleapis.com/maps/api/js?key='+key+'/geocode/json?latlng="+lat+","+long+"&sensor=false',
+      data: {},
+      success: function(data) {
+        console.log(data);
+      }
+    })
+  }
+
+</script>
+
 <div class="center jumbotron">
   <h1 class="welcome">Ishé</h1>
   <h4 style="color: darkgray;">(ee-chay)</h4>
@@ -7,7 +26,7 @@
       <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
       <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
     <% else %>
-      <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Login to Your Ishé Account", login_path, class: "btn btn-lg btn-primary" %>
       <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
     <% end %>
   </div>
@@ -19,9 +38,16 @@
       <% Project.last(3).reverse.each do |proj| %>
       <% if proj.created_at.day == DateTime.now.day %>
       <tr>
-        <td>
-          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>. <%= link_to 'Create a new Project', new_project_path %> and help Geoff out!
-        </td>
+        <%= content_tag :td, class: "new-projs" do -%>
+
+          <script type="text/javascript">
+            // var geocoder = new google.maps.Geocoder;
+            var coords = <%= raw [proj.street1, proj.street2] %>
+            geocodeLatLng(coords)
+          </script>
+
+          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>. <%= link_to 'Create a new Project', new_project_path %> and help <%= proj.users.first.name %> out!
+        <% end %>
       </tr>
       <% end %>
       <% end %>
@@ -46,15 +72,3 @@
     </tbody>
   </table>
 </div>
-
-<script type="text/javascript">
-
-  function geocodeLatLng(url) {
-    console.log(url);
-    var latlngStr = url.split(',', 2);
-    console.log(latlngStr);
-    // var location = new google.maps.Geocoder(latlngStr.join())
-    // console.log(location);
-  }
-
-</script>

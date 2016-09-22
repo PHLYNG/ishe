@@ -1,6 +1,6 @@
 class UserMailer < ApplicationMailer
 
-  default :from => 'ishe.build@gmail.com'
+  default :from => 'Ishe.build@gmail.com'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def welcome(user)
@@ -17,18 +17,18 @@ class UserMailer < ApplicationMailer
     @project = project
 
     ical = Icalendar::Calendar.new
-    ishe_project = Icalendar::Event.new
-    ishe_project.dtstart = @project.project_action_date
-    ishe_project.summary = "Get ready to work on the #{@project.project_type} at #{@project.street1} and #{@project.street2}"
-    ishe_project.location = "#{@project.street1} and #{@project.street2}, Baltimore, MD"
-    ical.add_event(ishe_project)
-      ishe_project.alarm do |a|
+    Ishe_project = Icalendar::Event.new
+    Ishe_project.dtstart = @project.project_action_date
+    Ishe_project.summary = "Get ready to work on the #{@project.project_type} at #{@project.street1} and #{@project.street2}"
+    Ishe_project.location = "#{@project.street1} and #{@project.street2}, Baltimore, MD"
+    ical.add_event(Ishe_project)
+      Ishe_project.alarm do |a|
         a.action  = "DISPLAY" # This line isn't necessary, it's the default
         a.summary = "Alarm notification"
         a.trigger = "-P1DT0H0M0S" # 1 day before
       end
 
-      ishe_project  .alarm do |a|
+      Ishe_project  .alarm do |a|
         a.action        = "AUDIO"
         a.trigger       = "-PT15M"
         a.append_attach "Basso"
@@ -36,7 +36,7 @@ class UserMailer < ApplicationMailer
 
     ical.publish
 
-    attachments['ishe_project.ics'] = { mime_type: "text/calendar", content: ical.to_ical }
+    attachments['Ishe_project.ics'] = { mime_type: "text/calendar", content: ical.to_ical }
 
     mail(
      :to => @users,
@@ -50,18 +50,18 @@ class UserMailer < ApplicationMailer
     @project = project
 
     ical = Icalendar::Calendar.new
-    ishe_project = Icalendar::Event.new
-    ishe_project.dtstart = @project.project_action_date
-    ishe_project.summary = "Get ready to work on the #{@project.project_type} at #{@project.street1} and #{@project.street2}"
-    ishe_project.location = "#{@project.street1} and #{@project.street2}, Baltimore, MD"
-    ical.add_event(ishe_project)
-      ishe_project.alarm do |a|
+    Ishe_project = Icalendar::Event.new
+    Ishe_project.dtstart = @project.project_action_date
+    Ishe_project.summary = "Get ready to work on the #{@project.project_type} at #{@project.street1} and #{@project.street2}"
+    Ishe_project.location = "#{@project.street1} and #{@project.street2}, Baltimore, MD"
+    ical.add_event(Ishe_project)
+      Ishe_project.alarm do |a|
         a.action  = "DISPLAY" # This line isn't necessary, it's the default
         a.summary = "Alarm notification"
         a.trigger = "-P1DT0H0M0S" # 1 day before
       end
 
-      ishe_project  .alarm do |a|
+      Ishe_project  .alarm do |a|
         a.action        = "AUDIO"
         a.trigger       = "-PT15M"
         a.append_attach "Basso"
@@ -69,7 +69,7 @@ class UserMailer < ApplicationMailer
 
     ical.publish
 
-    attachments['ishe_project.ics'] = { mime_type: "text/calendar", content: ical.to_ical }
+    attachments['Ishe_project.ics'] = { mime_type: "text/calendar", content: ical.to_ical }
 
     mail( :to => @user.email,
           :subject => "Get Ready to Build! #{@project.project_type} at #{@project.street1} and #{@project.street2}",

@@ -1,7 +1,7 @@
 
 
 <header class="navbar navbar-fixed-top navbar-inverse">
-    <%= link_to "Ishe", root_path, id: "logo" %>
+    <%= link_to "Ishé", root_path, id: "logo" %>
     <nav>
       <ul class="nav navbar-nav navbar-left navbar-inverse">
         <li class="dropdown">
@@ -12,6 +12,8 @@
           <ul class="dropdown-menu">
             <li><%= link_to "Home", root_path %></li>
             <li><%= link_to "Help", help_path %></li>
+            <li><%= link_to "About",   about_path %></li>
+            <li><%= link_to "Contact", contact_path %></li>
           <% if logged_in? %>
             <li>
               <%= link_to "Profile", current_user %>
@@ -19,6 +21,7 @@
             <li>
               <%= link_to "Account Settings", edit_user_path(current_user) %>
             </li>
+            <li class="dropdown-divider"></li>
             <li>
               <%= link_to "Log out", logout_path, method: "delete" %>
             </li>

@@ -5,6 +5,8 @@ ruby '2.3.1'
 gem 'rails', '~> 5.0.0'
 # gem for hashing user passwords
 gem 'bcrypt', '3.1.11'
+# rack-cors for cross-origin api calls
+gem 'rack-cors'
 # gem for using assert_template in rails tests
 gem 'rails-controller-testing'
 # gem for use with heroku

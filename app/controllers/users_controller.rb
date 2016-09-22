@@ -25,7 +25,7 @@ class UsersController < ApplicationController
       # log in that user
       log_in @user
       # flash message welcome
-      flash[:success] = "Welcome to Ishe, ready to get to work?"
+      flash[:success] = "Welcome to Ishé, ready to get to work?"
       # redirect to user page
       redirect_to @user
     else
