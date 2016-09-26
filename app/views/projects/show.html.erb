@@ -21,19 +21,12 @@
   %>
 </h4>
 
-<!-- +#{@project.city.gsub(/\s+/,'+')}+#{@project.state} -->
 
-  <!-- if DateTime.now > @project.project_action_date && complete_button_after_click == false -->
-  <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %>
-    <%= form_for @project do |f| %>
-      <% f.check_box :project_complete, checked: true %>
-      <% f.check_box :complete_button_after_click, checked: true %>
-      <button class="btn btn-success btn-lg">
-        Project Complete
-        <% f.submit %>
-      </button>
-    <% end %>
-  <% end %>
+
+  <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %><% end %>
+    <button type="button" class="btn btn-lg btn-primary">
+      <%= link_to 'Complete Project', edit_project_path %>
+    </button>
 
 
   <table class="table">

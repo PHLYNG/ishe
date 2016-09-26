@@ -78,6 +78,14 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    @project = Project.find(params[:id])
+    unless @project.users.exists?(current_user)
+      flash[:danger] = "You can only verify projects that you are a part of!"
+      redirect_to current_user
+    end
+  end
+
   def update
     @project = Project.find(params[:id])
     @project.update!(:street1 => params[:street1], :street2 => params[:street2], :photo => params[:photo])

@@ -1,35 +1,35 @@
 <script type="text/javascript">
 $(document).ready(function() {
-  //change label to name of file/image that will be uploaded
-  $("input[type='file']").change(function() {
-    // resize label to fit filename/path
-    $(".image-label").html($(this).val());
-    var size = $(this).val().length;
-    $(".image-label").css('width', size*10)
-  });
+ //change label to name of file/image that will be uploaded
+ $("input[type='file']").change(function() {
+  // resize label to fit filename/path
+  $(".image-label").html($(this).val());
+  var size = $(this).val().length;
+  $(".image-label").css('width', size*10)
+ });
 });
 </script>
 
 <%= form_for(@user, url: user_path) do |f| %>
-  <%= render 'shared/error_messages' %>
+ <%= render 'shared/error_messages' %>
 
-  <%= f.label :name, class: 'new-streets new-streets-label'  %>
-  <%= f.text_field :name, class: 'form-control new-streets new-streets-field' %>
+ <%= f.label :name, class: 'new-streets new-streets-label' %>
+ <%= f.text_field :name, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :email, class: 'new-streets new-streets-label'  %>
-  <%= f.email_field :email, class: 'form-control new-streets new-streets-field'  %>
+ <%= f.label :email, class: 'new-streets new-streets-label' %>
+ <%= f.email_field :email, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :password, class: 'new-streets new-streets-label'  %>
-  <%= f.password_field :password, class: 'form-control new-streets new-streets-field'  %>
+ <%= f.label :password, class: 'new-streets new-streets-label' %>
+ <%= f.password_field :password, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :password_confirmation, "Confirmation", class: 'new-streets new-streets-label'  %>
-  <%= f.password_field :password_confirmation, class: 'form-control new-streets new-streets-field'  %>
+ <%= f.label :password_confirmation, "Confirmation", class: 'new-streets new-streets-label' %>
+ <%= f.password_field :password_confirmation, class: 'form-control new-streets new-streets-field' %>
 
-  <%= f.label :photo, "Upload a Picture of Yourself!", class: 'form-control image-label' %>
-  <%= f.file_field :photo, class: 'form-control' %>
+ <%= f.label :photo, "Upload a Picture of Yourself!", class: 'form-control image-label' %>
+ <%= f.file_field :photo, class: 'form-control' %>
 
-  <%= f.label :motto, "What Words do You Live By?", class: 'new-streets new-streets-label'  %>
-  <%= f.text_field :motto, class: 'form-control new-streets new-streets-field'  %>
+ <%= f.label :motto, "What Words do You Live By?", class: 'new-streets new-streets-label' %>
+ <%= f.text_field :motto, class: 'form-control new-streets new-streets-field' %>
 
-  <button class="btn btn-success"><%= f.submit "Update Account" %></button>
+ <button class="btn btn-success"><%= f.submit "Update Account" %></button>
 <% end %>
