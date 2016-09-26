@@ -120,10 +120,30 @@
 </div>
 <% end %>
 
+<div class="how-to">
+  <button type="button" id="get-info">How to</button>
+  <p id="how-to-response">
+
+  </p>
+</div>
+
 <script type="text/javascript">
 // at bottom of screen because els need to load first
   if (window.screen.availWidth <= 700) {
     $('#p-action-date').prepend("<b>Project Action Date </b>")
     $('#p-complete').prepend('<b>Project Complete? </b>')
   }
+</script>
+
+<script type="text/javascript">
+  $('#get-info').on('click', function() {
+    console.log("hi");
+    $.ajax({
+      type: 'GET',
+      url: "http://www.wikihow.com/Fix-a-Hole-in-an-Asphalt-Driveway"
+    }).success(function(response) {
+      console.log(response);
+      $('#how-to-response').html(response)
+    }).always( (response) => console.log(response))
+  })
 </script>
