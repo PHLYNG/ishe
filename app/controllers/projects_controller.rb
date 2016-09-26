@@ -80,9 +80,7 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.project_complete = true
-    @project.complete_button_after_click = true
-    @project.save
+    @project.update!(:street1 => params[:street1], :street2 => params[:street2], :photo => params[:photo])
     redirect_to @project
   end
 
@@ -109,7 +107,7 @@ class ProjectsController < ApplicationController
     params.require(:project).permit(:project_type, :street1, :street2, :photo)
   end
 
-  # def ujp_params
-  #   params.require(:project).permit(:project_id)
+  # def proj_verify
+  #   params.require(:project).permit(:street1, :street2, :photo)
   # end
 end
