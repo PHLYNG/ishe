@@ -89,7 +89,11 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     @project.update(proj_verify)
-    redirect_to @project
+    if @project.save
+      redirect_to @project
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -116,6 +120,6 @@ class ProjectsController < ApplicationController
   end
 
   def proj_verify
-    params.require(:project).permit(:street1, :street2, :photo)
+    params.require(:project).permit(:street1, :street2, :photo, :verify_photo)
   end
 end

@@ -4,6 +4,29 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
+  # before_save(on: :update) do
+  #   validates :compare_photos
+  # end
+
+  validate :compare_photos, on: :update
+  validate :compare_location, on: :update
+
+  def compare_location
+
+  end
+
+  def compare_photos
+    image1 = Magick::Image.read(self.photo.path)[0].resize(500,500)
+    binding.pry
+    image2 = Magick::Image.read(self.verify_photo.path)[0].resize(500,500)
+    diff = image1.difference(image2)
+    unless diff[1] <= 0.25
+      errors.add(:photo, "is too different from the original, try retaking the picture and trying again. Make sure to you are taking the photo from the same device with the same camera settings (this stuff is difficult).")
+    else
+      self.photo = self.verify_photo
+    end
+  end
+
   # downcase to make comparisons more accurate, but right now doesn't work properly, downcases all and saves to city field
   # before_save { self.city = city.downcase, self.street1 = street1.downcase, self.street2 = street2.downcase }
 
@@ -12,6 +35,10 @@ class Project < ApplicationRecord
   :url => "/assets/projects/:id/:style/:basename.:extension",
   :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
 
+  has_attached_file :verify_photo,
+  styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
+  :url => "/assets/projects/:id/:style/:basename.:extension",
+  :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
   # rubular.com
   # VALID_STREET_REGEX = /\A\d{0,6}([s][t]|[t][h]|[r][d]){0,2}\s{0,1}[a-zA-Z]{1,50}.{0,1}\s{1}[a-zA-Z]{0,50}.{0,1}\s{0,1}[a-zA-Z]{0,50}.{0,1}[a-zA-Z]{2}.{0,1}$\z/
 
@@ -83,4 +110,9 @@ class Project < ApplicationRecord
   validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
   validates_attachment_size :photo, :less_than => 10.megabytes
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+
+  validates :verify_photo, attachment_presence: true
+  validates_attachment_file_name :verify_photo, matches: [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :verify_photo, :less_than => 10.megabytes
+  validates_attachment_content_type :verify_photo, content_type: /\Aimage\/.*\Z/
 end

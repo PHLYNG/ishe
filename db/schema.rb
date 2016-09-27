@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909201735) do
+ActiveRecord::Schema.define(version: 20160927164530) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,10 @@ ActiveRecord::Schema.define(version: 20160909201735) do
     t.boolean  "complete_button_after_click"
     t.string   "city"
     t.string   "state"
+    t.string   "verify_photo_file_name"
+    t.string   "verify_photo_content_type"
+    t.integer  "verify_photo_file_size"
+    t.datetime "verify_photo_updated_at"
   end
 
   create_table "user_join_projects", force: :cascade do |t|

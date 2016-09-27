@@ -21,8 +21,6 @@
   %>
 </h4>
 
-
-
   <% if @project.complete_button_after_click == false && DateTime.now > @project.project_action_date %><% end %>
     <button type="button" class="btn btn-lg btn-primary">
       <%= link_to 'Complete Project', edit_project_path %>

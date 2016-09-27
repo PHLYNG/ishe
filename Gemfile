@@ -17,10 +17,12 @@ gem 'bootstrap-sass'#, '3.3.6'
 gem 'pg', '~> 0.18'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
+# rmagick for image comparison on project complete verification
+gem 'rmagick'
 # use FuzzyMatch for finding project by street name
-gem 'fuzzy_match'
+# gem 'fuzzy_match'
 # fuzzy_match kinda strict try simple text for comparing street names
-gem 'similar_text'
+# gem 'similar_text'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer

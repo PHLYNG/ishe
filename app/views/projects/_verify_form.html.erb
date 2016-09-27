@@ -1,11 +1,17 @@
 <script type="text/javascript">
 $(document).ready(function() {
   //change label to name of file/image that will be uploaded
-  $("input[type='file']").change(function() {
+  $(".original-in").change(function() {
     // resize label to fit filename/path
-    $(".image-label").html($(this).val());
+    $('#original').html($(this).val());
     var size = $(this).val().length;
-    $(".image-label").css('width', size*10)
+    $("#original").css('width', size*10)
+  });
+  $(".verify-in").change(function() {
+    // resize label to fit filename/path
+    $('#verify').html($(this).val());
+    var size = $(this).val().length;
+    $("#verify").css('width', size*10)
   });
 });
 </script>
@@ -24,10 +30,13 @@ $(document).ready(function() {
 
   <h4>Upload an Image</h4>
 
-  <%= f.label :photo, "Upload Photo for Analysis", class: 'form-control image-label' %>
-  <%= f.file_field :photo, class: 'form-control' %>
+  <%= f.label :photo, "Original Photo: #{@project.photo_file_name}", class: 'form-control image-label', id: 'original' %>
+  <%= f.file_field :photo, class: 'form-control original-in' %>
 
-  <button class="btn btn-success">
+  <%= f.label :verify_photo, "Photo for Verification", class: 'form-control image-label', id: "verify" %>
+  <%= f.file_field :verify_photo, class: 'form-control verify-in' %>
+
+  <button class="btn btn-success" id="verify-submit" data-verify="<%= @project.photo %>">
     <%= f.submit 'Verify Project' %>
   </button>
 
@@ -72,3 +81,5 @@ function getLocation() {
       }
     }
 </script>
+
+<% console %>
