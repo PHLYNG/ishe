@@ -3,6 +3,8 @@ class Project < ApplicationRecord
   has_many :users, through: :user_join_projects
   has_many :project_comments, dependent: :destroy
 
+  accepts_nested_attributes_for :users
+
   has_attached_file :photo,
   styles: { medium: "200x200>", thumb: "100x100>" },
   :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
@@ -36,7 +38,6 @@ class Project < ApplicationRecord
   validate :compare_location, :compare_photos, on: :update
 
   def compare_location
-    binding.pry
     s1 = self.changes[:street1]
     s2 = self.changes[:street2]
 
@@ -46,7 +47,6 @@ class Project < ApplicationRecord
   end
 
   def compare_photos
-    binding.pry
     if self.photo.queued_for_write.count != 0
       image1 = Magick::Image.read(self.photo.queued_for_write[:original].path)[0].resize(500,500)
     else
