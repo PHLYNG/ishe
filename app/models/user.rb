@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :motto, length: { maximum: 255 }
 
   has_attached_file :photo,
-  styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
+  styles: { medium: "200x200>", thumb: "100x100>" },
   :url => "/system/users/:class/:attachment/:id_partition/:style/:filename",
   :path => ":rails_root/public/system/users/:class/:attachment/:id_partition/:style/:filename"
 
