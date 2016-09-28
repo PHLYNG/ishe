@@ -12,8 +12,8 @@ class User < ApplicationRecord
 
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
-  :url => "/assets/user/:id/:style/:basename.:extension",
-  :path => ":rails_root/public/assets/user/:id/:style/:basename.:extension"
+  :url => "/system/users/:class/:attachment/:id_partition/:style/:filename",
+  :path => ":rails_root/public/system/users/:class/:attachment/:id_partition/:style/:filename"
 
   # validates is a var(?), name is a symbol and presence is a key
   validates :name, presence: true, length: { maximum: 50 }

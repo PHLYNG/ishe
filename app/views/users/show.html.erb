@@ -6,12 +6,12 @@
     <section class="user_info">
       <h1>User Name: <%= @user.name %></h1>
         <br>
-        <h2><%= "Number of Projects User Completed" %></h2>
+        <h2><%= "Number of Projects Completed: #{@user.number_projects_complete}" %></h2>
         <br>
         <!-- <h2>Baltimore Bucks Remaining?</h2> -->
       </h1>
     </section>
-
+  <% console %>
   <%= link_to "Start a New Project!", new_project_path, class: "btn btn-lg btn-success" %>
 
 </div>

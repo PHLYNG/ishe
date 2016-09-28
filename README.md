@@ -20,3 +20,7 @@ Step 4 - Once enough people have joined your Project (the only way to join a Pro
 Step 5 - Fix the Pothole with your Team.
 
 Don't know how to fix a Pothole, or Plant a Tree, or Paint something? Don't worry we'll provide you instructions and a list of necessary and recommended materials, all that you have to do is take action so get out there and Build Your Community!
+
+Release Notes (new as of 9/28/2016)
+
+alpha version 1.1.0 (I think?)

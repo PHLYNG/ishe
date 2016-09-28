@@ -5,13 +5,13 @@ class Project < ApplicationRecord
 
   has_attached_file :photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
-  :url => "/assets/projects/:id/:style/:basename.:extension",
-  :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
+  :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
+  :path => ":rails_root/public/system/projects/:class/:attachment/:id_partition/:style/:filename"
 
   has_attached_file :verify_photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
-  :url => "/assets/projects/:id/:style/:basename.:extension",
-  :path => ":rails_root/public/assets/projects/:id/:style/:basename.:extension"
+  :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
+  :path => ":rails_root/public/system/projects/:class/:attachment/:id_partition/:style/:filename"
 
   validates :project_type, presence: true
 
@@ -21,7 +21,7 @@ class Project < ApplicationRecord
   validates_attachment_size :photo, :less_than => 10.megabytes
   validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
-  validates :verify_photo, attachment_presence: true
+  validates :verify_photo, attachment_presence: true, on: :update
   validates_attachment_file_name :verify_photo, matches: [/png\Z/, /jpe?g\Z/]
   validates_attachment_size :verify_photo, :less_than => 10.megabytes
   validates_attachment_content_type :verify_photo, content_type: /\Aimage\/.*\Z/
@@ -36,6 +36,7 @@ class Project < ApplicationRecord
   validate :compare_location, :compare_photos, on: :update
 
   def compare_location
+    binding.pry
     s1 = self.changes[:street1]
     s2 = self.changes[:street2]
 
@@ -45,6 +46,7 @@ class Project < ApplicationRecord
   end
 
   def compare_photos
+    binding.pry
     if self.photo.queued_for_write.count != 0
       image1 = Magick::Image.read(self.photo.queued_for_write[:original].path)[0].resize(500,500)
     else

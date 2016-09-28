@@ -87,13 +87,21 @@ class ProjectsController < ApplicationController
   end
 
   def update
-    @project = Project.find(params[:id])
-    if @project.update(proj_verify)
-
-      flash[:success] = "Congratulations on successfully completing this Project."
-      redirect_to @project
+    if @project.complete_button_after_click == false
+      @project = Project.find(params[:id])
+      if @project.update(proj_verify)
+        @project.users.each do |user|
+          user.number_projects_complete += 1
+        end
+        binding.pry
+        flash[:success] = "Congratulations on successfully completing this Project."
+        redirect_to @project
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      flash[:warning] = "This Project has already been marked Complete"
+      redirect_to @project
     end
   end
 

@@ -14,6 +14,12 @@ html {
   padding: 0px;
 }
 
+.static-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -79,7 +85,6 @@ h1, h2, h4 {
 }
 h4 {
   margin-top: 20px;
-
 }
 
 .alert {
@@ -123,8 +128,9 @@ h4 {
   background-color: transparent;
 }
 
-.btn {
-  margin-left: 10%;
+#complete-button {
+  color: white;
+  margin: 20px auto;
 }
 
 #project_state {

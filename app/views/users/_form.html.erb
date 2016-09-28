@@ -10,7 +10,7 @@ $(document).ready(function() {
 });
 </script>
 
-<%= form_for(@user, url: signup_path) do |f| %>
+<%= form_for(@user, url: signup_path), html: { multipart: true } do |f| %>
 
   <%= render 'shared/error_messages' %>
 

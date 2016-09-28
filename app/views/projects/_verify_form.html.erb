@@ -1,12 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
   //change label to name of file/image that will be uploaded
-  $(".original-in").change(function() {
-    // resize label to fit filename/path
-    $('#original').html($(this).val());
-    var size = $(this).val().length;
-    $("#original").css('width', size*10)
-  });
   $(".verify-in").change(function() {
     // resize label to fit filename/path
     $('#verify').html($(this).val());
@@ -16,7 +10,7 @@ $(document).ready(function() {
 });
 </script>
 
-<%= form_for @project, url: project_path, html: {multipart: true, class: "form-group"} do |f| %>
+<%= form_for @project, url: project_path, html: { multipart: true }, class: "form-group" do |f| %>
 
   <h4>GPS Coordinates</h4>
 
@@ -31,12 +25,12 @@ $(document).ready(function() {
   <h4>Upload an Image</h4>
 
   <%= f.label :photo, "Original Photo: #{@project.photo_file_name}", class: 'form-control image-label', id: 'original', :readonly => true %>
-  <%= f.file_field :photo, class: 'form-control original-in', :readonly => true, id: "break" %>
+  <%= f.file_field :photo, class: 'form-control original-in', :readonly => true, id: "apparently-adding-an-id-breaks-this-and-files-cannot-be-uploaded" %>
 
   <%= f.label :verify_photo, "Photo for Verification", class: 'form-control image-label', id: "verify" %>
   <%= f.file_field :verify_photo, class: 'form-control verify-in' %>
 
-  <button class="btn btn-success" id="verify-submit" data-verify="<%= @project.photo %>">
+  <button class="btn btn-success" id="verify-submit" %>">
     <%= f.submit 'Verify Project' %>
   </button>
 
