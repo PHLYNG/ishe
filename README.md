@@ -21,6 +21,12 @@ Step 5 - Fix the Pothole with your Team.
 
 Don't know how to fix a Pothole, or Plant a Tree, or Paint something? Don't worry we'll provide you instructions and a list of necessary and recommended materials, all that you have to do is take action so get out there and Build Your Community!
 
-Release Notes (new as of 9/28/2016)
+Release Notes (updated 9/28/2016)
 
-alpha version 1.1.0 (I think?)
+Alpha version 1.1.0 (sure let's call it that), 9/28/2016
+
+• Updated some photo upload stuff, we'll see if it works.
+
+• Users can now verify projects, the button will disappear after you verify the project and it (the button) will not normally appear upon image creation, but only after the Project Action Date. Verification is "loose" right now but if you run into issues let me know.
+
+• Times are now (hopefully) in EST
