@@ -1,4 +1,8 @@
-workers Integer(ENV['WEB_CONCURRENCY'] || 1) #change to 2 for prod
+if Rails.env.development?
+  workers Integer(ENV['WEB_CONCURRENCY'] || 1)
+else
+  workers Integer(ENV['WEB_CONCURRENCY'] || 2)
+end #change to 2 for prod
 threads_count = Integer(ENV['RAILS_MAX_THREADS'] || 5)
 threads threads_count, threads_count
 
