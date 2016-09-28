@@ -38,10 +38,8 @@ class Project < ApplicationRecord
   def compare_location
     s1 = self.changes[:street1]
     s2 = self.changes[:street2]
-    if (s1[1].to_f.between?(s1[0].to_f - 0.002, s1[0].to_f + 0.002)) && (s2[1].to_f.between?(s2[0].to_f - 0.002, s2[0].to_f + 0.002))
-      self.street1 = s1[1]
-      self.street2 = s2[1]
-    else
+
+    unless (s1[1].to_f.between?(s1[0].to_f - 0.002, s1[0].to_f + 0.002)) && (s2[1].to_f.between?(s2[0].to_f - 0.002, s2[0].to_f + 0.002))
       errors.add(:base, "GPS Coordinates are not close enough to the original GPS coordinates, please wait a little longer for your phones GPS unit to get your location and try again.")
     end
   end
@@ -63,6 +61,7 @@ class Project < ApplicationRecord
       errors.add(:photo, "is too different from the original, try retaking the picture and trying again. Make sure to you are taking the photo from the same device with the same camera settings (this stuff is difficult).")
     else
       self.photo = self.verify_photo
+      self.complete_button_after_click = true
     end
   end
 

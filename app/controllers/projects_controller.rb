@@ -88,8 +88,8 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    if @project.update!(proj_verify)
-      @project.complete_button_after_click = false
+    if @project.update(proj_verify)
+
       flash[:success] = "Congratulations on successfully completing this Project."
       redirect_to @project
     else
