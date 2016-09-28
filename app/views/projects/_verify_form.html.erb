@@ -30,8 +30,8 @@ $(document).ready(function() {
 
   <h4>Upload an Image</h4>
 
-  <%= f.label :photo, "Original Photo: #{@project.photo_file_name}", class: 'form-control image-label', id: 'original' %>
-  <%= f.file_field :photo, class: 'form-control original-in' %>
+  <%= f.label :photo, "Original Photo: #{@project.photo_file_name}", class: 'form-control image-label', id: 'original', :readonly => true %>
+  <%= f.file_field :photo, class: 'form-control original-in', :readonly => true, id: "break" %>
 
   <%= f.label :verify_photo, "Photo for Verification", class: 'form-control image-label', id: "verify" %>
   <%= f.file_field :verify_photo, class: 'form-control verify-in' %>

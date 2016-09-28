@@ -40,6 +40,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'pry'
+# for full stack trace
+gem 'pry-stack_explorer'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

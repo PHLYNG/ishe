@@ -52,7 +52,7 @@ class ProjectsController < ApplicationController
       #   flash[:warning] = "Street names were too similar"
       #   render 'new'
       # else
-        @project.save
+        # @project.save - don't know if I want/need this when it's called in the if, re: validations in the update method, used the same strategy and validations ran twice which resulted in errors
         if @project.save == false
           render 'projects/new'
         else
@@ -88,8 +88,9 @@ class ProjectsController < ApplicationController
 
   def update
     @project = Project.find(params[:id])
-    @project.update(proj_verify)
-    if @project.save
+    if @project.update!(proj_verify)
+      @project.complete_button_after_click = false
+      flash[:success] = "Congratulations on successfully completing this Project."
       redirect_to @project
     else
       render 'edit'
