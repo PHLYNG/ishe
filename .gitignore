@@ -17,8 +17,8 @@
 .byebug_history
 
 # Ignore development images in public/project from paperclip
-/public/assets/projects/*
-/public/assets/user/*
+/public/system/projects/*
+/public/system/users/*
 
 # Ignore application configuration
 /config/application.yml
