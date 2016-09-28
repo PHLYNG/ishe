@@ -21,13 +21,13 @@
   %>
 </h4>
 
+<!-- re-add to iff statement for beta  && DateTime.now > @project.project_action_date  -->
   <% if @project.complete_button_after_click == false %>
-  <% binding.pry %>
     <button type="button" class="btn btn-lg btn-primary">
       <%= link_to 'Complete Project', edit_project_path %>
     </button>
   <% end %>
-<% console %>
+
   <table class="table">
     <thead class='thead-inverse thead-projects'>
       <tr>
