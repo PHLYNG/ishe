@@ -42,6 +42,28 @@ $(document).ready(function() {
 
 <% end %> <!-- End of form helper -->
 
+<!-- get file path for resemble js through javascript only - use value of original input field and value of change -->
+<!-- <script type="text/javascript">
+const photo_before = "<%# @project.photo %>"
+var photo_after;
+console.log("before" + photo_before);
+// function getNewPhoto() {
+//   return
+// }
+// $("#verify-submit").on('click', function() {
+$('form').on('submit', function() {
+  // const photo_after = "<%# params[:project][:photo] %>"
+  // const photo_after = getNewPhoto()
+  photo_after = "<%# @project.photo %>"
+  debugger;
+  var diff = resemble(photo_before).compareTo(photo_after).ignoreColors().scaleToSameSize().onComplete(function(data) {
+  console.log(data);
+  console.log("before" + photo_before, "after" + photo_after);
+  // $('form').submit()
+  });
+});
+</script> -->
+
 <script type="text/javascript">
 // geolocation for streets, city, state
 var lat = document.getElementById("lat-field");

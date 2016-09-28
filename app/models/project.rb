@@ -4,21 +4,33 @@ class Project < ApplicationRecord
 
   has_many :project_comments, dependent: :destroy
 
-  # before_save(on: :update) do
-  #   validates :compare_photos
-  # end
-
-  validate :compare_photos, on: :update
-  validate :compare_location, on: :update
+  validate :compare_location, :compare_photos, on: :update
 
   def compare_location
+    binding.pry
+    s1 = self.changes[:street1]
+    s2 = self.changes[:street2]
 
+    if (s1[1].to_f.between?(s1[0].to_f - 0.002, s1[0].to_f + 0.002)) && (s2[1].to_f.between?(s2[0].to_f - 0.002, s2[0].to_f + 0.002))
+      self.street1 = s1[1]
+      self.street2 = s2[1]
+    else
+      errors.add(:street1, "is not close enough to the original GPS coordinates, please wait a little longer for your phones GPS unit to get your location and try again.")
+      errors.add(:street2, "is not close enough to the original GPS coordinates, please wait a little longer for your phones GPS unit to get your location and try again.")
+    end
   end
 
   def compare_photos
-    image1 = Magick::Image.read(self.photo.path)[0].resize(500,500)
-    binding.pry
-    image2 = Magick::Image.read(self.verify_photo.path)[0].resize(500,500)
+    if self.photo.queued_for_write.count != 0
+      image1 = Magick::Image.read(self.photo.queued_for_write[:original].path)[0].resize(500,500)
+    else
+      image1 = Magick::Image.read(self.photo.path)[0].resize(500,500)
+    end
+    if self.verify_photo.queued_for_write.count != 0
+      image2 = Magick::Image.read(self.verify_photo.queued_for_write[:original].path)[0].resize(500,500)
+    else
+      image2 = Magick::Image.read(self.verify_photo.path)[0].resize(500,500)
+    end
     diff = image1.difference(image2)
     unless diff[1] <= 0.25
       errors.add(:photo, "is too different from the original, try retaking the picture and trying again. Make sure to you are taking the photo from the same device with the same camera settings (this stuff is difficult).")
