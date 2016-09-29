@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   end
 
   # OmniAuth route
-  get '/auth/:provider/callback', to: 'sessions#create'
+  # get '/auth/:provider/callback', to: 'sessions#create'
 
   # sessions routes
   get '/login', to: 'sessions#new'

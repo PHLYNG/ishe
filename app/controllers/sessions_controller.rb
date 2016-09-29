@@ -17,8 +17,6 @@ class SessionsController < ApplicationController
       # call log_in helper method and pass user as argument
       log_in user
       redirect_to user
-    elsif
-      render text: request.env['omniauth.auth'].to_yaml
     else
       flash.now[:danger] = "Error loggin in, please check your username and password and try again."
 
