@@ -45,13 +45,13 @@
   <table>
     <tbody>
       <% UserJoinProject.last(5).reverse.each do |ujp| %>
-      <% if ujp.created_at.day == DateTime.now.day %>
-      <tr>
-        <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
-          <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
-        </td>
-      </tr>
-      <% end %>
+        <% if ujp.created_at.day == DateTime.now.day %>
+        <tr>
+          <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
+            <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
+          </td>
+        </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>

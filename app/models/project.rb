@@ -7,8 +7,8 @@ class Project < ApplicationRecord
 
   has_attached_file :photo,
   styles: { medium: "200x200>", thumb: "100x100>" },
-  :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
-  :path => ":rails_root/public/system/projects/:class/:attachment/:id_partition/:style/:filename"
+  :url => "/system/:class/:attachment/:id_partition/:style/:filename",
+  :path => ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
 
   has_attached_file :verify_photo,
   styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
@@ -68,7 +68,6 @@ class Project < ApplicationRecord
   end
 
   def users_complete_project
-    binding.pry
     if self.errors[:base].count == 0
       self.users.each do |user|
         user.number_projects_complete += 1
