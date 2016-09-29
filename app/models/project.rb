@@ -11,7 +11,6 @@ class Project < ApplicationRecord
   :path => ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
 
   has_attached_file :verify_photo,
-  styles: { large: "500x500>", medium: "200x200>", thumb: "100x100>" },
   :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
   :path => ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
 

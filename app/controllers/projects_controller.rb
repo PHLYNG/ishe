@@ -1,12 +1,19 @@
 class ProjectsController < ApplicationController
   def index
-    @projects = current_user.projects
-    @user = current_user
-    respond_to do |format|
-      format.html
-      format.json { render json: [@user, @projects], status: :created, location: @projects }
-    end
-  end
+    if current_user.email == "dcordz@gmail.com"
+      @projects = Project.all
+      respond_to do |format|
+        format.html
+        format.json { render :json => @projects.to_json }
+      end #end each
+    else
+      @projects = current_user.projects
+      respond_to do |format|
+        format.html
+        format.json { render json: [current_user, @projects], status: :created, location: @projects }
+      end #end each
+    end #end if else
+  end #end method
 
   # method for getting OSM map and putting on show page
   # def get_map
@@ -53,12 +60,16 @@ class ProjectsController < ApplicationController
       #   render 'new'
       # else
         # @project.save - don't know if I want/need this when it's called in the if, re: validations in the update method, used the same strategy and validations ran twice which resulted in errors
-        if @project.save == false
+        unless @project.save
           render 'projects/new'
         else
           UserJoinProject.create!(user: current_user, project: @project)
           flash[:success] = "First person to create a project gets X baltimore bucks?"
-          redirect_to @project
+
+          respond_to do |format|
+            format.html { redirect_to @project }
+            format.json { render :show, status: :created, location: @project }
+          end #end formatting
         end #end UJP create
       #end #end streets_are_not_different
     end # end Project exist if
