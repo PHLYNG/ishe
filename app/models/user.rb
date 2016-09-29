@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_attached_file :photo,
   styles: { medium: "200x200>", thumb: "100x100>" },
   :url => "/system/users/:class/:attachment/:id_partition/:style/:filename",
-  :path => ":rails_root/public/system/users/:class/:attachment/:id_partition/:style/:filename"
+  :path => ":rails_root/public/system/:class/:attachment/:id_partition/:style/:filename"
 
   # validates is a var(?), name is a symbol and presence is a key
   validates :name, presence: true, length: { maximum: 50 }
