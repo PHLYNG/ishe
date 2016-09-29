@@ -89,19 +89,14 @@ class ProjectsController < ApplicationController
   def update
     @project = Project.find(params[:id])
     if @project.complete_button_after_click == false
-      flash[:warning] = "This Project has already been marked Complete. Additional attempts to complete it again will not succeed."
       if @project.update(proj_verify)
-        @project.users.each do |user|
-          user.number_projects_complete += 1
-          user.save
-          binding.pry
-        end
         flash[:success] = "Congratulations on successfully completing this Project."
         redirect_to @project
       else
         render 'edit'
       end
     else
+      flash[:warning] = "This Project has already been marked Complete"
       redirect_to @project
     end
   end

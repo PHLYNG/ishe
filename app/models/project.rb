@@ -37,6 +37,8 @@ class Project < ApplicationRecord
 
   validate :compare_location, :compare_photos, on: :update
 
+  before_update :users_complete_project, :is_project_complete
+
   def compare_location
     s1 = self.changes[:street1]
     s2 = self.changes[:street2]
@@ -63,7 +65,22 @@ class Project < ApplicationRecord
       errors.add(:photo, "is too different from the original, try retaking the picture and trying again. Make sure to you are taking the photo from the same device with the same camera settings (this stuff is difficult).")
     else
       self.photo = self.verify_photo
+    end
+  end
+
+  def users_complete_project
+    binding.pry
+    if self.errors[:base].count == 0
+      self.users.each do |user|
+        user.number_projects_complete += 1
+      end
+    end
+  end
+
+  def is_project_complete
+    if self.errors[:base].count == 0
       self.complete_button_after_click = true
+      self.project_complete = true
     end
   end
 
