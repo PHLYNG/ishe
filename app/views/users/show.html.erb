@@ -35,7 +35,7 @@
 
         <td><%= "Intersection of #{proj.project.street1} and #{proj.project.street2}" %></td>
 
-        <td class="p-action-date"><%= proj.project.project_action_date %></td>
+        <td class="p-action-date"><%= proj.project.project_action_date.strftime('%a %b %d, %Y %H:%M %Z') %></td>
 
         <td class="p-complete"><%= proj.project.project_complete %></td>
 

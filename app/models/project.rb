@@ -36,7 +36,6 @@ class Project < ApplicationRecord
   # validates :city, presence: true, format: { with: VALID_CITY_REGEX }
 
   validate :compare_location, :compare_photos, on: :update
-
   before_update :users_complete_project, :is_project_complete
 
   def compare_location
