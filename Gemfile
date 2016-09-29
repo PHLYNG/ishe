@@ -10,7 +10,7 @@ gem 'rails-controller-testing'
 # gem for use with heroku
 gem 'rails_12factor', group: :production
 # use httparty to make HTTP requests from rails
-gem 'httparty'
+# gem 'httparty'
 # bootstrap for styling
 gem 'bootstrap-sass'#, '3.3.6'
 # Use postgresql as the database for Active Record
@@ -23,6 +23,8 @@ gem 'rmagick'
 # gem 'fuzzy_match'
 # fuzzy_match kinda strict try simple text for comparing street names
 # gem 'similar_text'
+# omniauth-facebook gem for user logins with facebook creds
+# gem 'omniauth-facebook'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer
@@ -42,7 +44,6 @@ gem 'coffee-rails', '~> 4.2'
 gem 'pry'
 # for full stack trace
 gem 'pry-stack_explorer'
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks

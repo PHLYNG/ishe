@@ -11,6 +11,7 @@
         <!-- <h2>Baltimore Bucks Remaining?</h2> -->
       </h1>
     </section>
+
   <%= link_to "Start a New Project!", new_project_path, class: "btn btn-lg btn-success" %>
 
 </div>
@@ -34,7 +35,7 @@
 
         <td><%= "Intersection of #{proj.project.street1} and #{proj.project.street2}" %></td>
 
-        <td class="p-action-date"><%= proj.project.project_action_date %></td>
+        <td class="p-action-date"><%= proj.project.project_action_date.strftime('%a %b %d, %Y %H:%M %Z') %></td>
 
         <td class="p-complete"><%= proj.project.project_complete %></td>
 

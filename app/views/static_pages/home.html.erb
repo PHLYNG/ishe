@@ -8,6 +8,7 @@
       <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
     <% else %>
       <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
+      <li><%= link_to 'Login with Facebook', '/auth/facebook' %></li>
       <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
     <% end %>
   </div>
@@ -20,7 +21,7 @@
       <% if proj.created_at.day == DateTime.now.day %>
       <tr>
         <td>
-          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.localtime.strftime('%a %b %d, %Y %H:%M %Z') %>
+          <strong><%= proj.users.first.name %></strong> created a new <strong><%= proj.project_type %> </strong>Project to be completed on <%= proj.project_action_date.strftime('%a %b %d, %Y %H:%M %Z') %>
         </td>
       </tr>
       <% end %>
@@ -46,6 +47,13 @@
     </tbody>
   </table>
 </div>
+
+<p>
+  See a problem where you live? Pothole in the road? Space for a new tree? Something need to be painted? Maybe some trash needs to be cleaned up?
+</p>
+<p>
+  You can use Ishé to fix these issues and build your neighborhood. By contributing to the development of your city you do more than build great things, you meet other people who live in your city and can truly claim your city and your neighborhood as your own.
+</p>
 
 <script type="text/javascript">
 

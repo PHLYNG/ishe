@@ -37,7 +37,7 @@
     <tbody>
       <tr>
         <td id="p-action-date">
-          <%= @project.project_action_date %>
+          <%= @project.project_action_date.strftime('%a %b %d, %Y %H:%M %Z') %>
         </td>
         <td id="p-complete">
           <%= if @project.project_complete then "Yup! Great Job!" else "Nope, Get to Work!" end %>

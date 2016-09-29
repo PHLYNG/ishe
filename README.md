@@ -29,4 +29,8 @@ Alpha version 1.1.0 (sure let's call it that), 9/28/2016
 
 • Users can now verify projects, the button will disappear after you verify the project and it (the button) will not normally appear upon image creation, but only after the Project Action Date. Verification is "loose" right now but if you run into issues let me know.
 
+• Users will gain credit for completed Projects
+
+• Image uploads are (hopefully) fixed.
+
 • Times are now (hopefully) in EST

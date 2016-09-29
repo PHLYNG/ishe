@@ -3,6 +3,8 @@ class Project < ApplicationRecord
   has_many :users, through: :user_join_projects
   has_many :project_comments, dependent: :destroy
 
+  accepts_nested_attributes_for :users
+
   has_attached_file :photo,
   styles: { medium: "200x200>", thumb: "100x100>" },
   :url => "/system/projects/:class/:attachment/:id_partition/:style/:filename",
@@ -34,9 +36,9 @@ class Project < ApplicationRecord
   # validates :city, presence: true, format: { with: VALID_CITY_REGEX }
 
   validate :compare_location, :compare_photos, on: :update
+  before_update :users_complete_project, :is_project_complete
 
   def compare_location
-    binding.pry
     s1 = self.changes[:street1]
     s2 = self.changes[:street2]
 
@@ -46,7 +48,6 @@ class Project < ApplicationRecord
   end
 
   def compare_photos
-    binding.pry
     if self.photo.queued_for_write.count != 0
       image1 = Magick::Image.read(self.photo.queued_for_write[:original].path)[0].resize(500,500)
     else
@@ -63,7 +64,22 @@ class Project < ApplicationRecord
       errors.add(:photo, "is too different from the original, try retaking the picture and trying again. Make sure to you are taking the photo from the same device with the same camera settings (this stuff is difficult).")
     else
       self.photo = self.verify_photo
+    end
+  end
+
+  def users_complete_project
+    binding.pry
+    if self.errors[:base].count == 0
+      self.users.each do |user|
+        user.number_projects_complete += 1
+      end
+    end
+  end
+
+  def is_project_complete
+    if self.errors[:base].count == 0
       self.complete_button_after_click = true
+      self.project_complete = true
     end
   end
 

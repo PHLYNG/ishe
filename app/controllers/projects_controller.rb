@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
       # end of week gets sunday at 23:59:59
       # set to next sunday at 10AM
       # -10.hours because default UTC time
-      { project_action_date: DateTime.now.in_time_zone('EST').end_of_week + (7.days - 14.hours + 1.second),
+      { project_action_date: DateTime.now.end_of_week + (7.days - 14.hours + 1.second),
         complete_button_after_click: false,
         project_complete: false } ))
 
@@ -87,13 +87,9 @@ class ProjectsController < ApplicationController
   end
 
   def update
+    @project = Project.find(params[:id])
     if @project.complete_button_after_click == false
-      @project = Project.find(params[:id])
       if @project.update(proj_verify)
-        @project.users.each do |user|
-          user.number_projects_complete += 1
-        end
-        binding.pry
         flash[:success] = "Congratulations on successfully completing this Project."
         redirect_to @project
       else
