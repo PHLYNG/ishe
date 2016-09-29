@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     resources :user_join_projects
   end
 
+  # OmniAuth route
+  get '/auth/:provider/callback', to: 'sessions#create'
+
   # sessions routes
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'

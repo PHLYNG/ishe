@@ -17,6 +17,8 @@ class SessionsController < ApplicationController
       # call log_in helper method and pass user as argument
       log_in user
       redirect_to user
+    elsif
+      render text: request.env['omniauth.auth'].to_yaml
     else
       flash.now[:danger] = "Error loggin in, please check your username and password and try again."
 
@@ -25,7 +27,7 @@ class SessionsController < ApplicationController
       # the above is incorrect without the ".now" because re-rendering a template with render doesn’t count as a request, and flash persist across the site-layout until a new request is made
       #
     end
-    # 
+    #
   end
 
   def destroy

@@ -8,6 +8,7 @@
       <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
     <% else %>
       <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
+      <li><%= link_to 'Login with Facebook', '/auth/facebook' %></li>
       <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
     <% end %>
   </div>
