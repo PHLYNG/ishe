@@ -92,17 +92,6 @@ class Project < ApplicationRecord
     end
   end
 
-  # UJP validation should take care of this
-  # def check_users
-  #   self.users.each do |user|
-  #     if user == current_user
-  #       return true
-  #     else
-  #       return false
-  #     end
-  #   end
-  # end
-
   # GPS version - check for projects that have similar streets reversing street order as necessary.
 
   def check_project_exists

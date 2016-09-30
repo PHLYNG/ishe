@@ -33,16 +33,10 @@ class ProjectsController < ApplicationController
 
     # save project if it is unique
     # do not save project if it has been created already
-      # if created already, add user to that project
-      # add user to project by creating new instance of UserJoinProject with same project id
-      binding.pry
-
+    # if created already, add user to that project
+    # add user to project by creating new instance of UserJoinProject with same project id
     if @project.project_exists.count == 1
       @project = @project.project_exists.first
-      # UJP validations should check users on projects
-      # if @project.check_users
-      #   flash[:warning] = "You are already on this Project!"
-      #   redirect_to @project
         # project_exists returns an array
         UserJoinProject.create( user: current_user, project: @project )
         redirect_to @project
