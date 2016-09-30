@@ -26,7 +26,7 @@ class ProjectsController < ApplicationController
       # DateTime.now gets current DateTime
       # end of week gets sunday at 23:59:59
       # set to next sunday at 10AM
-      # -10.hours because default UTC time
+      # default time set to EST in config application.rb
       { project_action_date: DateTime.now.end_of_week + (7.days - 14.hours + 1.second),
         complete_button_after_click: false,
         project_complete: false } ))
@@ -35,38 +35,33 @@ class ProjectsController < ApplicationController
     # do not save project if it has been created already
       # if created already, add user to that project
       # add user to project by creating new instance of UserJoinProject with same project id
+      binding.pry
+
     if @project.project_exists.count == 1
       @project = @project.project_exists.first
-      # check project is an array, if more than one project is similiar, render form to let user choose
-      UserJoinProject.create(
-        user: current_user,
-        project: @project
-      )
-
-      redirect_to @project
-
+      # UJP validations should check users on projects
+      # if @project.check_users
+      #   flash[:warning] = "You are already on this Project!"
+      #   redirect_to @project
+        # project_exists returns an array
+        UserJoinProject.create( user: current_user, project: @project )
+        redirect_to @project
     elsif @project.project_exists.count > 1
       # make all projects matching criteria available in view
       @projects = @project.project_exists
+      # choose project view allows user to choose which project they intended to create so they can join the appropriate project
       render 'choose_project'
     else
-      # if @project.streets_are_not_different
-      #   flash[:warning] = "Street names were too similar"
-      #   render 'new'
-      # else
-        # @project.save - don't know if I want/need this when it's called in the if, re: validations in the update method, used the same strategy and validations ran twice which resulted in errors
-        unless @project.save
-          render 'projects/new'
-        else
-          UserJoinProject.create!(user: current_user, project: @project)
-          flash[:success] = "First person to create a project gets X baltimore bucks?"
-
-          respond_to do |format|
-            format.html { redirect_to @project }
-            format.json { render :show, status: :created, location: @project }
-          end #end formatting
-        end #end UJP create
-      #end #end streets_are_not_different
+      unless @project.save
+        render 'projects/new'
+      else
+        UserJoinProject.create!(user: current_user, project: @project)
+        flash[:success] = "First person to create a project gets X baltimore bucks?"
+        respond_to do |format|
+          format.html { redirect_to @project }
+          format.json { render :show, status: :created, location: @project }
+        end #end formatting
+      end #end UJP create
     end # end Project exist if
   end #end create method
 

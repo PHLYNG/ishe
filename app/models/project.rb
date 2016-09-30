@@ -35,6 +35,7 @@ class Project < ApplicationRecord
   # validates :city, presence: true, format: { with: VALID_CITY_REGEX }
 
   validate :compare_location, :compare_photos, on: :update
+
   before_update :users_complete_project, :is_project_complete
 
   def compare_location
@@ -83,20 +84,29 @@ class Project < ApplicationRecord
 
   # GPS version -  Returns an array of projects that are similar if project exists
   def project_exists
+
     if self.check_project_exists == true
-      return (Project.select{ |proj| proj.project_type == self.project_type } &&
-              Project.select{ |proj| proj.street1.to_f.between?((self.street1.to_f
-                 - 0.02), (self.street1.to_f + 0.02))} &&
-              Project.select{ |proj| proj.street2.to_f.between?((self.street2.to_f
-                 - 0.02), (self.street2.to_f + 0.02 ))})
+      return (Project.select{ |proj| proj.project_type == self.project_type } && Project.select{ |proj| proj.street1.to_f.between?((self.street1.to_f - 0.02), (self.street1.to_f + 0.02))} && Project.select{ |proj| proj.street2.to_f.between?((self.street2.to_f - 0.02), (self.street2.to_f + 0.02 ))})
     else
       return []
     end
   end
 
+  # UJP validation should take care of this
+  # def check_users
+  #   self.users.each do |user|
+  #     if user == current_user
+  #       return true
+  #     else
+  #       return false
+  #     end
+  #   end
+  # end
+
   # GPS version - check for projects that have similar streets reversing street order as necessary.
 
   def check_project_exists
+
     # if latitude is within +/- 2 ten-thounsandths of another project's latitude it is the same
     (Project.select{ |proj| proj.project_type == self.project_type }.count > 0 && Project.select{ |proj| proj.street1.to_f.between?((self.street1.to_f - 0.002), (self.street1.to_f + 0.002))}.count > 0 && Project.select{ |proj| proj.street2.to_f.between?((self.street2.to_f - 0.02), (self.street2.to_f + 0.02))}.count > 0)
   end
