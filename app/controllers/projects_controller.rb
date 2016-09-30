@@ -10,15 +10,10 @@ class ProjectsController < ApplicationController
       @projects = current_user.projects
       respond_to do |format|
         format.html
-        format.json { render json: [current_user, @projects], status: :created, location: @projects }
+        format.json { render json: @projects.to_json }
       end #end each
     end #end if else
   end #end method
-
-  # method for getting OSM map and putting on show page
-  # def get_map
-    # @map = new map with project params (city, state, street1, street2)
-  # end
 
   def new
     @project = Project.new
