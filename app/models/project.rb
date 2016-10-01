@@ -29,8 +29,8 @@ class Project < ApplicationRecord
 
   # validate streets presence and length
   # downcase street names to ensure matching
-  validates :street1, presence: true, length: { minimum: 5 }#, format: { with: VALID_STREET_REGEX }
-  validates :street2, presence: true, length: { minimum: 5 }#, format: { with: VALID_STREET_REGEX }
+  validates :street1, presence: true, length: { minimum: 5 }, on: :create#, format: { with: VALID_STREET_REGEX }
+  validates :street2, presence: true, length: { minimum: 5 }, on: :create#, format: { with: VALID_STREET_REGEX }
   # validates :state, presence: true
   # validates :city, presence: true, format: { with: VALID_CITY_REGEX }
 

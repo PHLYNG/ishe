@@ -14,7 +14,7 @@ $(document).ready(function() {
 
   <h4>GPS Coordinates</h4>
 
-  <%= button_tag 'Get Location', type: 'button', onclick: 'getLocation()', id: "gps-button", class: "btn btn-primary" %>
+  <%= button_tag 'Get Location', type: 'button', onclick: 'getLocation()', id: "gps-button", class: "purple-button" %>
 
   <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
   <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field", value: '' %>
@@ -30,9 +30,7 @@ $(document).ready(function() {
   <%= f.label :verify_photo, "Photo for Verification", class: 'form-control image-label', id: "verify" %>
   <%= f.file_field :verify_photo, class: 'form-control verify-in' %>
 
-  <button class="btn btn-success" id="verify-submit">
-    <%= f.submit 'Verify Project' %>
-  </button>
+  <%= f.submit 'Verify Project', class: "submit-button", id: "verify-submit" %>
 
 <% end %> <!-- End of form helper -->
 

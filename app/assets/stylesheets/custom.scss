@@ -83,6 +83,42 @@ p {
   }
 }
 
+.purple-button {
+  display: block;
+  width: 90%;
+  margin: 15px auto;
+  padding: 20px;
+  color: rebeccapurple;
+  background-color: transparent;
+  border-radius: 0px;
+  border: 2px solid rebeccapurple;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+.purple-button:hover {
+  background-color: rebeccapurple;
+  color: white;
+  text-decoration: none;
+}
+
+.submit-button {
+  width: 90%;
+  margin: 20px auto;
+  color: forestgreen;
+  background-color: transparent;
+  border-radius: 0px;
+  border: 2px solid forestgreen;
+  font-size: 1.5em;
+  padding: 20px;
+  text-align: center;
+}
+
+.submit-button:hover {
+  background-color: forestgreen;
+  color: white;
+  text-decoration: none;
+}
 
 /* forms */
 

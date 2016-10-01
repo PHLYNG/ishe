@@ -4,12 +4,12 @@
   <h2 class="welcome"><strong>Build</strong> Your Community with Your Community</h2>
   <div class="buttons">
     <% if !current_user.nil? %>
-      <%= link_to "Your Account", current_user, class: "btn btn-lg btn-primary" %>
-      <%= link_to "Log Out", logout_path, method: "delete", class: "btn btn-lg btn-primary" %>
+      <%= link_to "Your Account", current_user, class: "purple-button" %>
+      <%= link_to "Log Out", logout_path, method: "delete", class: "purple-button" %>
     <% else %>
-      <%= link_to "Login to Your Ishe Account", login_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Login to Your Ishe Account", login_path, class: "purple-button" %>
       <!-- <li><%# link_to 'Login with Facebook', '/auth/facebook' %></li> -->
-      <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+      <%= link_to "Sign up now!", signup_path, class: "purple-button" %>
     <% end %>
   </div>
 </div>

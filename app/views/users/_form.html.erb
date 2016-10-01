@@ -32,5 +32,5 @@ $(document).ready(function() {
   <%= f.label :photo, "Upload a Picture of Yourself!", class: 'form-control image-label' %>
   <%= f.file_field :photo, class: 'form-control' %>
 
-  <button class="btn btn-success"><%= f.submit "Create Account" %></button>
+  <%= f.submit "Create Account", class: "submit-button" %>
 <% end %>

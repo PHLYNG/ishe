@@ -21,6 +21,21 @@ Step 5 - Fix the Pothole with your Team.
 
 Don't know how to fix a Pothole, or Plant a Tree, or Paint something? Don't worry we'll provide you instructions and a list of necessary and recommended materials, all that you have to do is take action so get out there and Build Your Community!
 
+TODO:
+• How-to's and lists of materials from wikihow?
+• Add OAuth login for FB, Twitter, Google
+• Reverse-Geocode Google Maps to get City and State for Project Coords on homepage
+• Gamify completed projects?
+• SSL cert
+The human parts
+• Set up donations/payments
+• External-facing API json
+• Baltimore bucks for people who complete projects?
+• Talk with city
+
+• Add konami code, we built this city
+
+
 Release Notes (updated 9/28/2016)
 
 Alpha version 1.1.0 (sure let's call it that), 9/28/2016
