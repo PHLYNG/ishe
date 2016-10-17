@@ -6,12 +6,6 @@
   text-align: center;
 }
 
-// .jumbotron {
-//   background-image: url('bmore-pagoda.jpg');
-//   background-size: cover;
-//   background-position: bottom;
-// }
-
 .row {
   display: flex;
   flex-direction: column;
@@ -37,6 +31,16 @@
   margin: 0 auto;
   margin-top: 30px;
 
+  td:first-of-type {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  td:last-of-type {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+  }
+
   td {
     padding-bottom: 0px;
     padding-left: 10px;
@@ -46,6 +50,7 @@
     text-align: center;
     color: black;
     background-color: lightgray;
+    width: 100%;
 
     a {
       margin: 0 auto;
@@ -54,10 +59,6 @@
 
   .active {
     background-color: transparent;
-    a {
-      color: white;
-      text-decoration: none;
-    }
   }
 }
 
@@ -67,8 +68,9 @@
     flex-direction: column;
     justify-content: center;
     margin: 10px auto;
-    width: 70%;
+    width: 80%;
   }
+
   thead {
     display: none;
   }
