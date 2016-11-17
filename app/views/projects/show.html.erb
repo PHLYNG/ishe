@@ -74,7 +74,7 @@
       <% @project.users.each do |user| %>
       <tr>
         <td><%= user.name %></td>
-        <td><%= image_tag user.photo.url(:medium), style: 'border-radius: 50%' %></td>
+        <td><%= image_tag user.photo.url(:medium), class: 'project-show-user-image' %></td>
         <td><%= user.motto %></td>
       </tr>
       <% end %>
@@ -127,6 +127,7 @@
   var check = Boolean("<%= @project.complete_button_after_click %>")
   if (check) {
     $(document).ready(function() {
+      // up up down down left right left right B A
       var sequence = [38,38,40,40,37,39,37,39,66,65];
       var keysPressed = [];
       $(document).on("keydown",function(e) {

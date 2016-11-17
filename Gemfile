@@ -23,8 +23,12 @@ gem 'rmagick'
 # gem 'fuzzy_match'
 # fuzzy_match kinda strict try simple text for comparing street names
 # gem 'similar_text'
-# omniauth-facebook gem for user logins with facebook creds
+# omniauth rack middleware for implementing strategies
+gem 'omniauth'
+# omniauth-facebook gem for facebook oauth strategy
 # gem 'omniauth-facebook'
+# omniauth twitter strategy
+gem 'omniauth-twitter'
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer

@@ -11,26 +11,41 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by(email: params[:session][:email].downcase)
 
-    if user && user.authenticate(params[:session][:password])
-      # call log_in helper method and pass user as argument
-      log_in user
-      redirect_to user
-    else
-      flash.now[:danger] = "Error loggin in, please check your username and password and try again."
-
-      render 'new'
-
-      # the above is incorrect without the ".now" because re-rendering a template with render doesn’t count as a request, and flash persist across the site-layout until a new request is made
-      #
+    begin
+    @user = User.from_omniauth(request.env['omniauth.auth'])
+      session[:user_id] = @user.id
+      flash[:success] = "Welcome, #{@user.name}!"
+      redirect_to @user
+    rescue
+      binding.pry
+      flash[:warning] = "There was an error while trying to authenticate you..."
+      redirect_to root_url
     end
     #
+    # user = User.find_by(email: params[:session][:email].downcase)
+    #
+    # if user && user.authenticate(params[:session][:password])
+    #   # call log_in helper method and pass user as argument
+    #   log_in user
+    #   redirect_to user
+    # else
+    #   flash.now[:danger] = "Error loggin in, please check your username and password and try again."
+    #
+    #   render 'new'
+    #
+    #   # the above is incorrect without the ".now" because re-rendering a template with render doesn’t count as a request, and flash persist across the site-layout until a new request is made
   end
 
   def destroy
     log_out
     redirect_to root_url
   end
+
+  # protected
+  #
+  # def auth_hash
+  #   request.env['omniauth.auth']
+  # end
 
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928151836) do
+ActiveRecord::Schema.define(version: 20161117191700) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -66,7 +66,12 @@ ActiveRecord::Schema.define(version: 20160928151836) do
     t.datetime "photo_updated_at"
     t.string   "motto"
     t.integer  "number_projects_complete", default: 0
+    t.string   "provider",                             null: false
+    t.string   "uid",                                  null: false
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true, using: :btree
+    t.index ["provider"], name: "index_users_on_provider", using: :btree
+    t.index ["uid"], name: "index_users_on_uid", using: :btree
   end
 
   add_foreign_key "user_join_projects", "projects"

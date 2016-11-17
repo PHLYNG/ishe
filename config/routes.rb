@@ -21,6 +21,9 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
+  # OmniAuth routes
+  get '/auth/:provider/callback', to: 'sessions#create'
+
   # OSM route, on map show page and make get_map action in proj controller
   # get '/projects/:id', to: 'projects#get_map'
 

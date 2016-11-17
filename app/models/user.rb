@@ -8,6 +8,16 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
 
+  def self.from_omniauth(auth_hash)
+    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
+    user.name = auth_hash['info']['name']
+    user.photo = auth_hash['info']['image']
+    user.email = "dave@example.com"
+    user.motto = "I'm a user"
+    user.save!(validate: false)
+    user
+  end
+
   validates :motto, length: { maximum: 255 }
 
   has_attached_file :photo,
@@ -24,6 +34,7 @@ class User < ApplicationRecord
   # enfore email presence, email format, email length maximum and email uniqueness - although uniqueness DOES NOT work at the db level. Think one user double clicking save (you've done that yourself, it happens, solution: add index on email column in migration and require that index be unique) - create a new migration and add the index to users emails
   validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
   # case sensitive false means that FOOBAR@EMAIL.COM == foobar@email.com
+
   has_secure_password
   validates :password, presence: true, length: {minimum: 6}
 
@@ -35,17 +46,6 @@ class User < ApplicationRecord
 
    BCrypt::Password.create(string, cost: cost)
  end
-
- # def self.from_omniauth(auth_hash)
- #    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
- #    user.name = auth_hash['info']['name']
- #    user.location = auth_hash['info']['location']
- #    user.image_url = auth_hash['info']['image']
- #    user.url = auth_hash['info']['urls'][user.provider.capitalize]
- #    user.save!
- #    user
- #  end
-
 
 # validate photo attachments, req for paperclip
  validates :photo, attachment_presence: true

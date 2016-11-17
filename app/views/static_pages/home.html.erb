@@ -2,6 +2,9 @@
   <h1 class="welcome">Ishé</h1>
   <h4 style="color: darkgray;">(ee-chay)</h4>
   <h2 class="welcome"><strong>Build</strong> Your Community with Your Community</h2>
+
+  <%= link_to 'Login with Twitter', '/auth/twitter' %>
+
   <div class="buttons">
     <% if !current_user.nil? %>
       <%= link_to "Your Account", current_user, class: "purple-button" %>
