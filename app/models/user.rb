@@ -1,5 +1,7 @@
 class User < ApplicationRecord
 
+  validate :has_password
+
   # user associations
   has_many :user_join_projects
   has_many :projects, through: :user_join_projects
@@ -14,7 +16,7 @@ class User < ApplicationRecord
     user.photo = auth_hash['info']['image']
     user.email = "dave@example.com"
     user.motto = "I'm a user"
-    user.save!(validate: false)
+    user.save!
     user
   end
 
@@ -35,8 +37,15 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
   # case sensitive false means that FOOBAR@EMAIL.COM == foobar@email.com
 
-  has_secure_password
-  validates :password, presence: true, length: {minimum: 6}
+  def has_password
+    if self.provider == nil
+      if !has_secure_password && !password.present?
+        errors.add(:password, "Password is either not secure or not present")
+      end
+    end
+    # has_secure_password
+    # validates :password, presence: true, length: {minimum: 6}
+  end
 
   # validates :password_confirmation, presence: true, length: {minimum: 6}
 
