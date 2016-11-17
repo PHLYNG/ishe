@@ -3,16 +3,15 @@
   <h4 style="color: darkgray;">(ee-chay)</h4>
   <h2 class="welcome"><strong>Build</strong> Your Community with Your Community</h2>
 
-  <%= link_to 'Login with Twitter', '/auth/twitter' %>
-
   <div class="buttons">
     <% if !current_user.nil? %>
       <%= link_to "Your Account", current_user, class: "purple-button" %>
       <%= link_to "Log Out", logout_path, method: "delete", class: "purple-button" %>
     <% else %>
-      <%= link_to "Login to Your Ishe Account", login_path, class: "purple-button" %>
+      <%= link_to "Login to Your Ishe Account", login_path, class: "inside-home-login-buttons purple-button" %>
       <!-- <li><%# link_to 'Login with Facebook', '/auth/facebook' %></li> -->
-      <%= link_to "Sign up now!", signup_path, class: "purple-button" %>
+      <%= link_to "Sign up now!", signup_path, class: "inside-home-login-buttons purple-button" %>
+      <%= link_to( (image_tag 'sign-in-with-twitter-gray.png'), '/auth/twitter', class: "inside-home-login-buttons") %>
     <% end %>
   </div>
 </div>

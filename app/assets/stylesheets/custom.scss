@@ -83,16 +83,19 @@ p {
   }
 }
 
-.purple-button {
+.inside-home-login-buttons {
   display: block;
   width: 90%;
   margin: 15px auto;
   padding: 20px;
+  text-align: center;
+}
+
+.purple-button {
   color: rebeccapurple;
   background-color: transparent;
   border-radius: 0px;
   border: 2px solid rebeccapurple;
-  text-align: center;
   font-size: 1.5em;
 }
 
