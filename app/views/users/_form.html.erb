@@ -26,6 +26,8 @@ $(document).ready(function() {
   <%= f.label :password_confirmation, "Password Confirmation", class: 'new-streets new-streets-label' %>
   <%= f.password_field :password_confirmation, class: 'form-control new-streets new-streets-field'  %>
 
+  <%= link_to (image_tag "password_strength.png", height: '50%', width: '50%', alt: "xkcd password strength"), "https://xkcd.com/936/", class: "password-strength-photo" %>
+
   <%= f.label :motto, "What Words do You Live By?", class: 'new-streets new-streets-label', id: 'user_motto' %>
   <%= f.text_field :motto, class: 'form-control new-streets new-streets-field'  %>
 

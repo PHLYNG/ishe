@@ -25,6 +25,8 @@ $(document).ready(function() {
  <%= f.label :password_confirmation, "Confirmation", class: 'new-streets new-streets-label' %>
  <%= f.password_field :password_confirmation, class: 'form-control new-streets new-streets-field' %>
 
+ <%= link_to (image_tag "password_strength.png", height: '50%', width: '50%', alt: "xkcd password strength"), "https://xkcd.com/936/", class: "password-strength-photo" %>
+
  <%= f.label :photo, "Upload a Picture of Yourself!", class: 'form-control image-label' %>
  <%= f.file_field :photo, class: 'form-control' %>
 
