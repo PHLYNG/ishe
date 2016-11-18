@@ -1,18 +1,18 @@
 class ProjectsController < ApplicationController
   def index
-    if current_user.email == "dcordz@gmail.com"
+    # if current_user.email == "dcordz@gmail.com"
       @projects = Project.all
       respond_to do |format|
         format.html
         format.json { render :json => @projects.to_json }
       end #end each
-    else
-      @projects = current_user.projects
-      respond_to do |format|
-        format.html
-        format.json { render json: @projects.to_json }
-      end #end each
-    end #end if else
+    # else
+    #   @projects = current_user.projects
+    #   respond_to do |format|
+    #     format.html
+    #     format.json { render json: @projects.to_json }
+    #   end #end each
+    # end #end if else
   end #end method
 
   def new

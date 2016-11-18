@@ -1,28 +1,29 @@
 require 'test_helper'
 
 class ProjectsControllerTest < ActionDispatch::IntegrationTest
+
   test "should get index" do
-    get projects_index_url
+    get projects_path
     assert_response :success
   end
 
   test "should get new" do
-    get projects_new_url
+    get new_project_path
     assert_response :success
   end
 
   test "should get create" do
-    get projects_create_url
+    get projects_path
     assert_response :success
   end
 
   test "should get update" do
-    get projects_update_url
+    get project_path
     assert_response :success
   end
 
   test "should get destroy" do
-    get projects_destroy_url
+    get project_path
     assert_response :success
   end
 

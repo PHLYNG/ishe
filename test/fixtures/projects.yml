@@ -6,10 +6,12 @@ one:
   street2: MyString
   project_complete: false
   project_action_date: 2016-08-05
+  photo_file_name: /Users/david/Desktop/rob64.jpg
 
 two:
-  project_type: MyString
-  street1: MyString
-  street2: MyString
-  project_complete: false
-  project_action_date: 2016-08-05
+  project_type: MyStringAgain
+  street1: MyStringAgain
+  street2: MyStringAgain
+  project_complete: true
+  project_action_date: 2016-09-06
+  photo_file_name: /Users/david/Desktop/gapic.jpg

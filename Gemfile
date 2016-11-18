@@ -19,6 +19,8 @@ gem 'pg', '~> 0.18'
 gem 'puma', '~> 3.0'
 # rmagick for image comparison on project complete verification
 gem 'rmagick'
+# rspec for testing
+gem 'rspec'
 # use FuzzyMatch for finding project by street name
 # gem 'fuzzy_match'
 # fuzzy_match kinda strict try simple text for comparing street names
