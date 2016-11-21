@@ -29,6 +29,10 @@ gem 'omniauth'
 # gem 'omniauth-facebook'
 # omniauth twitter strategy
 gem 'omniauth-twitter'
+# omniauth facebook strategy
+gem 'omniauth-facebook'
+# get image from facebook api requires this
+gem "open_uri_redirections"
 # use figaro to protect sensitive credentials
 gem 'figaro'
 # use Sendgrid for ActionMailer

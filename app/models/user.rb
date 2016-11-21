@@ -11,14 +11,22 @@ class User < ApplicationRecord
   # could shorten to self.email = email.downcase to email.downcase!
 
   def self.from_omniauth(auth_hash)
+    binding.pry
     user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
     user.name = auth_hash['info']['name']
-    user.photo = auth_hash['info']['image']
-    user.email = "dave@example.com"
+    unless auth_hash.provider == "facebook"
+      user.photo = auth_hash['info']['image']
+      user.email = "dave2@example.com"
+    else
+      user.photo = process_uri(auth_hash['info']['image'])
+      user.email = auth_hash['info']['email']
+    end
     user.motto = "I'm a user"
     user.save!
     user
   end
+
+
 
   validates :motto, length: { maximum: 255 }
 
@@ -62,6 +70,15 @@ class User < ApplicationRecord
  validates_attachment_size :photo, :less_than => 10.megabytes
  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
 
+ private
+
+ def self.process_uri(uri)
+   require 'open-uri'
+   require 'open_uri_redirections'
+   open(uri, :allow_redirections => :safe) do |r|
+     r.base_uri.to_s
+   end
+ end
 
   # >> %w[foo bar baz]
   # => ["foo", "bar", "baz"]
