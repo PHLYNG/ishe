@@ -10,26 +10,6 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
 
-  # determines what to grab from auth_hash
-  # and then uses that info to login/create a User
-  def self.from_omniauth(auth_hash)
-    binding.pry
-    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
-    user.name = auth_hash['info']['name']
-    unless auth_hash.provider == "facebook"
-      user.photo = auth_hash['info']['image']
-      user.email = "dave2@example.com"
-    else
-      user.photo = process_uri(auth_hash['info']['image'])
-      user.email = auth_hash['info']['email']
-    end
-    user.motto = "I'm a user"
-    user.save!
-    user
-  end
-
-
-
   validates :motto, length: { maximum: 255 }
 
   has_attached_file :photo,
@@ -47,8 +27,32 @@ class User < ApplicationRecord
   validates :email, presence: true, length: {maximum: 255}, format: {with: VALID_EMAIL_REGEX}, uniqueness: {case_sensitive: false}
   # case sensitive false means that FOOBAR@EMAIL.COM == foobar@email.com
 
+  # validate photo attachments, req for paperclip
+  validates :photo, attachment_presence: true
+  validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
+  validates_attachment_size :photo, :less_than => 10.megabytes
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+
+  # determines what to grab from auth_hash
+  # and then uses that info to login/create a User
+  def self.from_omniauth(auth_hash)
+    user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
+    user.name = auth_hash['info']['name']
+    unless auth_hash.provider == "facebook"
+      user.photo = auth_hash['info']['image']
+      user.email = "dave2@example.com"
+    else
+      user.photo = process_uri(auth_hash['info']['image'])
+      user.email = auth_hash['info']['email']
+    end
+    user.motto = "I'm a user"
+    user.save!
+    user
+  end
+
   def has_password
     if self.provider == nil
+      # validates :password_confirmation, presence: true, length: {minimum: 6}
       if !has_secure_password && !password.present?
         errors.add(:password, "Password is either not secure or not present")
       end
@@ -57,20 +61,12 @@ class User < ApplicationRecord
     # validates :password, presence: true, length: {minimum: 6}
   end
 
-  # validates :password_confirmation, presence: true, length: {minimum: 6}
-
   # Returns the hash digest of the given string.
- def User.digest(string)
+  def User.digest(string)
    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost
 
    BCrypt::Password.create(string, cost: cost)
- end
-
-# validate photo attachments, req for paperclip
- validates :photo, attachment_presence: true
- validates_attachment_file_name :photo, matches: [/png\Z/, /jpe?g\Z/]
- validates_attachment_size :photo, :less_than => 10.megabytes
- validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+  end
 
  private
 

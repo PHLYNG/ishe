@@ -49,6 +49,13 @@
     <tbody>
       <% UserJoinProject.last(5).reverse.each do |ujp| %>
         <% if ujp.created_at.day == DateTime.now.day %>
+        <script type="text/javascript">
+          var ujpLat = "<%= ujp.project.street1 %>"
+          var ujpLng = "<%= ujp.project.street2 %>"
+          var geocoder = new google.maps.Geocoder;
+          var infowindow = new google.maps.InfoWindow;
+          geocodeLatLng(geocoder, infowindow, ujpLat, ujpLng)
+        </script>
         <tr>
           <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
             <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
@@ -67,14 +74,24 @@
   You can use Ishé to fix these issues and build your neighborhood. By contributing to the development of your city you do more than build great things, you meet other people who live in your city and can truly claim your city and your neighborhood as your own.
 </p>
 
+<!-- Want to display project relative project location instead of GPS coords -->
 <script type="text/javascript">
-
-  function geocodeLatLng(url) {
-    console.log(url);
-    var latlngStr = url.split(',', 2);
-    console.log(latlngStr);
-    // var location = new google.maps.Geocoder(latlngStr.join())
-    // console.log(location);
+  // in order to reverse geocode
+  // The Geocoder supports reverse geocoding directly.
+  // supply a comma-separated latitude/longitude pair in the location parameter
+  function geocodeLatLng(geocoder, infowindow, lat, lng) {
+    var latlng = {lat: parseFloat(lat), lng: parseFloat(lng)};
+    geocoder.geocode({'location': latlng}, function(results, status) {
+      if (status === 'OK') {
+        if (results[1]) {
+          infowindow.setContent(results[1].formatted_address);
+        } else {
+          window.alert('No results found');
+        }
+      }
+      else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+    });
   }
-
 </script>
