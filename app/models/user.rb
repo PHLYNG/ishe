@@ -10,6 +10,8 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   # could shorten to self.email = email.downcase to email.downcase!
 
+  # determines what to grab from auth_hash
+  # and then uses that info to login/create a User
   def self.from_omniauth(auth_hash)
     binding.pry
     user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
@@ -72,6 +74,8 @@ class User < ApplicationRecord
 
  private
 
+ # facebook's image login is weird
+ # needed to use this + open_uri_redirections gem
  def self.process_uri(uri)
    require 'open-uri'
    require 'open_uri_redirections'
