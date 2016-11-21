@@ -9,17 +9,19 @@
   </head>
   <!-- append .static-body class to body if it's a static page, or apply class to a file? -->
   <% if yield('static_pages#home') %>
-  <body class="container-fluid">
+    <body class="container-fluid">
   <% else %>
   <% end %>
+
     <%= render 'layouts/header' %>
 
       <% flash.each do |message_type, message| %>
-
         <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
       <% end %>
-      <%= yield %>
-      <%= render 'layouts/footer' %>
-      <%= debug(params) if Rails.env.development? %>
+
+    <%= yield %>
+
+    <%= render 'layouts/footer' %>
+      <%# debug(params) if Rails.env.development? %>
   </body>
 </html>

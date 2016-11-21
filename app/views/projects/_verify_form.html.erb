@@ -1,54 +1,60 @@
 <script type="text/javascript">
 $(document).ready(function() {
-  // change color of radio button label to show radio button is selected
-  $('.rdio').on('click', function() {
-    $('.rdio').css('background-color','white')
-    $(this).css('background-color', 'hotpink')
-  });
   //change label to name of file/image that will be uploaded
-  $("input[type='file']").change(function() {
+  $(".verify-in").change(function() {
     // resize label to fit filename/path
-    $(".image-label").html($(this).val());
+    $('#verify').html($(this).val());
     var size = $(this).val().length;
-    $(".image-label").css('width', size*15)
+    $("#verify").css('width', size*15)
   });
 });
 </script>
 
-<%= form_for @project, url: projects_path, html: { multipart: true }, class: "form-group" do |f| %>
-
-  <h4>Project Type</h4>
-
-  <%= f.radio_button(:project_type,"Pothole") %>
-  <%= f.label :project_type_pothole,"Pothole", class: 'form-control rdio'  %>
-
-  <%= f.radio_button(:project_type,"Planting") %>
-  <%= f.label :project_type_planting,"Tree Planting", class: 'form-control rdio' %>
-
-  <%= f.radio_button(:project_type,"Painting") %>
-  <%= f.label :project_type_painting,"Painting", class: 'form-control rdio'  %>
-
-  <%= f.radio_button(:project_type,"Trash") %>
-  <%= f.label :project_type_trash,"Trash/Debris Cleanup", class: 'form-control rdio'  %>
+<%= form_for @project, url: project_path, html: { multipart: true }, class: "form-group" do |f| %>
 
   <h4>GPS Coordinates</h4>
 
   <%= button_tag 'Get Location', type: 'button', onclick: 'getLocation()', id: "gps-button", class: "purple-button" %>
 
   <%= f.label :street1,"Latitude", class: 'new-streets new-streets-label'  %>
-  <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field" %>
+  <%= f.text_field :street1, class: 'form-control new-streets new-streets-field', id: "lat-field", value: '' %>
   <br>
   <%= f.label :street2,"Longitude", class: 'new-streets new-streets-label' %>
-  <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', id: "long-field"  %>
+  <%= f.text_field :street2, class: 'form-control new-streets new-streets-field', id: "long-field", value: ''  %>
 
   <h4>Upload an Image</h4>
 
-  <%= f.label :photo, "Upload an Image", class: 'form-control image-label' %>
-  <%= f.file_field :photo, class: 'form-control' %>
+  <%= f.label :photo, "Original Photo: #{@project.photo_file_name}", class: 'form-control image-label', id: 'original', :readonly => true %>
+  <%= f.file_field :photo, class: 'form-control original-in', :readonly => true, id: "apparently-adding-an-id-breaks-this-and-files-cannot-be-uploaded" %>
 
-  <%= f.submit 'Submit New Project', class: "submit-button" %>
+  <%= f.label :verify_photo, "Photo for Verification", class: 'form-control image-label', id: "verify" %>
+  <%= f.file_field :verify_photo, class: 'form-control verify-in' %>
+
+  <%= f.submit 'Verify Project', class: "submit-button", id: "verify-submit" %>
 
 <% end %> <!-- End of form helper -->
+
+<!-- get file path for resemble js through javascript only - use value of original input field and value of change -->
+<!-- <script type="text/javascript">
+const photo_before = "<%# @project.photo %>"
+var photo_after;
+console.log("before" + photo_before);
+// function getNewPhoto() {
+//   return
+// }
+// $("#verify-submit").on('click', function() {
+$('form').on('submit', function() {
+  // const photo_after = "<%# params[:project][:photo] %>"
+  // const photo_after = getNewPhoto()
+  photo_after = "<%# @project.photo %>"
+  debugger;
+  var diff = resemble(photo_before).compareTo(photo_after).ignoreColors().scaleToSameSize().onComplete(function(data) {
+  console.log(data);
+  console.log("before" + photo_before, "after" + photo_after);
+  // $('form').submit()
+  });
+});
+</script> -->
 
 <script type="text/javascript">
 // geolocation for streets, city, state

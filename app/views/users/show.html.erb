@@ -4,15 +4,15 @@
 <% provide(:title, @user.name) %>
 <div class="row">
     <section class="user_info">
-      <h1>User Name: <%= @user.name %></h1>
+      <h1><%= @user.name %></h1>
         <br>
-        <h2><%= "Number of Projects User Completed" %></h2>
+        <h2><%= "Number of Projects Completed: #{@user.number_projects_complete}" %></h2>
         <br>
         <!-- <h2>Baltimore Bucks Remaining?</h2> -->
       </h1>
     </section>
 
-  <%= link_to "Start a New Project!", new_project_path, class: "btn btn-lg btn-success" %>
+  <%= link_to "Start a New Project!", new_project_path, class: "submit-button" %>
 
 </div>
 
@@ -35,7 +35,7 @@
 
         <td><%= "Intersection of #{proj.project.street1} and #{proj.project.street2}" %></td>
 
-        <td class="p-action-date"><%= proj.project.project_action_date %></td>
+        <td class="p-action-date"><%= proj.project.project_action_date.strftime('%a %b %d, %Y %H:%M %Z') %></td>
 
         <td class="p-complete"><%= proj.project.project_complete %></td>
 
@@ -59,3 +59,5 @@
     $('.p-complete').prepend('<b>Project Complete? </b><br>')
   }
 </script>
+
+<% console %>

@@ -14,6 +14,16 @@ html {
   padding: 0px;
 }
 
+.static-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.project-show-user-image {
+  border-radius: 5px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -51,22 +61,6 @@ form {
     flex-direction: column;
     margin: 10px auto;
   }
-
-  input[type='submit'] {
-    text-align: center;
-    margin: 0 auto;
-    width: 100%;
-    cursor: pointer;
-    background-color: #5CB85C;
-    padding: 20px;
-    color: white;
-    font-weight: bold;
-    font-size: 1.5em;
-    font-family: sans-serif;
-  }
-  input[type="submit"]:hover {
-    background-color: forestgreen;
-  }
 }
 
 input[type='radio'] {
@@ -79,7 +73,6 @@ h1, h2, h4 {
 }
 h4 {
   margin-top: 20px;
-
 }
 
 .alert {
@@ -96,22 +89,6 @@ h4 {
   }
 }
 
-#gps-button {
-  display: block;
-  width: 90%;
-  margin: 15px auto;
-  padding: 20px;
-  color: rebeccapurple;
-  background-color: transparent;
-  border-radius: 0px;
-  border-color: rebeccapurple;
-}
-
-#gps-button:hover {
-  background-color: rebeccapurple;
-  color: white;
-}
-
 #project-loc-link {
   padding: 10px;
   text-decoration: none;
@@ -123,8 +100,9 @@ h4 {
   background-color: transparent;
 }
 
-.btn {
-  margin-left: 10%;
+#complete-button {
+  color: white;
+  margin: 20px auto;
 }
 
 #project_state {

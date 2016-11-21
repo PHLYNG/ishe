@@ -20,3 +20,32 @@ Step 4 - Once enough people have joined your Project (the only way to join a Pro
 Step 5 - Fix the Pothole with your Team.
 
 Don't know how to fix a Pothole, or Plant a Tree, or Paint something? Don't worry we'll provide you instructions and a list of necessary and recommended materials, all that you have to do is take action so get out there and Build Your Community!
+
+TODO:
+• How-to's and lists of materials from wikihow?
+• Add OAuth login for FB, Twitter, Google
+• Reverse-Geocode Google Maps to get City and State for Project Coords on homepage
+• Gamify completed projects?
+• SSL cert
+The human parts
+• Set up donations/payments
+• External-facing API json
+• Baltimore bucks for people who complete projects?
+• Talk with city
+
+• Add konami code, we built this city
+
+
+Release Notes (updated 9/28/2016)
+
+Alpha version 1.1.0 (sure let's call it that), 9/28/2016
+
+• Updated some photo upload stuff, we'll see if it works.
+
+• Users can now verify projects, the button will disappear after you verify the project and it (the button) will not normally appear upon image creation, but only after the Project Action Date. Verification is "loose" right now but if you run into issues let me know.
+
+• Users will gain credit for completed Projects
+
+• Image uploads are (hopefully) fixed.
+
+• Times are now (hopefully) in EST

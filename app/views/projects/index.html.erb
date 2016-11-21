@@ -1,2 +1,47 @@
-<h1>Projects#index</h1>
-<p>Find me in app/views/projects/index.html.erb</p>
+<% if current_user.email = "dcordz@gmail.com" %>
+  <table>
+    <tbody>
+      <% @projects.each do |proj| %>
+      <tr>
+        <td>
+          Type: <%= proj.project_type %>
+        </td>
+        <td>
+          Lat: <%= proj.street1 %>
+        </td>
+        <td>
+          Long: <%= proj.street2 %>
+        </td>
+        <td>
+          Photo Path: <%= proj.photo %>
+        </td>
+        <td>
+          Created At: <%= proj.created_at %>
+        </td>
+        <td>
+          Last Update <%= proj.updated_at %>
+        </td>
+        <td>
+          Action Date <%= proj.project_action_date %>
+        </td>
+        <td>
+          Complete Button <%= proj.complete_button_after_click %>
+        </td>
+        <td>
+          Complete? <%= proj.project_complete %>
+        </td>
+        <td>
+          Number of Users: <%= proj.users.count %>
+        </td>
+        <td>
+          <% proj.users.each do |user| %>
+            <%= user.name %><br />
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <% redirect_to current_user %>
+<% end %>

@@ -29,16 +29,15 @@
 
 .buttons {
   margin: 0px auto;
-  display: flex;
-  flex-direction: row;
-  flex-grow: 1;
-  justify-content: center;
+
   .btn-primary {
+    margin: 0 auto;
     color: rebeccapurple;
     background-color: transparent;
     border-radius: 0px;
     border-color: rebeccapurple;
   }
+
   .btn-primary:hover {
     background-color: rebeccapurple;
     color: white;
