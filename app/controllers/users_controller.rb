@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def index
     @users = User.all
     respond_to do |format|
@@ -36,14 +37,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @projects = current_user.projects
+    # @projects = current_user.projects
+    @projects = @user.projects
     unless @user.id == current_user.id
       flash[:danger] = "You can only view your user profile!"
       redirect_to current_user
     else
     respond_to do |format|
-      format.html
-      format.json { render json: [@user, @projects], status: :created, location: @user }
+      format.html {}
+      format.json { render json: [@user,@projects], status: :ok }
     end
   end
   end

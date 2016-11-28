@@ -15,10 +15,13 @@ class SessionsController < ApplicationController
       begin
       @user = User.from_omniauth(request.env['omniauth.auth'])
         session[:user_id] = @user.id
-        flash[:success] = "Welcome, #{@user.name}!"
-        redirect_to @user
-      rescue
         binding.pry
+        flash[:success] = "Welcome, #{@user.name}!"
+        respond_to do |format|
+          format.html { redirect_to @user }
+          # format.json { render json: @user, status: :created}
+        end
+      rescue
         flash[:warning] = "There was an error while trying to authenticate you..."
         redirect_to root_url
       end
@@ -34,7 +37,7 @@ class SessionsController < ApplicationController
         flash.now[:danger] = "Error loggin in, please check your username and password and try again."
         render 'new'
       end #end local login else
-      
+
     end #end if [:provider]
     #
     #   # the above is incorrect without the ".now" because re-rendering a template with render doesn’t count as a request, and flash persist across the site-layout until a new request is made

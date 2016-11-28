@@ -1,22 +1,3 @@
-<script type="text/javascript">
-  // function geocodeLatLng(coords) {
-  //   var lat = coords[0]
-  //   var long = coords[1]
-  //   var key = put maps api key here in quotes in an array outside of ENV in raw method in rails in quotes
-  //
-  //   $.ajax({
-  //     type: 'GET',
-  //     dataType: 'json',
-  //     url: 'https://maps.googleapis.com/maps/api/js?key='+key+'&q='+lat+','+long+'',
-  //     data: {},
-  //     success: function(data) {
-  //       console.log(data);
-  //     }
-  //   })
-  // }
-  // https://developers.google.com/maps/documentation/javascript/geocoding#ReverseGeocoding
-</script>
-
 <div class="center jumbotron">
   <h1 class="welcome">Ishé</h1>
   <h4 style="color: darkgray;">(ee-chay)</h4>
@@ -67,36 +48,26 @@
   <table>
     <tbody>
       <% UserJoinProject.last(5).reverse.each do |ujp| %>
-<<<<<<< HEAD
-      <% if ujp.created_at.day == DateTime.now.day %>
-      <tr>
-        <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
-          <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}" %>!
-        </td>
-      </tr>
-      <% end %>
-=======
         <% if ujp.created_at.day == DateTime.now.day %>
+
         <script type="text/javascript">
           var ujpLat = "<%= ujp.project.street1 %>"
           var ujpLng = "<%= ujp.project.street2 %>"
+          console.log(ujpLat + ", "+ujpLng);
           var geocoder = new google.maps.Geocoder;
-          var infowindow = new google.maps.InfoWindow;
-          geocodeLatLng(geocoder, infowindow, ujpLat, ujpLng)
+          geocodeLatLng(geocoder, ujpLat, ujpLng)
         </script>
+
         <tr>
-          <td onload='geocodeLatLng(ujp.project.street1, ujp.project.street2)'>
+          <td class="location-td">
             <strong><%= ujp.user.name %></strong> joined a <strong><%= ujp.project.project_type %></strong> Project at <%= link_to "Latitude: #{ujp.project.street1}, Longitude: #{ujp.project.street2}", "https://www.google.com/maps/place/#{ujp.project.street1.gsub(/\s+/, '+')}+,+#{ujp.project.street2.gsub(/\s+/,'+')}", style: "color: blue;" %>!
           </td>
         </tr>
         <% end %>
->>>>>>> fb-omni-auth
       <% end %>
     </tbody>
   </table>
 </div>
-<<<<<<< HEAD
-=======
 
 <p style="text-align: center;">
   See a problem where you live? Pothole in the road? Space for a new tree? Something need to be painted? Maybe some trash needs to be cleaned up?
@@ -110,12 +81,12 @@
   // in order to reverse geocode
   // The Geocoder supports reverse geocoding directly.
   // supply a comma-separated latitude/longitude pair in the location parameter
-  function geocodeLatLng(geocoder, infowindow, lat, lng) {
+  function geocodeLatLng(geocoder, lat, lng) {
     var latlng = {lat: parseFloat(lat), lng: parseFloat(lng)};
     geocoder.geocode({'location': latlng}, function(results, status) {
       if (status === 'OK') {
         if (results[1]) {
-          infowindow.setContent(results[1].formatted_address);
+          document.getElementsByClassName('location-td')[0].innerHTML = results[1].formatted_address
         } else {
           window.alert('No results found');
         }
@@ -126,4 +97,3 @@
     });
   }
 </script>
->>>>>>> fb-omni-auth

@@ -36,12 +36,22 @@ class User < ApplicationRecord
   # determines what to grab from auth_hash
   # and then uses that info to login/create a User
   def self.from_omniauth(auth_hash)
+    # twitter requires a privacy policy url
+    # and a ToS url before including email
+    # with auth_hash
+    # https://dev.twitter.com/rest/reference/get/account/verify_credentials
     user = find_or_create_by(uid: auth_hash['uid'], provider: auth_hash['provider'])
     user.name = auth_hash['info']['name']
-    unless auth_hash.provider == "facebook"
+    if auth_hash.provider == "twitter"
+      # for twitter logins, just generate
+      # random number for now
       user.photo = auth_hash['info']['image']
-      user.email = "dave2@example.com"
+      number = rand(1...1000)
+      user.email = "dave#{number}@example.com"
     else
+      # if auth_hash.provider == "facebook"
+      # send facebook photo through
+      # process_uri for http -> https
       user.photo = process_uri(auth_hash['info']['image'])
       user.email = auth_hash['info']['email']
     end
